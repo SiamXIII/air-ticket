@@ -1,9 +1,18 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+	<title>Ait tickets</title>
+	<script src="node_modules/angular/angular.js"></script>
+	<script src="app/app.js"></script>
 </head>
-<body>
-	Hello
+<body ng-app="airTicketApp">
+	<h1>
+		Air tickets
+	</h1>
+	<div ng-controller="ticketsCtrl">
+		<div ng-repeat="ticket in tickets">
+			{{ticket.id}}
+		</div>
+	</div>
 </body>
 </html>
