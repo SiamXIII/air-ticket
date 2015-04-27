@@ -6,5 +6,8 @@
   "author": {
     "name": "Aliaksandr_Lindarenk",
     "email": ""
+  },
+  "dependencies": {
+    "mongodb": "^2.0.28"
   }
 }
