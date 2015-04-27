@@ -8,6 +8,7 @@
     "email": ""
   },
   "dependencies": {
-    "mongodb": "^2.0.28"
+    "mongoose": "^4.0.2",
+    "nconf": "^0.7.1"
   }
 }

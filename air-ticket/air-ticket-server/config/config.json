@@ -1,0 +1,6 @@
+﻿{
+	"port": 1337,
+	"mongoose": {
+		"uri": "mongodb://air-one:orchid13@ds034198.mongolab.com:34198/MongoLab-e"
+	}
+}
