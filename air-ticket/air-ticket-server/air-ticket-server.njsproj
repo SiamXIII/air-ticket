@@ -34,6 +34,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="config\config.js" />
+    <Compile Include="data-access\data-access.js" />
+    <Compile Include="server.js" />
+    <Content Include="config\config.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
@@ -47,6 +51,10 @@
     <Folder Include="typings\" />
     <Folder Include="typings\express\" />
     <Folder Include="typings\node\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data-access\" />
+    <Folder Include="config\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
