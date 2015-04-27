@@ -1,0 +1,10 @@
+{
+  "name": "air-ticket-server",
+  "version": "0.0.0",
+  "description": "air-ticket-server",
+  "main": "server.js",
+  "author": {
+    "name": "Aliaksandr_Lindarenk",
+    "email": ""
+  }
+}
