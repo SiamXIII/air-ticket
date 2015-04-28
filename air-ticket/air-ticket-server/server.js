@@ -1,15 +1,16 @@
-/// <reference path="typings/express/express.d.ts" />
-/// <reference path="ticketDb.ts" />
-/// <reference path="custom_modules/air-ticket-server-interface/ticketQuery.ts" />
-/// <reference path="TicketQueryMapper.ts" />
+/// <reference path="typings/tsd.d.ts" />
 var express = require('express');
 var url = require("url");
+var AirTicketServerInterface = require("./custom_modules/air-ticket-server-interface/AirTicketServerInterface");
+var TicketsStore = require("./TicketsStore");
+var QueryMapper = require("./TicketQueryMapper");
 var app = express();
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 app.get('/api/0.1.0/tickets', function (incomingMessage, serverResponse) {
-    serverResponse.json(new Db.MongoTicketsDb().getTickets(TicketQueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(url.parse(incomingMessage.url).query))));
+    serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
+    serverResponse.json(new TicketsStore.MongoTicketsDb().getTickets(QueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(url.parse(incomingMessage.url).query))));
     serverResponse.end();
 });
 var server = app.listen(3000, function () {

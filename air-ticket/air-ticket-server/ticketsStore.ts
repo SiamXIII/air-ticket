@@ -1,4 +1,4 @@
-module AirTicketServerInterface {
+﻿module TicketsStore {
 	export enum SortDirection { Asc, Desc };
 
 	export class SortSetting {
@@ -21,13 +21,27 @@ module AirTicketServerInterface {
 		public sortSettings: Array<SortSetting>;
 		public pageSetting: PageSetting;
 		public fieldNames: Array<string>;
+	}
 
-		public toUrlQueryArg(): string {
-			return encodeURIComponent(JSON.stringify(this));
-		}
+	export interface ITicketsDb {
+		getTickets(ticketQuery: TicketQuery);
+	}
 
-		public static parseFromUrlQueryArg(urlQueryString): TicketQuery {
-			return JSON.parse(decodeURI(urlQueryString));
+	export class MongoTicketsDb implements ITicketsDb {
+		getTickets(ticketQuery: TicketQuery) {
+			return [
+				{
+					id: 1
+				},
+				{
+					id: 2
+				},
+				{
+					id: 3
+				}
+			];
 		}
 	}
 }
+
+export = TicketsStore;

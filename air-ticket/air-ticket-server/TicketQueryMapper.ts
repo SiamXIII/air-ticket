@@ -1,9 +1,10 @@
-﻿/// <reference path="ticketDb.ts" />
-/// <reference path="custom_modules/air-ticket-server-interface/ticketQuery.ts" />
-
+﻿import TicketsStore = require("./TicketsStore");
+import AirTicketServerInterface = require("./custom_modules/air-ticket-server-interface/AirTicketServerInterface");
 
 module TicketQueryMapper{
-	export function map(query: AirTicketServerInterface.TicketQuery): Db.TicketQuery {
-		return new Db.TicketQuery();
+	export function map(query: AirTicketServerInterface.TicketQuery): TicketsStore.TicketQuery {
+		return new TicketsStore.TicketQuery();
 	}
 }
+
+export = TicketQueryMapper;

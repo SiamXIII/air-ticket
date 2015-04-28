@@ -23,7 +23,15 @@ var AirTicketServerInterface;
     var TicketQuery = (function () {
         function TicketQuery() {
         }
+        TicketQuery.prototype.toUrlQueryArg = function () {
+            return encodeURIComponent(JSON.stringify(this));
+        };
+        TicketQuery.parseFromUrlQueryArg = function (urlQueryString) {
+            return JSON.parse(decodeURI(urlQueryString));
+        };
         return TicketQuery;
     })();
     AirTicketServerInterface.TicketQuery = TicketQuery;
 })(AirTicketServerInterface || (AirTicketServerInterface = {}));
+module.exports = AirTicketServerInterface;
+//# sourceMappingURL=AirTicketServerInterface.js.map

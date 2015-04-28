@@ -33,3 +33,4 @@ var AirTicketServerInterface;
     })();
     AirTicketServerInterface.TicketQuery = TicketQuery;
 })(AirTicketServerInterface || (AirTicketServerInterface = {}));
+//# sourceMappingURL=ticketQuery.js.map

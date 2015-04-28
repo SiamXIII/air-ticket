@@ -31,3 +31,5 @@ module AirTicketServerInterface {
 		}
 	}
 }
+
+export = AirTicketServerInterface;
