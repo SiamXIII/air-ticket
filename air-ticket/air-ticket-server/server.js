@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 app.get('/api/0.1.0/tickets', function (incomingMessage, serverResponse) {
-    serverResponse.json(new Db.MongoTicketsDb().getTickets(TicketQueryMapper.map(AirTicketServerInterface.TicketQuery.ParseFromUrlQueryString(url.parse(incomingMessage.url).query))));
+    serverResponse.json(new Db.MongoTicketsDb().getTickets(TicketQueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(url.parse(incomingMessage.url).query))));
     serverResponse.end();
 });
 var server = app.listen(3000, function () {

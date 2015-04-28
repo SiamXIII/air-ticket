@@ -22,12 +22,12 @@ module AirTicketServerInterface {
 		public pageSetting: PageSetting;
 		public fieldNames: Array<string>;
 
-		public ToUrlQuery(): string {
-			return "";
+		public toUrlQueryArg(): string {
+			return encodeURIComponent(JSON.stringify(this));
 		}
 
-		public static ParseFromUrlQueryString(urlQueryString): TicketQuery {
-			return new TicketQuery();
+		public static parseFromUrlQueryArg(urlQueryString): TicketQuery {
+			return JSON.parse(decodeURI(urlQueryString));
 		}
 	}
 }

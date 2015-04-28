@@ -23,13 +23,14 @@ var AirTicketServerInterface;
     var TicketQuery = (function () {
         function TicketQuery() {
         }
-        TicketQuery.prototype.ToUrlQuery = function () {
-            return "";
+        TicketQuery.prototype.toUrlQueryArg = function () {
+            return encodeURIComponent(JSON.stringify(this));
         };
-        TicketQuery.ParseFromUrlQueryString = function (urlQueryString) {
-            return new TicketQuery();
+        TicketQuery.parseFromUrlQueryArg = function (urlQueryString) {
+            return JSON.parse(decodeURI(urlQueryString));
         };
         return TicketQuery;
     })();
     AirTicketServerInterface.TicketQuery = TicketQuery;
 })(AirTicketServerInterface || (AirTicketServerInterface = {}));
+//# sourceMappingURL=ticketQuery.js.map

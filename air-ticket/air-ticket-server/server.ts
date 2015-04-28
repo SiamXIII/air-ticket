@@ -8,24 +8,24 @@ import url = require("url");
 
 var app = express();
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+app.get('/', (req, res) => {
+	res.send('Hello World!');
 });
 
-app.get('/api/0.1.0/tickets', function (incomingMessage, serverResponse) {
+app.get('/api/0.1.0/tickets', (incomingMessage, serverResponse) => {
 
 	serverResponse.json(new Db.MongoTicketsDb().getTickets(
-		TicketQueryMapper.map(AirTicketServerInterface.TicketQuery.ParseFromUrlQueryString(
+		TicketQueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(
 			url.parse(incomingMessage.url).query))));
 
 	serverResponse.end();
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(3000, () => {
 
-    var host = server.address().address;
-    var port = server.address().port;
+	var host = server.address().address;
+	var port = server.address().port;
 
-    console.log('Example app listening at http://%s:%s', host, port);
+	console.log('Example app listening at http://%s:%s', host, port);
 
 });
