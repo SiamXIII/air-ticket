@@ -8,6 +8,8 @@
     "email": ""
   },
   "dependencies": {
+    "express": "^4.12.3",
+    "mongodb": "^2.0.28",
     "mongoose": "^4.0.2",
     "nconf": "^0.7.1"
   }
