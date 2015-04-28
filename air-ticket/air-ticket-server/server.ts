@@ -3,8 +3,8 @@
 /// <reference path="custom_modules/air-ticket-server-interface/ticketQuery.ts" />
 /// <reference path="TicketQueryMapper.ts" />
 
-import express = require('express');
-import url = require("url");
+var express = require('express');
+var url = require("url");
 
 var app = express();
 

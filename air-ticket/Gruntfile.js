@@ -7,18 +7,18 @@ module.exports = function (grunt) {
 			main: {
 				files: [
 				  // includes files within path and its sub-directories 
-				  { expand: true, src: ['air-ticket-server-interface/**'], dest: 'air-ticket-server/custom_modules/' },
-				  { expand: true, src: ['air-ticket-server-interface/**'], dest: 'air-ticket-client/custom_modules/' }
+				  { expand: true, cwd: 'air-ticket-common/', src: ['air-ticket-server-interface/**'], dest: 'air-ticket-server/custom_modules/' },
+				  { expand: true, cwd: 'air-ticket-common/', src: ['air-ticket-server-interface/**'], dest: 'air-ticket-client-angular/custom_modules/' }
 				]
-			},
+			}
 		},
 		watch: {
 			scripts: {
 				files: ['air-ticket-server-interface/**'],
 				tasks: ['copy'],
 				options: {
-					spawn: false,
-				},
+					spawn: false
+				}
 			}
 		}
 	});

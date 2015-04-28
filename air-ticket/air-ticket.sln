@@ -5,38 +5,15 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "air-ticket-server", "air-ticket-server\air-ticket-server.njsproj", "{5A8715B1-AC04-4C84-9A3A-9C1F31FD417D}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "air-ticket-client", "http://localhost:63838", "{1A1434AF-D2C0-4AE8-BC5A-1C3104024C76}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_63838"
-		Debug.AspNetCompiler.PhysicalPath = "air-ticket-client\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63838\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_63838"
-		Release.AspNetCompiler.PhysicalPath = "air-ticket-client\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_63838\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "air-ticket-client\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "air-ticket-server-interface", "air-ticket-server-interface", "{33A93248-FC40-42D0-BCDF-BFF89F87EBC0}"
-	ProjectSection(SolutionItems) = preProject
-		air-ticket-server-interface\ticketQuery.ts = air-ticket-server-interface\ticketQuery.ts
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{57D7D142-5F42-4892-A6D9-DD78139FB160}"
 	ProjectSection(SolutionItems) = preProject
 		Gruntfile.js = Gruntfile.js
 		package.json = package.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "air-ticket-common", "air-ticket-common\air-ticket-common.csproj", "{2DC1E11C-46CE-47B9-A9BF-ECF54DF621DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "air-ticket-client-angular", "air-ticket-client-angular\air-ticket-client-angular.csproj", "{FAD79F6D-E4FB-446B-B0F6-9CFC226F2814}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,10 +25,14 @@ Global
 		{5A8715B1-AC04-4C84-9A3A-9C1F31FD417D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A8715B1-AC04-4C84-9A3A-9C1F31FD417D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A8715B1-AC04-4C84-9A3A-9C1F31FD417D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A1434AF-D2C0-4AE8-BC5A-1C3104024C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A1434AF-D2C0-4AE8-BC5A-1C3104024C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A1434AF-D2C0-4AE8-BC5A-1C3104024C76}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A1434AF-D2C0-4AE8-BC5A-1C3104024C76}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{2DC1E11C-46CE-47B9-A9BF-ECF54DF621DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DC1E11C-46CE-47B9-A9BF-ECF54DF621DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DC1E11C-46CE-47B9-A9BF-ECF54DF621DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DC1E11C-46CE-47B9-A9BF-ECF54DF621DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAD79F6D-E4FB-446B-B0F6-9CFC226F2814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD79F6D-E4FB-446B-B0F6-9CFC226F2814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD79F6D-E4FB-446B-B0F6-9CFC226F2814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD79F6D-E4FB-446B-B0F6-9CFC226F2814}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
