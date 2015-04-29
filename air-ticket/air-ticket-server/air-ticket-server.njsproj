@@ -47,9 +47,6 @@
     <TypeScriptCompile Include="TicketsStore.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="custom_modules\" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="data-access\" />
     <Folder Include="config\" />
   </ItemGroup>
