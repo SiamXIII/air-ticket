@@ -1,6 +1,7 @@
 {
   "name": "air-ticket-client",
   "version": "0.0.0",
+  "description" : "air-ticket-client",
   "homepage": "https://github.com/SiamXIII/air-ticket",
   "authors": [
     "Aliaksandr Lindarenka <siamxiii@gmail.com>"

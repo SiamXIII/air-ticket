@@ -1,8 +1,8 @@
 {
   "name": "air-ticket",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "air-ticket",
+  "main": "air-ticket.sln",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
