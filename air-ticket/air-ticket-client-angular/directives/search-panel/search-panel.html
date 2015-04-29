@@ -2,13 +2,11 @@
 	<header>Параметры поиска</header>
 	<h4>Из</h4>
 	<select>
-		<option>Минск</option>
-		<option>Могилев</option>
+		<option ng-repeat="city in departureCities">{{city.name}}</option>
 	</select>
 	<h4>В</h4>
 	<select>
-		<option>Минск</option>
-		<option>Могилев</option>
+		<option ng-repeat="city in arrivalCities">{{city.name}}</option>
 	</select>
 	<div>
 		<input type="radio" name="ways" value="oneway"><span>В одну сторону</span><br>
