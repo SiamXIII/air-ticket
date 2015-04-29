@@ -1,8 +1,14 @@
 ﻿<div class="">
 	<header>Параметры поиска</header>
 	<h4>Из</h4>
-	<select>
-		<option ng-repeat="city in departureCities">{{city.name}}</option>
+	<select ui-select2 ng-model="select2" data-placeholder="Pick a number">
+		<option value=""></option>
+		<option value="one">First</option>
+		<option value="two">Second</option>
+		<option value="three">Third</option>
+	</select>
+	<select ui-select2 ng-model="selected">
+		<option ng-repeat="(key, city) in departureCities" value="{{key}}">{{city.name}}</option>
 	</select>
 	<h4>В</h4>
 	<select>

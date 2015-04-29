@@ -1,1 +1,1 @@
-﻿angular.module('airTicketApp', []);
+﻿angular.module('airTicketApp', ['ui.select2']);

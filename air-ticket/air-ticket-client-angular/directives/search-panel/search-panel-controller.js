@@ -3,6 +3,9 @@
 	$scope.departureCities = {};
 	$scope.arrivalCities = {};
 
+	$scope.selected = 'London';
+	$scope.select2 = 'two';
+
 	$scope.$watch('tickets', function (tickets) {
 		if (tickets) {
 			angular.forEach(tickets, function (value) {
