@@ -19,6 +19,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="directives\air-ticket\air-ticket-controller.js" />
+    <Content Include="directives\air-ticket\air-ticket-directive.js" />
+    <Content Include="directives\air-ticket\air-ticket.css" />
+    <Content Include="directives\air-ticket\air-ticket.html" />
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="web.config" />
@@ -33,6 +37,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
