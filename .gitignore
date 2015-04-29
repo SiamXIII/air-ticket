@@ -30,4 +30,4 @@ build/Release
 /**/custom_modules
 
 # Dependency directory
-/**/typings
+/**/bower_components

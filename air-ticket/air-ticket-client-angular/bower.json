@@ -1,0 +1,21 @@
+{
+  "name": "air-ticket-client-angular",
+  "version": "0.0.0",
+  "homepage": "https://github.com/SiamXIII/air-ticket",
+  "authors": [
+    "FakaMaka <fakamaka@live.ru>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-select2": "~0.0.5",
+    "angular-ui-select": "~0.11.2"
+  }
+}
