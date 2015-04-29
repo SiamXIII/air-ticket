@@ -8,25 +8,27 @@ import QueryMapper = require("./TicketQueryMapper");
 
 var app = express();
 
-app.get('/', (req, res) => {
+app.get('/',(req, res) => {
 	res.send('Hello World!');
 });
 
-app.get('/api/0.1.0/tickets', (incomingMessage, serverResponse) => {
+app.get('/api/0.1.0/tickets',(incomingMessage, serverResponse) => {
 
 
 	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
 
-	serverResponse.json(new TicketsStore.MongoTicketsDb().getTickets(
-		QueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(
-			url.parse(incomingMessage.url).query))));
+	//serverResponse.json(new TicketsStore.MongoTicketsDb().getTickets(
+	//	QueryMapper.map(AirTicketServerInterface.TicketQuery.parseFromUrlQueryArg(
+	//		url.parse(incomingMessage.url).query))));
 
-	
+	var tickets = new TicketsStore.MongoTicketsDb().getAllTickets(function (data) {
+		serverResponse.json(data);
 
-	serverResponse.end();
+		serverResponse.end();
+	});
 });
 
-var server = app.listen(3000, () => {
+var server = app.listen(3000,() => {
 
 	var host = server.address().address;
 	var port = server.address().port;

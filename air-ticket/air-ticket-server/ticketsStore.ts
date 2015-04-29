@@ -1,4 +1,6 @@
-﻿module TicketsStore {
+﻿var flightsDataAccess = require('./data-access/data-access.js').Flights;
+
+module TicketsStore {
 	export enum SortDirection { Asc, Desc };
 
 	export class SortSetting {
@@ -25,9 +27,16 @@
 
 	export interface ITicketsDb {
 		getTickets(ticketQuery: TicketQuery);
+		getAllTickets(callback);
 	}
 
 	export class MongoTicketsDb implements ITicketsDb {
+		getAllTickets(callback) {
+			flightsDataAccess.find({}, function (err, data) {
+				callback(data);
+			});
+		}
+
 		getTickets(ticketQuery: TicketQuery) {
 			return [
 				{
