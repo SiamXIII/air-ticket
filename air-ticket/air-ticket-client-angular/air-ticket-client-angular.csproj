@@ -18,7 +18,6 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="app\app.js" />
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
