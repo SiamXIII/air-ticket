@@ -35,10 +35,8 @@
   <ItemGroup>
     <Compile Include="config\config.js" />
     <Compile Include="data-access\data-access.js" />
-    <Content Include=".gitignore" />
     <Content Include="config\config.json" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="tsd.json" />
   </ItemGroup>
   <ItemGroup>
