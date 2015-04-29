@@ -1,7 +1,7 @@
 npm install;
 
 Push-Location -Path air-ticket-client-angular;
-npm install;
+bower install;
 
 Pop-Location;
 Push-Location -Path air-ticket-server;
