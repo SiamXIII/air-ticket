@@ -4,3 +4,9 @@ D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-client-angular\bin\a
 D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.dll
 D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.pdb
 D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.csprojResolveAssemblyReference.cache
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\bin\air-ticket-client-angular.dll.config
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\bin\air-ticket-client-angular.dll
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\bin\air-ticket-client-angular.pdb
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.csprojResolveAssemblyReference.cache
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.dll
+d:\Git\air-ticket\air-ticket\air-ticket-client-angular\obj\Debug\air-ticket-client-angular.pdb
