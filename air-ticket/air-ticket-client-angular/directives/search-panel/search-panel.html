@@ -1,15 +1,17 @@
-﻿<div class="">
-	<header>Параметры поиска</header>
+﻿<div>
+	<h3>Параметры поиска</h3>
 	<h4>Из</h4>
-	<select ui-select2 ng-model="departureSelected" data-placeholder="Select origin">
-		<option value=""></option>
-		<option ng-repeat="(key, city) in departureCities" value="{{key}}">{{city.name}}</option>
-	</select>
-	<h4>В</h4>
-	<select ui-select2 ng-model="arrivalSelected" data-placeholder="Select destination">
-		<option value=""></option>
-		<option ng-repeat="(key, city) in arrivalCities" value="{{key}}">{{city.name}}</option>
-	</select>
+	<div class="route">
+		<select ui-select2="select2options" ng-model="departureSelected" data-placeholder="Select origin">
+			<option value=""></option>
+			<option ng-repeat="(key, city) in departureCities" value="{{key}}">{{city.name}}</option>
+		</select>
+		<h4>В</h4>
+		<select ui-select2="select2options" ng-model="arrivalSelected" data-placeholder="Select destination">
+			<option value=""></option>
+			<option ng-repeat="(key, city) in arrivalCities" value="{{key}}">{{city.name}}</option>
+		</select>
+	</div>
 	<div>
 		<input type="radio" name="ways" value="oneway"><span>В одну сторону</span><br>
 		<input type="radio" name="ways" value="twoway"><span>Туда и обратно</span><br>
@@ -21,7 +23,7 @@
 	<div class="passengers">
 		<div>
 			<h4>Взрослые</h4>
-			<input type="number"/>
+			<input type="number" />
 			<h4>Дети</h4>
 			<input type="number" />
 			<h4>Младенцы</h4>
