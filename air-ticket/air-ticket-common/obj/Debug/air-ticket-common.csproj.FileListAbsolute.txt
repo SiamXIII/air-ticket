@@ -1,0 +1,5 @@
+D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-common\bin\air-ticket-common.dll.config
+D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-common\bin\air-ticket-common.dll
+D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-common\bin\air-ticket-common.pdb
+D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-common\obj\Debug\air-ticket-common.dll
+D:\Projects\air-ticket\ait-ticket-git\air-ticket\air-ticket-common\obj\Debug\air-ticket-common.pdb
