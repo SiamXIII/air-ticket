@@ -19,30 +19,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="directives\air-ticket\air-ticket-controller.js" />
-    <Content Include="directives\air-ticket\air-ticket.js" />
-    <Content Include="directives\air-ticket\air-ticket.css" />
-    <Content Include="directives\air-ticket\air-ticket.html" />
-    <Content Include="directives\filter-panel\filter-panel-controller.js" />
-    <Content Include="directives\filter-panel\filter-panel.css" />
-    <Content Include="directives\filter-panel\filter-panel.html" />
-    <Content Include="directives\filter-panel\filter-panel.js" />
-    <Content Include="directives\search-panel\search-panel-controller.js" />
-    <Content Include="directives\search-panel\search-panel.css" />
-    <Content Include="directives\search-panel\search-panel.html" />
-    <Content Include="directives\search-panel\search-panel.js" />
-    <Content Include="directives\ticket-card\ticket-card-controller.js" />
-    <Content Include="directives\ticket-card\ticket-card.css" />
-    <Content Include="directives\ticket-card\ticket-card.html" />
-    <Content Include="directives\ticket-card\ticket-card.js" />
-    <Content Include="directives\ticket-list\ticket-list-controller.js" />
-    <Content Include="directives\ticket-list\ticket-list.css" />
-    <Content Include="directives\ticket-list\ticket-list.html" />
-    <Content Include="directives\ticket-list\ticket-list.js" />
+    <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
+    <Content Include="app\directives\air-ticket\air-ticket.js" />
+    <Content Include="assets\css\air-ticket.css" />
+    <Content Include="app\directives\air-ticket\air-ticket.html" />
+    <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
+    <Content Include="assets\css\filter-panel.css" />
+    <Content Include="app\directives\filter-panel\filter-panel.html" />
+    <Content Include="app\directives\filter-panel\filter-panel.js" />
+    <Content Include="app\directives\search-panel\search-panel-controller.js" />
+    <Content Include="assets\css\search-panel.css" />
+    <Content Include="app\directives\search-panel\search-panel.html" />
+    <Content Include="app\directives\search-panel\search-panel.js" />
+    <Content Include="app\directives\ticket-card\ticket-card-controller.js" />
+    <Content Include="assets\css\ticket-card.css" />
+    <Content Include="app\directives\ticket-card\ticket-card.html" />
+    <Content Include="app\directives\ticket-card\ticket-card.js" />
+    <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
+    <Content Include="assets\css\ticket-list.css" />
+    <Content Include="app\directives\ticket-list\ticket-list.html" />
+    <Content Include="app\directives\ticket-list\ticket-list.js" />
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
-    <Content Include="services\ticket-service.js" />
-    <Content Include="styles\site.css" />
+    <Content Include="app\services\ticket-service.js" />
+    <Content Include="assets\css\site.css" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

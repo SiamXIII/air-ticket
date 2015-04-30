@@ -2,7 +2,7 @@
 .directive('searchPanel', function () {
 	return {
 		restrict: "E",
-		templateUrl: "directives/search-panel/search-panel.html",
+		templateUrl: "app/directives/search-panel/search-panel.html",
 		link: {
 			pre: function ($scope) {
 				$scope.$watch('tickets', function (tickets) {

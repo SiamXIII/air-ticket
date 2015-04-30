@@ -2,7 +2,7 @@
 	.directive('airTicket', function () {
 		return {
 			restrict: "E",
-			templateUrl: 'directives/air-ticket/air-ticket.html',
+			templateUrl: 'app/directives/air-ticket/air-ticket.html',
 			controller: 'ticketsCtrl'
 		}
 	});

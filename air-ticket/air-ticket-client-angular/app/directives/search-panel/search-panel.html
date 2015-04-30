@@ -12,10 +12,16 @@
 			<option ng-repeat="(key, city) in arrivalCities" value="{{key}}">{{city.name}}</option>
 		</select>
 	</div>
-	<div>
-		<input type="radio" name="ways" value="oneway"><span>В одну сторону</span><br>
-		<input type="radio" name="ways" value="twoway"><span>Туда и обратно</span><br>
+	
+	<div class="directions">
+		<div class="radio">
+			<label><input type="radio" name="ways" value="oneway">В одну сторону</label>
+		</div>
+		<div class="radio">
+			<label><input type="radio" name="ways" value="twoway">Туда и обратно</label>
+		</div>
 	</div>
+
 	<h4>Дата отправления</h4>
 	<input type="date" />
 	<h4>Дата возвращения</h4>
