@@ -31,3 +31,9 @@ build/Release
 
 # Dependency directory
 /**/bower_components
+
+# Build directory
+/**/bin
+
+# Build directory
+/**/obj
