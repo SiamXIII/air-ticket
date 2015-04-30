@@ -1,2 +1,25 @@
-﻿body {
+﻿search-panel {
+	background-color: orange;
 }
+
+	search-panel h3 {
+		font-weight: bold;
+	}
+
+	search-panel div.select2-container {
+		width: 100%;
+		border-radius: 0;
+	}
+
+	search-panel .route .select2-choice,
+	search-panel .select2-container .select2-choice .select2-arrow,
+	.select2-drop,
+	.select2-drop-active {
+		border-radius: 0;
+		border: none;
+		background: white;
+	}
+
+	search-panel .route {
+		margin-bottom: 10px;
+	}

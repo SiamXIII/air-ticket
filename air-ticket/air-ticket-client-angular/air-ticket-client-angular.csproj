@@ -41,6 +41,8 @@
     <Content Include="directives\ticket-list\ticket-list.js" />
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
+    <Content Include="services\ticket-service.js" />
+    <Content Include="styles\site.css" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
