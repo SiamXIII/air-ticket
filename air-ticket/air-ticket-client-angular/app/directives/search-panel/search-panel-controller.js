@@ -10,4 +10,7 @@
 		return $scope.direction == 'twoway';
 	}
 
+	$scope.search = function () {
+
+	}
 });

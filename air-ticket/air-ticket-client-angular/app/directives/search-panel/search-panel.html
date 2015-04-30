@@ -4,12 +4,12 @@
 	<div class="route">
 		<select ui-select2="select2options" ng-model="departureSelected" data-placeholder="Select origin">
 			<option value=""></option>
-			<option ng-repeat="(key, city) in departureCities" value="{{key}}">{{city.name}}</option>
+			<option ng-repeat="city in departureCities" value="{{city}}">{{city}}</option>
 		</select>
 		<h4>В</h4>
 		<select ui-select2="select2options" ng-model="arrivalSelected" data-placeholder="Select destination">
 			<option value=""></option>
-			<option ng-repeat="(key, city) in arrivalCities" value="{{key}}">{{city.name}}</option>
+			<option ng-repeat="city in arrivalCities" value="{{city}}">{{city}}</option>
 		</select>
 	</div>
 

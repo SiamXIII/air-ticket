@@ -5,4 +5,8 @@
 	this.getAllTickets = function () {
 		return $http.get(this.serverUrl + "/api/0.1.0/tickets");
 	}
+
+	this.getPlaces = function () {
+		return $http.get(this.serverUrl + "/api/0.1.0/places");
+	}
 });

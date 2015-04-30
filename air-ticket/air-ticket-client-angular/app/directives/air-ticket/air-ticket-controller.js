@@ -4,8 +4,8 @@
 
 	};
 
-	ticketService.getAllTickets()
+	ticketService.getPlaces()
 	.success(function (data) {
-		$scope.tickets = data;
+		$scope.places = data;
 	});
 });
