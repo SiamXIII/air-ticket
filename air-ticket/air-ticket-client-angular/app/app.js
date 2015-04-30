@@ -1,1 +1,1 @@
-﻿angular.module('airTicketApp', ['ui.select2', 'ngRoute']);
+﻿angular.module('airTicketApp', ['ui.select2', 'ngRoute', 'angular-datepicker']);

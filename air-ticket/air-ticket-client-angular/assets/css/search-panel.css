@@ -28,6 +28,29 @@
 		width: 100%;
 	}
 
-		search-panel .directions input[type=radio] {
+	search-panel .datepicker {
+		width: 100%;
+		border: none;
+		padding: 5px;
+		height: 26px;
+	}
 
+	search-panel .passengers > div {
+		float: left;
+		padding: 0.5%;
+		width: 33%;
+	}
+
+		search-panel .passengers > div input {
+			width: 100%;
+			border: none;
 		}
+
+	search-panel .btn {
+		border: none;
+		width: 100%;
+		margin: 10px 0;
+		font-size: 18px;
+		font-weight: bold;
+		padding: 5px;
+	}

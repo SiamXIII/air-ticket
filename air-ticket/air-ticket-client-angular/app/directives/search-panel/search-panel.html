@@ -1,4 +1,4 @@
-﻿<div>
+﻿<form ng-init="init()">
 	<h3>Параметры поиска</h3>
 	<h4>Из</h4>
 	<div class="route">
@@ -12,29 +12,36 @@
 			<option ng-repeat="(key, city) in arrivalCities" value="{{key}}">{{city.name}}</option>
 		</select>
 	</div>
-	
+
 	<div class="directions">
 		<div class="radio">
-			<label><input type="radio" name="ways" value="oneway">В одну сторону</label>
+			<label><input type="radio" name="ways" ng-model="direction" value="oneway">В одну сторону</label>
 		</div>
 		<div class="radio">
-			<label><input type="radio" name="ways" value="twoway">Туда и обратно</label>
+			<label><input type="radio" name="ways" ng-model="direction" value="twoway">Туда и обратно</label>
 		</div>
 	</div>
-
-	<h4>Дата отправления</h4>
-	<input type="date" />
-	<h4>Дата возвращения</h4>
-	<input type="date" />
+	<div>
+		<h4>Дата отправления</h4>
+		<input type="text" class="datepicker" pick-a-date="date" placeholder="Departure" />{{ departureTime }}
+	</div>
+	<div ng-if="isTwoWay()">
+		<h4>Дата возвращения</h4>
+		<input type="text" class="datepicker" pick-a-date="date" placeholder="Comeback" />{{ comebackTime }}
+	</div>
 	<div class="passengers">
 		<div>
 			<h4>Взрослые</h4>
-			<input type="number" />
+			<input type="number" min="0" max="100" ng-model="people.adults" />
+		</div>
+		<div>
 			<h4>Дети</h4>
-			<input type="number" />
+			<input type="number" min="0" max="100" ng-model="people.children" />
+		</div>
+		<div>
 			<h4>Младенцы</h4>
-			<input type="number" />
+			<input type="number" min="0" max="100" ng-model="people.newborns" />
 		</div>
 	</div>
-	<div class="button">Поиск</div>
-</div>
+	<div class="btn btn-default">Поиск</div>
+</form>
