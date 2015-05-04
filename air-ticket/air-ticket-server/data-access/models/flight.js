@@ -11,10 +11,10 @@ var Flight = new Schema({
 		type: String,
 		required: true
 	},
-	'departure-time': {
+	'departureDate': {
 		type: Date,
 	},
-	'arrival-time': {
+	'arrivalDate': {
 		type: Date,
 	},
 	'vendor': {

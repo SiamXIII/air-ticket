@@ -20,6 +20,14 @@ app.get('/api/0.1.0/places', function (incomingMessage, serverResponse) {
 		serverResponse.end();
 	});
 });
+app.get('/api/0.1.0/search-trip', function (incomingMessage, serverResponse) {
+	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
+	
+	ticketsStore().searchTrips(incomingMessage.query, function (data) {
+		serverResponse.json(data);
+		serverResponse.end();
+	})
+});
 var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;

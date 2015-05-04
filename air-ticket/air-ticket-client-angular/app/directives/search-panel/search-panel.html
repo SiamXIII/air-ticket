@@ -2,12 +2,12 @@
 	<h3>Параметры поиска</h3>
 	<h4>Из</h4>
 	<div class="route">
-		<select ui-select2="select2options" ng-model="departureSelected" data-placeholder="Select origin">
+		<select ui-select2="select2options" ng-model="search.from" data-placeholder="Select origin">
 			<option value=""></option>
 			<option ng-repeat="city in departureCities" value="{{city}}">{{city}}</option>
 		</select>
 		<h4>В</h4>
-		<select ui-select2="select2options" ng-model="arrivalSelected" data-placeholder="Select destination">
+		<select ui-select2="select2options" ng-model="search.to" data-placeholder="Select destination">
 			<option value=""></option>
 			<option ng-repeat="city in arrivalCities" value="{{city}}">{{city}}</option>
 		</select>
@@ -23,11 +23,11 @@
 	</div>
 	<div>
 		<h4>Дата отправления</h4>
-		<input type="text" class="datepicker" pick-a-date="date" placeholder="Departure" />{{ departureTime }}
+		<input type="text" class="datepicker" pick-a-date="date" placeholder="Departure" ng-model="search.departureDate" />{{ search.departureDate }}
 	</div>
 	<div ng-show="isTwoWay()">
 		<h4>Дата возвращения</h4>
-		<input type="text" class="datepicker" pick-a-date="date" placeholder="Comeback" />{{ comebackTime }}
+		<input type="text" class="datepicker" pick-a-date="date" placeholder="Comeback" ng-model="search.comebackDate" />{{ search.comebackDate }}
 	</div>
 	<div class="passengers">
 		<div>
@@ -43,5 +43,5 @@
 			<input type="number" min="0" max="100" ng-model="people.newborns" />
 		</div>
 	</div>
-	<div class="btn btn-default">Поиск</div>
+	<div class="btn btn-default" ng-click="searchTrips()">Поиск</div>
 </form>

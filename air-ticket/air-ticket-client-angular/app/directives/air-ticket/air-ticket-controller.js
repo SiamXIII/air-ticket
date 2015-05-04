@@ -8,4 +8,9 @@
 	.success(function (data) {
 		$scope.places = data;
 	});
+
+	ticketService.getAllTickets()
+	.success(function (data) {
+		$scope.tickets = data;
+	});
 });
