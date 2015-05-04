@@ -25,7 +25,7 @@
 		<h4>Дата отправления</h4>
 		<input type="text" class="datepicker" pick-a-date="date" placeholder="Departure" />{{ departureTime }}
 	</div>
-	<div ng-if="isTwoWay()">
+	<div ng-show="isTwoWay()">
 		<h4>Дата возвращения</h4>
 		<input type="text" class="datepicker" pick-a-date="date" placeholder="Comeback" />{{ comebackTime }}
 	</div>
