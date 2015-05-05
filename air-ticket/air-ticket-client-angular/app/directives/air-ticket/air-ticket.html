@@ -1,5 +1,5 @@
 ﻿
-<div class="air-ticket">
+<div class="air-ticket" ng-init="init()">
 	<div class="row">
 		<div class="col-md-4">
 			<search-panel></search-panel>
@@ -12,4 +12,7 @@
 	</div>
 </div>
 
-<ticket-card class="col-md-10"></ticket-card>
+<ticket-list ng-if="flights" 
+			 flights="flights" 
+			 direction="{{resultsDirection}}"
+			 class="col-md-10"></ticket-list>

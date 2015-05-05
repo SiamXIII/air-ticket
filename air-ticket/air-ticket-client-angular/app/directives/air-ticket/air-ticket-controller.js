@@ -13,6 +13,7 @@
 		ticketService.getAllTickets()
 		.success(function (data) {
 			$scope.tickets = data;
+			$scope.resultsDirection = $scope.direction;
 		});
 	};
 });
