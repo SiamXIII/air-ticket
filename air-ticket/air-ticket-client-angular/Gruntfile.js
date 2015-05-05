@@ -9,13 +9,13 @@ module.exports = function (grunt) {
 						expand: true,
 						cwd: 'themes/default-theme/build',
 						src: ['bootstrap.min.js'],
-						dest: 'bundles'
+						dest: 'build'
 					},
 					{
 						expand: true,
 						cwd: 'themes/default-theme/build',
 						src: ['styles.css'],
-						dest: 'bundles'
+						dest: 'build'
 					},
 				]
 			}
