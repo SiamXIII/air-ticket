@@ -8,57 +8,42 @@
 	<script src="bower_components/angular-ui-select2/src/select2.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
 
-	<!--<link href="assets/css/reset.css" rel="stylesheet" />-->
-	<!--<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />-->
-	<link href="bower_components/select2/select2.css" rel="stylesheet" />
 	<script src="bower_components/angular-native-picker/build/angular-datepicker.js"></script>
-	<link href="bower_components/angular-native-picker/build/themes/classic.css" rel="stylesheet" />
-	<link href="bower_components/angular-native-picker/build/themes/classic.date.css" rel="stylesheet" />
-
-	<script src="bower_components/moment/min/moment.min.js"></script>
-	<script src="bower_components/angular-moment/angular-moment.min.js"></script>
-
-	<link href="assets/css/site.css" rel="stylesheet" />
 
 	<script src="app/app.js"></script>
 	<script src="app/services/ticket-service.js"></script>
 
 	<script src="app/directives/air-ticket/air-ticket-controller.js"></script>
 	<script src="app/directives/air-ticket/air-ticket.js"></script>
-	<!--asdf-->
-	<!--<link href="assets/css/air-ticket.css" rel="stylesheet" />-->
 
 	<script src="app/directives/search-panel/search-panel-controller.js"></script>
 	<script src="app/directives/search-panel/search-panel.js"></script>
 
-	<!--asdf-->
-	<!--<link href="assets/css/search-panel.css" rel="stylesheet"/>-->
-
-
-	<link href="assets/css/build.css" rel="stylesheet"/>
-
 	<script src="app/directives/ticket-card/ticket-card.js"></script>
 	<script src="app/directives/ticket-card/ticket-card-controller.js"></script>
+	<script src="bower_components/moment/min/moment.min.js"></script>
 
-	<script src="app/directives/ticket-list/ticket-list-controller.js"></script>
-	<script src="app/directives/ticket-list/ticket-list.js"></script>
-
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href="bower_components/angular-native-picker/build/themes/classic.css" rel="stylesheet" />
+	<link href="bower_components/angular-native-picker/build/themes/classic.date.css" rel="stylesheet" />
+	<link href="bower_components/select2/select2.css" rel="stylesheet" />
+	<link href="assets/css/build.css" rel="stylesheet" />
 </head>
 <body ng-app="airTicketApp">
-
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Air Tickets</a>
+	<header class="page-header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Air Tickets</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main class="content">
+		<div class="container-fluid">
+			<div ng-controller="ticketsCtrl">
+				<air-ticket></air-ticket>
 			</div>
 		</div>
-	</nav>
-
-	<div class="container-fluid">
-	<div ng-controller="ticketsCtrl">
-		<air-ticket></air-ticket>
-	</div>
-	</div>
+	</main>
 </body>
 </html>
