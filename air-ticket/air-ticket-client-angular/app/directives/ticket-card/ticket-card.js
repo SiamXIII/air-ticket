@@ -1,5 +1,5 @@
 ﻿angular.module('airTicketApp')
-.directive('ticketCard', function () {
+.directive('ticketCard', function (templatesPath) {
 	return {
 		restrict: 'E',
 		template: '<div ng-include="getTemplate()"></div>',
@@ -10,7 +10,7 @@
 		},
 		link: function ($scope, $element, $attrs) {
 			$scope.getTemplate = function () {
-				return 'app/directives/ticket-card/ticket-card-' + $attrs.direction + '.html';
+				return templatesPath + 'ticket-card-' + $attrs.direction + '.html';
 			}
 		},
 	}

@@ -1,8 +1,8 @@
 ﻿angular.module('airTicketApp')
-	.directive('airTicket', function () {
+	.directive('airTicket', function (templatesPath) {
 		return {
 			restrict: "E",
-			templateUrl: 'app/directives/air-ticket/air-ticket.html',
+			templateUrl: templatesPath + 'air-ticket.html',
 			controller: 'ticketsCtrl'
 		}
 	});

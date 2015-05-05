@@ -1,8 +1,8 @@
 ﻿angular.module('airTicketApp')
-.directive('ticketList', function () {
+.directive('ticketList', function (templatesPath) {
 	return {
 		restrict: 'E',
-		templateUrl: 'app/directives/ticket-list/ticket-list.html',
+		templateUrl: templatesPath + 'ticket-list.html',
 		controller: 'ticketListCtrl',
 		scope: {
 			flights: '=',

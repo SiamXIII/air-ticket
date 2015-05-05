@@ -1,8 +1,8 @@
 ﻿angular.module('airTicketApp')
-.directive('searchPanel', function (ticketService) {
+.directive('searchPanel', function (templatesPath, ticketService) {
 	return {
 		restrict: "E",
-		templateUrl: "app/directives/search-panel/search-panel.html",
+		templateUrl: templatesPath + "search-panel.html",
 		link: {
 			pre: function ($scope) {
 				$scope.$watch('places', function (places) {
