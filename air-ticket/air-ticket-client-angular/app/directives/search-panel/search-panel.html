@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿<div class="panel panel-default">
 	<div class="panel-heading">
 		Параметры поиска
@@ -72,52 +71,3 @@
 		</form>
 	</div>
 </div>
-=======
-﻿<form ng-init="init()">
-	<h3>Параметры поиска</h3>
-	<h4>Из</h4>
-	<div class="route">
-		<select ui-select2="select2options" ng-model="search.from" data-placeholder="Select origin">
-			<option value=""></option>
-			<option ng-repeat="city in departureCities" value="{{city}}">{{city}}</option>
-		</select>
-		<h4>В</h4>
-		<select ui-select2="select2options" ng-model="search.to" data-placeholder="Select destination">
-			<option value=""></option>
-			<option ng-repeat="city in arrivalCities" value="{{city}}">{{city}}</option>
-		</select>
-	</div>
-
-	<div class="directions">
-		<div class="radio">
-			<label><input type="radio" name="ways" ng-model="direction" value="oneway">В одну сторону</label>
-		</div>
-		<div class="radio">
-			<label><input type="radio" name="ways" ng-model="direction" value="twoway">Туда и обратно</label>
-		</div>
-	</div>
-	<div>
-		<h4>Дата отправления</h4>
-		<input type="text" class="datepicker" pick-a-date="date" placeholder="Departure" ng-model="search.departureDate" />{{ search.departureDate }}
-	</div>
-	<div ng-show="isTwoWay()">
-		<h4>Дата возвращения</h4>
-		<input type="text" class="datepicker" pick-a-date="date" placeholder="Comeback" ng-model="search.comebackDate" />{{ search.comebackDate }}
-	</div>
-	<div class="passengers">
-		<div>
-			<h4>Взрослые</h4>
-			<input type="number" min="0" max="100" ng-model="people.adults" />
-		</div>
-		<div>
-			<h4>Дети</h4>
-			<input type="number" min="0" max="100" ng-model="people.children" />
-		</div>
-		<div>
-			<h4>Младенцы</h4>
-			<input type="number" min="0" max="100" ng-model="people.newborns" />
-		</div>
-	</div>
-	<div class="btn btn-default" ng-click="searchTrips()">Поиск</div>
-</form>
->>>>>>> 62e86fe0021e71519e300a3d6e0fcae6204f65af
