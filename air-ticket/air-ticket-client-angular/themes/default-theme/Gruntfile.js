@@ -28,23 +28,12 @@
 
 				]
 			}
-		},
-
-		concat: {
-			dist: {
-				src: ['build/bootstrap.css', 'build/theme.css'],
-				dest: 'build/styles.css'
-			}
-		},
-
-		clean: ['build/theme.css', 'build/bootstrap.css']
+		}
 
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask('default', ['less', 'copy', 'concat', 'clean']);
+	grunt.registerTask('default', ['less', 'copy']);
 };

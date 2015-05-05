@@ -8,21 +8,26 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						cwd: 'themes/default-theme/build',
-						src: ['bootstrap.min.js'],
+						src: ['*'],
 						dest: 'build'
-					},
-					{
-						expand: true,
-						cwd: 'themes/default-theme/build',
-						src: ['styles.css'],
-						dest: 'build'
-					},
+					}
 				]
 			}
-		}
+		},
+
+		concat: {
+			dist: {
+				src: ['build/bootstrap.css', 'build/theme.css'],
+				dest: 'build/styles.css'
+			}
+		},
+
+		clean: ['build/theme.css', 'build/bootstrap.css']
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask('default', ['copy']);
+	grunt.registerTask('default', ['copy', 'concat', 'clean']);
 };
