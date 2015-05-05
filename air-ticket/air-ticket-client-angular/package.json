@@ -1,0 +1,10 @@
+{
+    "name": "air-ticket-client-angular",
+    "version": "1.0.0",
+    "main": "Gruntfile.js",
+    "author": "fakamaka@live.ru",
+    "license": "ISC",
+    "dependencies": {
+        "grunt": "~0.4.5"
+    }
+}

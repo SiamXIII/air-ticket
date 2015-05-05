@@ -24,6 +24,36 @@
     <Content Include="assets\css\air-ticket.css" />
     <Content Include="app\directives\air-ticket\air-ticket.html" />
     <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
+    <Content Include="assets\css\app\app.css">
+      <DependentUpon>app.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\layout.css">
+      <DependentUpon>layout.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\page\air-ticket.css">
+      <DependentUpon>air-ticket.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\page\air-ticket.min.css">
+      <DependentUpon>air-ticket.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\panel.css">
+      <DependentUpon>panel.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\panel.min.css">
+      <DependentUpon>panel.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\build.css">
+      <DependentUpon>build.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\build.min.css">
+      <DependentUpon>build.css</DependentUpon>
+    </Content>
     <Content Include="assets\css\filter-panel.css" />
     <Content Include="app\directives\filter-panel\filter-panel.html" />
     <Content Include="app\directives\filter-panel\filter-panel.js" />
@@ -33,6 +63,12 @@
     <Content Include="app\directives\search-panel\search-panel.html" />
     <Content Include="app\directives\search-panel\search-panel.js" />
     <Content Include="app\directives\ticket-card\ticket-card-controller.js" />
+    <Content Include="assets\css\StyleSheet1.css">
+      <DependentUpon>StyleSheet1.less</DependentUpon>
+    </Content>
+    <Content Include="assets\css\StyleSheet1.min.css">
+      <DependentUpon>StyleSheet1.css</DependentUpon>
+    </Content>
     <Content Include="assets\css\ticket-card.css" />
     <Content Include="app\directives\ticket-card\ticket-card.html" />
     <Content Include="app\directives\ticket-card\ticket-card.js" />
@@ -48,6 +84,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
+    <Content Include="assets\css\StyleSheet1.less" />
+    <Content Include="assets\css\StyleSheet1.css.map">
+      <DependentUpon>StyleSheet1.css</DependentUpon>
+    </Content>
+    <Content Include="package.json" />
+    <Content Include="assets\css\app\app.less" />
+    <Content Include="assets\css\build.less" />
+    <Content Include="assets\css\build.css.map">
+      <DependentUpon>build.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\app.css.map">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\page\air-ticket.less" />
+    <Content Include="assets\css\app\page\air-ticket.css.map">
+      <DependentUpon>air-ticket.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\layout.less" />
+    <Content Include="assets\css\app\layout.css.map">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="assets\css\app\panel.less" />
+    <Content Include="assets\css\app\panel.css.map">
+      <DependentUpon>panel.css</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
