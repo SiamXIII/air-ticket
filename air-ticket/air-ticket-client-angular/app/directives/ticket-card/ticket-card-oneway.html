@@ -4,9 +4,10 @@
 		<span class="from">{{flight.from}}</span>
 		<span class="to">{{flight.to}}</span>
 		<span class="flight-time">
-			{{getFlightTime().hours}} hours
-			<span ng-if="getFlightTime().minutes != 0">{{getFlightTime().minutes}}  minutes</span>
+			{{getFlightTime(flight.departureDate, flight.arrivalDate).hours}} hours
+			<span ng-if="getFlightTime(flight.departureDate, flight.arrivalDate).minutes != 0">{{getFlightTime(flight.departureDate, flight.arrivalDate).minutes}}  minutes</span>
 		</span>
 		<span class="vendor">{{flight['flight-id']}}</span>
+		<span class="price">{{flight.price}}$</span>
 	</div>
 </div>

@@ -23,8 +23,8 @@
 			}
 		})
 		.success(function (data) {
+			$scope.resultsDirection = $scope.direction;
 			$scope.flights = data;
-			$scope.resultDirection = $scope.direction;
 		});
 	}
 });

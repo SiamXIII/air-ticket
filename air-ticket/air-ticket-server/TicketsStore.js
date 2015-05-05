@@ -82,7 +82,7 @@ function createTwoWayTrips(forwardTrips, backTrips) {
 		backTrips.forEach(function (backTrip) {
 			trips.push({
 				forwardTrip: forwardTrip, 
-				backTrip: backTrip
+				comebackTrip: backTrip
 			});
 		});
 	});

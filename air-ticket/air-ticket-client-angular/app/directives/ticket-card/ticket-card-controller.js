@@ -1,9 +1,9 @@
 ﻿angular.module('airTicketApp')
 .controller('ticketCardCtrl', function ($scope) {
-	$scope.getFlightTime = function () {
+	$scope.getFlightTime = function (departure,arrival) {
 		return {
-			hours: moment.utc(moment($scope.flight.arrivalDate).diff(moment($scope.flight.departureDate))).format("H"),
-			minutes: moment.utc(moment($scope.flight.arrivalDate).diff(moment($scope.flight.departureDate))).format("m")
+			hours: moment.utc(moment(arrival).diff(moment(departure))).format("H"),
+			minutes: moment.utc(moment(arrival).diff(moment(departure))).format("m")
 		};
 	}
 });
