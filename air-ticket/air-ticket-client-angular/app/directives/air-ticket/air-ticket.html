@@ -1,4 +1,15 @@
-﻿<div ng-init="init()">
-	<search-panel class="col-md-2"></search-panel>
-	<ticket-list class="col-md-10" ng-if="flights" flights="flights" direction="{{resultDirection}}"></ticket-list>
+﻿
+<div class="air-ticket">
+	<div class="row">
+		<div class="col-md-4">
+			<search-panel></search-panel>
+		</div>
+		<div class="col-md-8">
+			<div class="list">
+				<h2>List</h2>
+			</div>
+		</div>
+	</div>
 </div>
+
+<ticket-card class="col-md-10"></ticket-card>
