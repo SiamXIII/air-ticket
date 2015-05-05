@@ -1,1 +1,1 @@
-﻿<ticket-card ng-repeat="flight in flights" flight="flight"></ticket-card>
+﻿<ticket-card ng-if="flights" ng-repeat="flight in flights" flight="flight" direction="{{direction}}"></ticket-card>

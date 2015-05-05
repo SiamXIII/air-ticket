@@ -1,3 +1,12 @@
 ﻿<div class="ticket-wrapper">
-	<h5>{{flight.from}} - {{ticket.to}} / {{ticket.departureDate | date: 'yyyy-MM-dd HH:mm'}}</h5>
+	<h5>{{flight.from}} - {{flight.to}} / {{flight.departureDate | date: 'yyyy-MM-dd HH:mm'}}</h5>
+	<div class="trip">
+		<span class="from">{{flight.from}}</span>
+		<span class="to">{{flight.to}}</span>
+		<span class="flight-time">
+			{{getFlightTime().hours}} hours
+			<span ng-if="getFlightTime().minutes != 0">{{getFlightTime().minutes}}  minutes</span>
+		</span>
+		<span class="vendor">{{flight['flight-id']}}</span>
+	</div>
 </div>
