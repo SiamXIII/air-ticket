@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: 'themes/default-theme/build',
+						cwd: 'moduiles/default-theme/build',
 						src: ['*'],
 						dest: 'build'
 					}
