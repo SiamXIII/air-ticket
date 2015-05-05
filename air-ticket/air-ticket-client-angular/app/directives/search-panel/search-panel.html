@@ -8,7 +8,7 @@
 
 			<div class="form-group">
 				<label class="control-label" for="departureSelected">Из</label>
-				<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="departureSelected" data-placeholder="Select origin">
+				<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.from" data-placeholder="Select origin">
 					<option value=""></option>
 					<option ng-repeat="city in departureCities" value="{{city}}">{{city}}</option>
 				</select>
@@ -16,7 +16,7 @@
 
 			<div class="form-group">
 				<label class="control-label" for="arrivalSelected">В</label>
-				<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="arrivalSelected" data-placeholder="Select destination">
+				<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.to" data-placeholder="Select destination">
 					<option value=""></option>
 					<option ng-repeat="city in arrivalCities" value="{{city}}">{{city}}</option>
 				</select>
@@ -35,14 +35,20 @@
 			<div class="form-group">
 				<div>
 					<label>Дата отправления</label>
-					<input class="datepicker form-control" type="text" pick-a-date="date" placeholder="Departure" />{{ departureTime }}
+					<input class="datepicker form-control" type="text" 
+						   pick-a-date="date" 
+						   ng-model="search.departureDate" 
+						   placeholder="Departure" />
 				</div>
 			</div>
 
 			<div class="form-group" ng-show="isTwoWay()">
 				<div>
 					<label>Дата возвращения</label>
-					<input class="datepicker form-control" type="text" pick-a-date="date" placeholder="Comeback" />{{ comebackTime }}
+					<input class="datepicker form-control" type="text" 
+						   pick-a-date="date" 
+						   ng-model="search.arrivalDate" 
+						   placeholder="Comeback" />
 				</div>
 			</div>
 
@@ -67,7 +73,7 @@
 				</div>
 			</div>
 
-			<div class="btn btn-default">Поиск</div>
+			<div class="btn btn-default" ng-click="searchTrips()">Поиск</div>
 		</form>
 	</div>
 </div>
