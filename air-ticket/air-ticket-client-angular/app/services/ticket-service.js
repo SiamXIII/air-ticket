@@ -9,4 +9,12 @@
 	this.getPlaces = function () {
 		return $http.get(this.serverUrl + "/api/0.1.0/places");
 	}
+
+	this.searchTrips = function (params) {
+		return $http({
+			method: 'GET',
+			url: this.serverUrl + "/api/0.1.0/search-trip",
+			params: params
+		});
+	}
 });

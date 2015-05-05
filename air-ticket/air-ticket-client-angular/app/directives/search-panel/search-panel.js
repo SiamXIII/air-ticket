@@ -1,5 +1,5 @@
 ﻿angular.module('airTicketApp')
-.directive('searchPanel', function () {
+.directive('searchPanel', function (ticketService) {
 	return {
 		restrict: "E",
 		templateUrl: "app/directives/search-panel/search-panel.html",
