@@ -23,6 +23,8 @@
     <Content Include="app\directives\air-ticket\air-ticket.js" />
     <Content Include="app\directives\air-ticket\air-ticket.html" />
     <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
+    <Content Include="app\directives\ticket-card\ticket-card-oneway.html" />
+    <Content Include="app\directives\ticket-card\ticket-card-twoway.html" />
     <Content Include="assets\css\app\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
@@ -53,7 +55,6 @@
     <Content Include="app\directives\search-panel\search-panel.html" />
     <Content Include="app\directives\search-panel\search-panel.js" />
     <Content Include="app\directives\ticket-card\ticket-card-controller.js" />
-    <Content Include="app\directives\ticket-card\ticket-card.html" />
     <Content Include="app\directives\ticket-card\ticket-card.js" />
     <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
     <Content Include="app\directives\ticket-list\ticket-list.html" />
