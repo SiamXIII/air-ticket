@@ -2,6 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Air Tickets</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/select2/select2.js"></script>
@@ -24,29 +29,25 @@
 	<script src="app/directives/ticket-card/ticket-card-controller.js"></script>
 	<script src="app/directives/ticket-list/ticket-list-controller.js"></script>
 	<script src="app/directives/ticket-list/ticket-list.js"></script>
-	
+
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<link href="bower_components/angular-native-picker/build/themes/classic.css" rel="stylesheet" />
 	<link href="bower_components/angular-native-picker/build/themes/classic.date.css" rel="stylesheet" />
-	<link href="bower_components/select2/select2.css" rel="stylesheet" />
-	<link href="assets/css/build.css" rel="stylesheet" />
+	<link href="bower_components/select2/select2.css" rel="stylesheet"/>
+	<link href="assets/css/theme-default/theme.css" rel="stylesheet" />
 </head>
+
 <body ng-app="airTicketApp">
-	<header>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Air Tickets</a>
-				</div>
-			</div>
-		</nav>
-	</header>
-	<main>
-		<div class="container-fluid">
-			<div ng-controller="ticketsCtrl">
-				<air-ticket></air-ticket>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Air Ticket</a>
 			</div>
 		</div>
-	</main>
+	</nav>
+	<div class="container-fluid" ng-controller="ticketsCtrl">
+		<air-ticket></air-ticket>
+	</div>
 </body>
 </html>

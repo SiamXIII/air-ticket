@@ -25,29 +25,23 @@
     <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
     <Content Include="app\directives\ticket-card\ticket-card-oneway.html" />
     <Content Include="app\directives\ticket-card\ticket-card-twoway.html" />
-    <Content Include="assets\css\app\app.css">
-      <DependentUpon>app.less</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\app.min.css">
-      <DependentUpon>app.css</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\layout.css">
+    <Content Include="assets\css\theme-default\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\layout.min.css">
+    <Content Include="assets\css\theme-default\layout.min.css">
       <DependentUpon>layout.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\panel.css">
+    <Content Include="assets\css\theme-default\panel.css">
       <DependentUpon>panel.less</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\panel.min.css">
+    <Content Include="assets\css\theme-default\panel.min.css">
       <DependentUpon>panel.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\build.css">
-      <DependentUpon>build.less</DependentUpon>
+    <Content Include="assets\css\theme-default\theme.css">
+      <DependentUpon>theme.less</DependentUpon>
     </Content>
-    <Content Include="assets\css\build.min.css">
-      <DependentUpon>build.css</DependentUpon>
+    <Content Include="assets\css\theme-default\theme.min.css">
+      <DependentUpon>theme.css</DependentUpon>
     </Content>
     <Content Include="app\directives\filter-panel\filter-panel.html" />
     <Content Include="app\directives\filter-panel\filter-panel.js" />
@@ -67,22 +61,88 @@
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="assets\css\app\app.less" />
-    <Content Include="assets\css\build.less" />
-    <Content Include="assets\css\build.css.map">
-      <DependentUpon>build.css</DependentUpon>
+    <Content Include="assets\css\theme-default\theme.less" />
+    <Content Include="assets\css\theme-default\theme.css.map">
+      <DependentUpon>theme.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\app.css.map">
-      <DependentUpon>app.css</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\layout.less" />
-    <Content Include="assets\css\app\layout.css.map">
+    <Content Include="assets\css\theme-default\layout.less" />
+    <Content Include="assets\css\theme-default\layout.css.map">
       <DependentUpon>layout.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\panel.less" />
-    <Content Include="assets\css\app\panel.css.map">
+    <Content Include="assets\css\theme-default\panel.less" />
+    <Content Include="assets\css\theme-default\panel.css.map">
       <DependentUpon>panel.css</DependentUpon>
     </Content>
+    <Content Include="assets\css\theme-default\bootstrap\less\alerts.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\badges.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\bootstrap.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\breadcrumbs.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\button-groups.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\buttons.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\carousel.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\close.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\code.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\component-animations.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\dropdowns.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\forms.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\glyphicons.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\grid.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\input-groups.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\jumbotron.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\labels.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\list-group.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\media.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\alerts.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\background-variant.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\border-radius.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\buttons.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\center-block.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\clearfix.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\forms.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\gradients.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\grid-framework.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\grid.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\hide-text.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\image.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\labels.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\list-group.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\nav-divider.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\nav-vertical-align.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\opacity.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\pagination.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\panels.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\progress-bar.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\reset-filter.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\resize.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\responsive-visibility.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\size.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\tab-focus.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\table-row.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\text-emphasis.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\text-overflow.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\mixins\vendor-prefixes.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\modals.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\navbar.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\navs.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\normalize.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\pager.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\pagination.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\panels.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\popovers.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\print.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\progress-bars.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\responsive-embed.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\responsive-utilities.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\scaffolding.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\tables.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\theme.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\thumbnails.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\tooltip.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\type.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\utilities.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\variables.less" />
+    <Content Include="assets\css\theme-default\bootstrap\less\wells.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -90,7 +150,9 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\js\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>

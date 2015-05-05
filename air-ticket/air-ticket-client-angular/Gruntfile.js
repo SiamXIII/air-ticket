@@ -7,8 +7,14 @@
 					{
 						expand: true,
 						cwd: 'bower_components',
-						src: ['bootstrap/**'],
-						dest: 'assets/css'
+						src: ['bootstrap/less/**'],
+						dest: 'assets/css/theme-default'
+					},
+					{
+						expand: true,
+						cwd: 'bower_components',
+						src: ['bootstrap/less/**'],
+						dest: 'assets/js/theme-default'
 					}
 				]
 			}
