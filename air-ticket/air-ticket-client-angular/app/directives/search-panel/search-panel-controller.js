@@ -21,6 +21,10 @@
 			params: {
 				twoway: $scope.direction == 'twoway'
 			}
+		})
+		.success(function (data) {
+			$scope.flights = data;
+			$scope.resultDirection = $scope.direction;
 		});
 	}
 });
