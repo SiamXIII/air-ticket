@@ -38,16 +38,23 @@
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="app\services\ticket-service.js" />
-    <Content Include="modules\default-theme\Gruntfile.js" />
+    <Content Include="src\css\styles.css">
+      <DependentUpon>styles.less</DependentUpon>
+    </Content>
+    <Content Include="src\css\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="modules\default-theme\package.json" />
-    <Content Include="modules\default-theme\src\layout.less" />
-    <Content Include="modules\default-theme\src\panel.less" />
-    <Content Include="modules\default-theme\src\theme.less" />
+    <Content Include="src\css\layout.less" />
+    <Content Include="src\css\panel.less" />
+    <Content Include="src\css\styles.less" />
+    <Content Include="src\css\styles.css.map">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

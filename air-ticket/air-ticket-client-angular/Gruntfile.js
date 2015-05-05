@@ -1,14 +1,27 @@
-﻿/// <reference path="themes/default-theme/build/bootstrap.min.js" />
-module.exports = function (grunt) {
+﻿module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		less: {
+			development: {
+				files: {
+					"build/styles.css": "src/css/styles.less"
+				}
+			}
+		},
+
 		copy: {
 			main: {
 				files: [
 					{
 						expand: true,
-						cwd: 'moduiles/default-theme/build',
-						src: ['*'],
+						cwd: 'bower_components/bootstrap/dist/css',
+						src: ['bootstrap.css'],
+						dest: 'build'
+					},
+					{
+						expand: true,
+						cwd: 'bower_components/bootstrap/dist/js',
+						src: ['bootstrap.min.js'],
 						dest: 'build'
 					}
 				]
@@ -17,17 +30,18 @@ module.exports = function (grunt) {
 
 		concat: {
 			dist: {
-				src: ['build/bootstrap.css', 'build/theme.css'],
-				dest: 'build/styles.css'
+				src: ['build/bootstrap.css', 'build/styles.css'],
+				dest: 'build/bundle.css'
 			}
 		},
 
-		clean: ['build/theme.css', 'build/bootstrap.css']
+		clean: ['build/bootstrap.css', 'build/styles.css']
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask('default', ['copy', 'concat', 'clean']);
+	grunt.registerTask('default', ['less', 'copy', 'concat', 'clean']);
 };
