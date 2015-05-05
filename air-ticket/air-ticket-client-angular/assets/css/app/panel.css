@@ -6547,7 +6547,7 @@ button.close {
     display: none !important;
   }
 }
-.panel.panel-default {
+.panel {
   margin: 20px;
 }
 /*# sourceMappingURL=panel.css.map */

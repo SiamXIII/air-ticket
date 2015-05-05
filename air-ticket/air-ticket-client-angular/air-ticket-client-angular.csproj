@@ -35,18 +35,6 @@
     <Content Include="assets\css\app\layout.min.css">
       <DependentUpon>layout.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\page-header.css">
-      <DependentUpon>page-header.less</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\page-header.min.css">
-      <DependentUpon>page-header.css</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\page\air-ticket.css">
-      <DependentUpon>air-ticket.less</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\page\air-ticket.min.css">
-      <DependentUpon>air-ticket.css</DependentUpon>
-    </Content>
     <Content Include="assets\css\app\panel.css">
       <DependentUpon>panel.less</DependentUpon>
     </Content>
@@ -86,10 +74,6 @@
     <Content Include="assets\css\app\app.css.map">
       <DependentUpon>app.css</DependentUpon>
     </Content>
-    <Content Include="assets\css\app\page\air-ticket.less" />
-    <Content Include="assets\css\app\page\air-ticket.css.map">
-      <DependentUpon>air-ticket.css</DependentUpon>
-    </Content>
     <Content Include="assets\css\app\layout.less" />
     <Content Include="assets\css\app\layout.css.map">
       <DependentUpon>layout.css</DependentUpon>
@@ -97,10 +81,6 @@
     <Content Include="assets\css\app\panel.less" />
     <Content Include="assets\css\app\panel.css.map">
       <DependentUpon>panel.css</DependentUpon>
-    </Content>
-    <Content Include="assets\css\app\page-header.less" />
-    <Content Include="assets\css\app\page-header.css.map">
-      <DependentUpon>page-header.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
