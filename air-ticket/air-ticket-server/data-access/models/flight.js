@@ -25,5 +25,10 @@ var Flight = new Schema({
 	},
 	'flight-id': {
 		type: String,
-	}
+	},
+	'fromCode': String,
+	'fromFull': String,
+	'toCode': String,
+	'toCode': String,
+	'innerFlightsId': [Schema.ObjectId]
 });

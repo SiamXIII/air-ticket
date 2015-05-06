@@ -47,7 +47,7 @@ var instance = {
 			var trip = buildFindQuery(JSON.parse(query.search));
 			flightsDataAccess.find(trip, function (err, data) {
 				callback(data);
-			});
+			}).populate('innerFlightsId');
 		}
 		else {
 			var trips = {};
@@ -61,7 +61,7 @@ var instance = {
 					callback(createTwoWayTrips(forwardTrips, comebackTrips));
 					sent = true;
 				}
-			}).lean(true);
+			}).populate('innerFlightsId').lean(true);
 			
 			
 			flightsDataAccess.find(buildComebackFindQuery(JSON.parse(query.search)), function (err, data) {
@@ -70,7 +70,7 @@ var instance = {
 					callback(createTwoWayTrips(forwardTrips, comebackTrips));
 					sent = true;
 				}
-			}).lean(true);
+			}).populate('innerFlightsId').lean(true);
 		}
 	}
 };
