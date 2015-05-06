@@ -1,4 +1,6 @@
 ﻿angular.module('airTicketApp')
-.controller('filterPanelCrtl', function ($scope) {
+.controller('filterPanelCtrl', function ($scope) {
+	$scope.init = function () {
 	
+	}
 });

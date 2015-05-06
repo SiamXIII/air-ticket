@@ -6,7 +6,8 @@
 		controller: 'ticketListCtrl',
 		scope: {
 			flights: '=',
-			direction: '@'
+			direction: '@',
+			filter: "="
 		}
 	}
 });
