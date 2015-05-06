@@ -16,6 +16,22 @@
 	<div class="totalCost">{{flight[0].price + flight[1].price}}</div>
 
 	<div class="details" ng-show="detailed">
-
+		<div class="detailed-trip">
+			<div></div>
+			<table ng-repeat="trip in flight">
+				<tr>
+					<td>Departure</td>
+					<td>Arrival</td>
+					<td>Vendor</td>
+					<td>Flight Id</td>
+				</tr>
+				<tr ng-if="!trip.innerFlightsId">
+					<td>{{trip.from}}</td>
+					<td>{{trip.to}}</td>
+					<td>{{trip.vendor}}</td>
+					<td>{{trip['flight-id']}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
