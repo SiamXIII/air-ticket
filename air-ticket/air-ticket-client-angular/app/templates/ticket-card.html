@@ -1,8 +1,8 @@
 ﻿<div class="well">
 	<h5>{{flight[0].from}} - {{flight[0].to}}<span ng-if="flight[1]"> - {{flight[1].to}}</span> {{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}</h5>
 	<div class="trip" ng-repeat="trip in flight">
-		<span class="from">{{trip.from}}</span>
-		<span class="to">{{trip.to}}</span>
+		<span class="from">{{trip.fromCode}} : {{flight[0].departureDate | date: 'HH:mm'}}</span>
+		<span class="to">{{trip.toCode}} : {{flight[0].arrivalDate | date: 'HH:mm'}}</span>
 		<span class="flight-time">
 			{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
 			<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
