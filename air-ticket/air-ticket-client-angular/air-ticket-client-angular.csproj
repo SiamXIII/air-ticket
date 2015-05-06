@@ -35,6 +35,12 @@
     <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
     <Content Include="app\templates\ticket-list.html" />
     <Content Include="app\directives\ticket-list\ticket-list.js" />
+    <Content Include="css\bootstrap-overrides\well.css">
+      <DependentUpon>well.less</DependentUpon>
+    </Content>
+    <Content Include="css\bootstrap-overrides\well.min.css">
+      <DependentUpon>well.css</DependentUpon>
+    </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="app\services\ticket-service.js" />
@@ -50,10 +56,14 @@
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="css\layout.less" />
-    <Content Include="css\panel.less" />
+    <Content Include="css\bootstrap-overrides\panel.less" />
     <Content Include="css\styles.less" />
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
+    </Content>
+    <Content Include="css\bootstrap-overrides\well.less" />
+    <Content Include="css\bootstrap-overrides\well.css.map">
+      <DependentUpon>well.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
