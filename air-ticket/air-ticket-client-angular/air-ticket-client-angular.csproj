@@ -41,6 +41,12 @@
     <Content Include="css\bootstrap-overrides\well.min.css">
       <DependentUpon>well.css</DependentUpon>
     </Content>
+    <Content Include="css\layout.css">
+      <DependentUpon>layout.less</DependentUpon>
+    </Content>
+    <Content Include="css\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="app\services\ticket-service.js" />
@@ -64,6 +70,9 @@
     <Content Include="css\bootstrap-overrides\well.less" />
     <Content Include="css\bootstrap-overrides\well.css.map">
       <DependentUpon>well.css</DependentUpon>
+    </Content>
+    <Content Include="css\layout.css.map">
+      <DependentUpon>layout.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
