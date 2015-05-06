@@ -18,6 +18,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="3rd_components\select2-bootstrap.css" />
     <Content Include="app\app.js" />
     <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
@@ -37,42 +38,22 @@
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="app\services\ticket-service.js" />
-    <Content Include="themes\default-theme\Gruntfile.js" />
-    <Content Include="themes\default-theme\src\layout.css">
-      <DependentUpon>layout.less</DependentUpon>
+    <Content Include="css\styles.css">
+      <DependentUpon>styles.less</DependentUpon>
     </Content>
-    <Content Include="themes\default-theme\src\layout.min.css">
-      <DependentUpon>layout.css</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\panel.css">
-      <DependentUpon>panel.less</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\panel.min.css">
-      <DependentUpon>panel.css</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\theme.css">
-      <DependentUpon>theme.less</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
+    <Content Include="css\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
     </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="themes\default-theme\package.json" />
-    <Content Include="themes\default-theme\src\layout.less" />
-    <Content Include="themes\default-theme\src\layout.css.map">
-      <DependentUpon>layout.css</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\panel.less" />
-    <Content Include="themes\default-theme\src\panel.css.map">
-      <DependentUpon>panel.css</DependentUpon>
-    </Content>
-    <Content Include="themes\default-theme\src\theme.less" />
-    <Content Include="themes\default-theme\src\theme.css.map">
-      <DependentUpon>theme.css</DependentUpon>
+    <Content Include="css\layout.less" />
+    <Content Include="css\panel.less" />
+    <Content Include="css\styles.less" />
+    <Content Include="css\styles.css.map">
+      <DependentUpon>styles.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -81,11 +62,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\" />
-    <Folder Include="bundles\" />
-    <Folder Include="themes\default-theme\build\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
