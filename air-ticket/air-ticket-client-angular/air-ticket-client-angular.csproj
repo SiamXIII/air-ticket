@@ -18,6 +18,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="3rd_components\select2-bootstrap.css" />
     <Content Include="app\app.js" />
     <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
@@ -38,10 +39,10 @@
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="app\services\ticket-service.js" />
-    <Content Include="src\css\styles.css">
+    <Content Include="css\styles.css">
       <DependentUpon>styles.less</DependentUpon>
     </Content>
-    <Content Include="src\css\styles.min.css">
+    <Content Include="css\styles.min.css">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
     <Content Include="web.config" />
@@ -49,10 +50,10 @@
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="src\css\layout.less" />
-    <Content Include="src\css\panel.less" />
-    <Content Include="src\css\styles.less" />
-    <Content Include="src\css\styles.css.map">
+    <Content Include="css\layout.less" />
+    <Content Include="css\panel.less" />
+    <Content Include="css\styles.less" />
+    <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
