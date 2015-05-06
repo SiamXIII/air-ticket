@@ -9,10 +9,11 @@
 				<h2>List</h2>
 			</div>
 		</div>
-	</div>
-</div>
 
-<ticket-list ng-if="flights" 
-			 flights="flights" 
-			 direction="{{resultsDirection}}"
-			 class="col-md-10"></ticket-list>
+		<div class="col-md-10"></div>
+		<ticket-list ng-if="flights"
+					 flights="flights"
+					 direction="{{resultsDirection}}">
+		</ticket-list>
+	</div>
+</div>	

@@ -2,16 +2,10 @@
 .directive('ticketCard', function (templatesPath) {
 	return {
 		restrict: 'E',
-		template: '<div ng-include="getTemplate()"></div>',
+		templateUrl: templatesPath + 'ticket-card.html',
 		controller: 'ticketCardCtrl',
 		scope: {
 			flight: '=',
-			direction: '@'
-		},
-		link: function ($scope, $element, $attrs) {
-			$scope.getTemplate = function () {
-				return templatesPath + 'ticket-card-' + $attrs.direction + '.html';
-			}
-		},
+		}
 	}
 });
