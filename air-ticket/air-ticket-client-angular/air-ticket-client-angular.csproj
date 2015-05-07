@@ -35,17 +35,23 @@
     <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
     <Content Include="app\templates\ticket-list.html" />
     <Content Include="app\directives\ticket-list\ticket-list.js" />
-    <Content Include="css\bootstrap-overrides\well.css">
-      <DependentUpon>well.less</DependentUpon>
+    <Content Include="css\air-ticket.css">
+      <DependentUpon>air-ticket.less</DependentUpon>
     </Content>
-    <Content Include="css\bootstrap-overrides\well.min.css">
-      <DependentUpon>well.css</DependentUpon>
+    <Content Include="css\air-ticket.min.css">
+      <DependentUpon>air-ticket.css</DependentUpon>
     </Content>
-    <Content Include="css\layout.css">
-      <DependentUpon>layout.less</DependentUpon>
+    <Content Include="css\body.css">
+      <DependentUpon>body.less</DependentUpon>
     </Content>
-    <Content Include="css\layout.min.css">
-      <DependentUpon>layout.css</DependentUpon>
+    <Content Include="css\body.min.css">
+      <DependentUpon>body.css</DependentUpon>
+    </Content>
+    <Content Include="css\flight-list.css">
+      <DependentUpon>flight-list.less</DependentUpon>
+    </Content>
+    <Content Include="css\flight-list.min.css">
+      <DependentUpon>flight-list.css</DependentUpon>
     </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
@@ -61,18 +67,21 @@
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="css\layout.less" />
-    <Content Include="css\bootstrap-overrides\panel.less" />
     <Content Include="css\styles.less" />
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
-    <Content Include="css\bootstrap-overrides\well.less" />
-    <Content Include="css\bootstrap-overrides\well.css.map">
-      <DependentUpon>well.css</DependentUpon>
+    <Content Include="css\air-ticket.less" />
+    <Content Include="css\air-ticket.css.map">
+      <DependentUpon>air-ticket.css</DependentUpon>
     </Content>
-    <Content Include="css\layout.css.map">
-      <DependentUpon>layout.css</DependentUpon>
+    <Content Include="css\flight-list.less" />
+    <Content Include="css\flight-list.css.map">
+      <DependentUpon>flight-list.css</DependentUpon>
+    </Content>
+    <Content Include="css\body.less" />
+    <Content Include="css\body.css.map">
+      <DependentUpon>body.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
