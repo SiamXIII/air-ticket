@@ -9,12 +9,12 @@
 			<span class="route">
 				<span class="from">
 					<span class="code">{{trip.fromCode}}:</span>
-					<span class="time">{{flight[0].departureDate | date: 'HH:mm'}}</span>
+					<span class="time">{{trip.departureDate | date: 'HH:mm'}}</span>
 				</span>
 				<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 				<span class="to">
 					<span class="code">{{trip.toCode}}:</span>
-					<span class="time">{{flight[0].arrivalDate | date: 'HH:mm'}}</span>
+					<span class="time">{{trip.arrivalDate | date: 'HH:mm'}}</span>
 				</span>
 			</span>
 
