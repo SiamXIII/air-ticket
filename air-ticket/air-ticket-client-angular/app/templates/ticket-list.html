@@ -1,12 +1,12 @@
 ﻿<div class="flight-list-wrap">
 	<div class="flight-list">
 		<h2 class="header">
-		Список рейсов
+			Список рейсов
 		</h2>
 
-	<div class="panel-body">
-		<ticket-card ng-if="flights && direction == 'oneway'" ng-repeat="flight in flights | listFilter: filter" flight="[flight]"></ticket-card>
-		<ticket-card ng-if="flights && direction == 'twoway'" ng-repeat="flight in flights" flight="[flight.forwardTrip, flight.comebackTrip]"></ticket-card>
+		<div class="panel-body">
+			<ticket-card ng-if="flights && direction == 'oneway'" ng-repeat="flight in flights | listFilter: filter" flight="[flight]"></ticket-card>
+			<ticket-card ng-if="flights && direction == 'twoway'" ng-repeat="flight in flights | listFilter: filter: true" flight="[flight.forwardTrip, flight.comebackTrip]"></ticket-card>
+		</div>
 	</div>
-</div>
 </div>

@@ -7,9 +7,16 @@
 		controller: 'filterPanelCtrl',
 		link: function ($scope) {
 			$scope.filter = {
-				departureMorning: false,
-				departureDay: false,
-				departureEvening: false
+				forwardTrip: {
+					departureMorning: false,
+					departureDay: false,
+					departureEvening: false
+				},
+				comebackTrip: {
+					comebackMorning: false,
+					comebackDay: false,
+					comebackEvening: false
+				}
 			};
 		}
 	}
@@ -24,6 +31,15 @@
 		},
 		departureEvening: function (item) {
 			return (new Date(item.departureDate)).getHours() >= 18 && (new Date(item.departureDate)).getHours() < 24
+		},
+		comebackMorning: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 6 && (new Date(item.departureDate)).getHours() < 12
+		},
+		comebackDay: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 12 && (new Date(item.departureDate)).getHours() < 18
+		},
+		comebackEvening: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 18 && (new Date(item.departureDate)).getHours() < 24
 		}
 	}
 
@@ -37,15 +53,33 @@
 		return result;
 	}
 
-	return function (items, filter) {
+	return function (items, filter, twoway) {
 		var result = [];
 
-		angular.forEach(items, function (item) {
-			if ((!filter.departureMorning && !filter.departureDay && !filter.departureEvening) ||
-				(_.some(applyFilters(item, filter)))) {
-				result.push(item);
-			}
-		});
+		if (!twoway) {
+			angular.forEach(items, function (item) {
+				if ((!filter.forwardTrip.departureMorning && !filter.forwardTrip.departureDay && !filter.forwardTrip.departureEvening) ||
+					(_.some(applyFilters(item, filter.forwardTrip)))) {
+					result.push(item);
+				}
+			});
+		}
+		else {
+			var preResult = [];
+
+			angular.forEach(items, function (item) {
+				if ((!filter.forwardTrip.departureMorning && !filter.forwardTrip.departureDay && !filter.forwardTrip.departureEvening) ||
+					(_.some(applyFilters(item.forwardTrip, filter.forwardTrip)))) {
+					preResult.push(item);
+				}
+			});
+			angular.forEach(preResult, function (item) {
+				if ((!filter.comebackTrip.departureMorning && !filter.comebackTrip.departureDay && !filter.comebackTrip.departureEvening) ||
+					(_.some(applyFilters(item.comebackTrip, filter.comebackTrip)))) {
+					result.push(item);
+				}
+			});
+		}
 
 		return result;
 	};

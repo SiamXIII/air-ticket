@@ -12,9 +12,9 @@
 				<table class="table table-trips-short">
 					<tr ng-repeat="trip in flight">
 						<td>
-							<span>{{trip.fromCode}}: {{flight[0].departureDate | date: 'HH:mm'}}</span>
+							<span>{{trip.fromCode}}: {{trip.departureDate | date: 'HH:mm'}}</span>
 							<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-							<span>{{trip.toCode}}: {{flight[0].arrivalDate | date: 'HH:mm'}}</span>
+							<span>{{trip.toCode}}: {{trip.arrivalDate | date: 'HH:mm'}}</span>
 						</td>
 						<td>
 							<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
