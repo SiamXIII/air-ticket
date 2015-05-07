@@ -53,34 +53,27 @@
 		return result;
 	}
 
-	return function (items, filter, twoway) {
+	Array.prototype.filterItems = function (filterGroup, targetTrip) {
 		var result = [];
 
-		if (!twoway) {
-			angular.forEach(items, function (item) {
-				if ((!filter.forwardTrip.departureMorning && !filter.forwardTrip.departureDay && !filter.forwardTrip.departureEvening) ||
-					(_.some(applyFilters(item, filter.forwardTrip)))) {
-					result.push(item);
-				}
-			});
-		}
-		else {
-			var preResult = [];
+		angular.forEach(this, function (item) {
+			var target = targetTrip ? item[targetTrip] : item;
 
-			angular.forEach(items, function (item) {
-				if ((!filter.forwardTrip.departureMorning && !filter.forwardTrip.departureDay && !filter.forwardTrip.departureEvening) ||
-					(_.some(applyFilters(item.forwardTrip, filter.forwardTrip)))) {
-					preResult.push(item);
-				}
-			});
-			angular.forEach(preResult, function (item) {
-				if ((!filter.comebackTrip.departureMorning && !filter.comebackTrip.departureDay && !filter.comebackTrip.departureEvening) ||
-					(_.some(applyFilters(item.comebackTrip, filter.comebackTrip)))) {
-					result.push(item);
-				}
-			});
-		}
+			if ((!filterGroup.departureMorning && !filterGroup.departureDay && !filterGroup.departureEvening) ||
+				(_.some(applyFilters(target, filterGroup)))) {
+				result.push(item);
+			}
+		});
 
 		return result;
+	}
+
+	return function (items, filter, twoway) {
+		if (!twoway) {
+			return items.filterItems(filter.forwardTrip);
+		}
+		else {
+			return items.filterItems(filter.forwardTrip, "forwardTrip").filterItems(filter.comebackTrip, "comebackTrip");
+		}
 	};
 });;
