@@ -5,40 +5,53 @@
 	.panel-default();
 }
 
-.flight-list h2{
+.flight-list h2 {
 	.panel-heading();
 	.panel-default .panel-heading();
-	
 	margin: 0;
 	font-size: @font-size-base;
 }
 
-.flight-list .items{
+.flight-list .items {
 	.panel-body();
 }
-
 
 .flight-list .item {
 	.panel();
 	.panel-default();
 }
 
-.flight-list .item h3{
+.flight-list .item h3 {
 	.panel-heading();
 	.panel-default .panel-heading();
-
 	margin: 0;
 	font-size: @font-size-base;
 }
 
-.flight-list .item .content-wrap{
+.flight-list .item .content-wrap {
 	.panel-body();
 }
 
-.flight-list .trip{
+.flight-list .flights-short-info .trip {
 	.well();
+
+	.route {
+		margin-right: 10px;
+	}
 }
 
-.flight-list .route{
-	margin-right: 10px;
+.flight-list .actions{
+	.form-group();
+}
+
+.flight-list .item .details {
+	.to-flights,
+	.back-flights{
+		.table();
+	}
+} 
+
+.flight-list .item .details .to-flights .direction,
+.flight-list .item .details .back-flights .direction{
+	.alert-info();
 }
