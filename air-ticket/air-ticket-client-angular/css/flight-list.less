@@ -1,21 +1,44 @@
 ﻿@import "../bower_components/bootstrap/less/bootstrap";
 
+.flight-list {
+	.panel();
+	.panel-default();
+}
+
 .flight-list h2{
 	.panel-heading();
+	.panel-default .panel-heading();
+	
+	margin: 0;
+	font-size: @font-size-base;
+}
+
+.flight-list .items{
+	.panel-body();
+}
+
+
+.flight-list .item {
+	.panel();
+	.panel-default();
+}
+
+.flight-list .item h3{
+	.panel-heading();
+	.panel-default .panel-heading();
 
 	margin: 0;
 	font-size: @font-size-base;
 }
 
-.flight-list {
-	.panel();
-	.panel-default();
+.flight-list .item .content-wrap{
+	.panel-body();
+}
 
-	.items {
-		.panel-body();
-	}
+.flight-list .trip{
+	.well();
+}
 
-	h2{
-		.panel-heading();
-	}
+.flight-list .route{
+	margin-right: 10px;
 }
