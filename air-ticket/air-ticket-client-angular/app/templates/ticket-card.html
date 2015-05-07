@@ -1,106 +1,96 @@
-﻿<div class="panel panel-default">
-	<div class="panel-heading">
-		<h6>
-			{{flight[0].from}} - {{flight[0].to}} <span ng-if="flight[1]"> - {{flight[1].to}}</span>
-			/
-			{{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}
-		</h6>
+﻿<div class="item">
+	<h3>
+		{{flight[0].from}} - {{flight[0].to}} <span ng-if="flight[1]"> - {{flight[1].to}}</span>
+		/
+		{{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}
+	</h3>
+	<div class="content-wrap">
+		<div class="trip" ng-repeat="trip in flight">
+			<span class="route">
+				<span class="from">
+					<span class="code">{{trip.fromCode}}:</span>
+					<span class="time">{{flight[0].departureDate | date: 'HH:mm'}}</span>
+				</span>
+				<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+				<span class="to">
+					<span class="code">{{trip.toCode}}:</span>
+					<span class="time">{{flight[0].arrivalDate | date: 'HH:mm'}}</span>
+				</span>
+			</span>
+
+			<span class="time">
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+				{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
+				<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
+					{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
+				</span>
+			</span>
+
+		</div>
+		<div class="col-md-2">
+			<div class="totalCost">{{flight[0].price + flight[1].price}}</div>
+			<button class="btn btn-default">Заказать</button>
+		</div>
 	</div>
-	<div class="panel-body">
-		<div class="row row-flights-short">
-			<div class="col-md-8">
-				<table class="table table-trips-short">
-					<tr ng-repeat="trip in flight">
+
+	<div class="details" ng-show="detailed">
+		<div class="detailed-trip">
+			<div ng-repeat="(key, trip) in flight">
+				<span>{{getDirectionName(key)}}</span>
+				<span>{{trip.departureDate | date: 'dd.mm.yyyy'}}</span>
+				<span class="flight-time">
+					{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
+					<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
+						{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
+					</span>
+				</span>
+				<table>
+					<tr>
+						<td>Departure</td>
+						<td>Arrival</td>
+						<td>Vendor</td>
+						<td>Flight Id</td>
+					</tr>
+					<tr ng-if="!trip.innerFlightsId">
 						<td>
-							<span>{{trip.fromCode}}: {{flight[0].departureDate | date: 'HH:mm'}}</span>
-							<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-							<span>{{trip.toCode}}: {{flight[0].arrivalDate | date: 'HH:mm'}}</span>
+							<span>{{trip.departureDate | date: 'HH:mm'}}</span>
+							<span>{{trip.from}}</span>
+							<span>{{trip.fromCode}}</span>
+							<span>{{trip.fromFull}}</span>
 						</td>
 						<td>
-							<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							<span>
-								{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
-								<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
-									{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
-								</span>
-							</span>
+							<span>{{trip.arrivalDate | date: 'HH:mm'}}</span>
+							<span>{{trip.to}}</span>
+							<span>{{trip.toCode}}</span>
+							<span>{{trip.toFull}}</span>
+						</td>
+						<td>{{trip.vendor}}</td>
+						<td>{{trip['flight-id']}}</td>
+					</tr>
+					<tr ng-if="trip.innerFlightsId" ng-repeat="innerTrip in trip.innerFlightsId">
+						<td>
+							<span>{{innerTrip.departureDate | date: 'HH:mm'}}</span>
+							<span>{{innerTrip.from}}</span>
+							<span>{{innerTrip.fromCode}}</span>
+							<span>{{innerTrip.fromFull}}</span>
 						</td>
 						<td>
-							<span class="vendor">{{trip['flight-id']}}</span>
+							<span>{{innerTrip.arrivalDate | date: 'HH:mm'}}</span>
+							<span>{{innerTrip.to}}</span>
+							<span>{{innerTrip.toCode}}</span>
+							<span>{{innerTrip.toFull}}</span>
 						</td>
-						<td>
-							<span class="price">{{trip.price}}$</span>
-						</td>
+						<td>{{innerTrip.vendor}}</td>
+						<td>{{innerTrip['flight-id']}}</td>
 					</tr>
 				</table>
 			</div>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-2">
-				<div class="totalCost">{{flight[0].price + flight[1].price}}</div>
-				<button class="btn btn-default">Заказать</button>
-			</div>
 		</div>
 
-		<div class="details" ng-show="detailed">
-			<div class="detailed-trip">
-				<div ng-repeat="(key, trip) in flight">
-					<span>{{getDirectionName(key)}}</span>
-					<span>{{trip.departureDate | date: 'dd.mm.yyyy'}}</span>
-					<span class="flight-time">
-						{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
-						<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
-							{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
-						</span>
-					</span>
-					<table>
-						<tr>
-							<td>Departure</td>
-							<td>Arrival</td>
-							<td>Vendor</td>
-							<td>Flight Id</td>
-						</tr>
-						<tr ng-if="!trip.innerFlightsId">
-							<td>
-								<span>{{trip.departureDate | date: 'HH:mm'}}</span>
-								<span>{{trip.from}}</span>
-								<span>{{trip.fromCode}}</span>
-								<span>{{trip.fromFull}}</span>
-							</td>
-							<td>
-								<span>{{trip.arrivalDate | date: 'HH:mm'}}</span>
-								<span>{{trip.to}}</span>
-								<span>{{trip.toCode}}</span>
-								<span>{{trip.toFull}}</span>
-							</td>
-							<td>{{trip.vendor}}</td>
-							<td>{{trip['flight-id']}}</td>
-						</tr>
-						<tr ng-if="trip.innerFlightsId" ng-repeat="innerTrip in trip.innerFlightsId">
-							<td>
-								<span>{{innerTrip.departureDate | date: 'HH:mm'}}</span>
-								<span>{{innerTrip.from}}</span>
-								<span>{{innerTrip.fromCode}}</span>
-								<span>{{innerTrip.fromFull}}</span>
-							</td>
-							<td>
-								<span>{{innerTrip.arrivalDate | date: 'HH:mm'}}</span>
-								<span>{{innerTrip.to}}</span>
-								<span>{{innerTrip.toCode}}</span>
-								<span>{{innerTrip.toFull}}</span>
-							</td>
-							<td>{{innerTrip.vendor}}</td>
-							<td>{{innerTrip['flight-id']}}</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-		</div>
-
-		<button class="btn btn-default" ng-click="toggleDetails()">
-			<span ng-if="!detailed">Подробнее</span>
-			<span ng-if="detailed">Скрыть</span>
-		</button>
 	</div>
+
+	<button class="btn btn-default" ng-click="toggleDetails()">
+		<span ng-if="!detailed">Подробнее</span>
+		<span ng-if="detailed">Скрыть</span>
+	</button>
 </div>
