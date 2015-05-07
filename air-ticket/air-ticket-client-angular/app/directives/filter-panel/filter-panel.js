@@ -6,31 +6,43 @@
 		templateUrl: templatesPath + 'filter-panel.html',
 		controller: 'filterPanelCtrl',
 		link: function ($scope) {
-			$scope.filter = {};
+			$scope.filter = {
+				departureMorning: false,
+				departureDay: false,
+				departureEvening: false
+			};
 		}
 	}
 })
-.filter("timeFilter", function () {
-	var filters = {
-		morning: function (time) {
-			return (new Date(time)).getHours() >= 6 && (new Date(time)).getHours() < 12
+.filter("listFilter", function () {
+	var filtersProvider = {
+		departureMorning: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 6 && (new Date(item.departureDate)).getHours() < 12
 		},
-		day: function (time) {
-			return (new Date(time)).getHours() >= 12 && (new Date(time)).getHours() < 18
+		departureDay: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 12 && (new Date(item.departureDate)).getHours() < 18
 		},
-		evening: function (time) {
-			return (new Date(time)).getHours() >= 18 && (new Date(time)).getHours() < 24
+		departureEvening: function (item) {
+			return (new Date(item.departureDate)).getHours() >= 18 && (new Date(item.departureDate)).getHours() < 24
 		}
+	}
+
+	function applyFilters(item, filters) {
+		var result = [];
+
+		angular.forEach(filters, function (value, filter) {
+			result.push(value && filtersProvider[filter](item));
+		});
+
+		return result;
 	}
 
 	return function (items, filter) {
 		var result = [];
 
 		angular.forEach(items, function (item) {
-			if ((!filter.morning && !filter.day && !filter.evening) ||
-				(filters.morning(item.departureDate) && filter.morning) ||
-				(filters.day(item.departureDate) && filter.day) ||
-				(filters.evening(item.departureDate) && filter.evening)) {
+			if ((!filter.departureMorning && !filter.departureDay && !filter.departureEvening) ||
+				(_.some(applyFilters(item, filter)))) {
 				result.push(item);
 			}
 		});
