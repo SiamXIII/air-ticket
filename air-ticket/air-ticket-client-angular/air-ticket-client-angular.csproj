@@ -47,11 +47,23 @@
     <Content Include="css\body.min.css">
       <DependentUpon>body.css</DependentUpon>
     </Content>
+    <Content Include="css\button.css">
+      <DependentUpon>button.less</DependentUpon>
+    </Content>
+    <Content Include="css\button.min.css">
+      <DependentUpon>button.css</DependentUpon>
+    </Content>
     <Content Include="css\flight-list.css">
       <DependentUpon>flight-list.less</DependentUpon>
     </Content>
     <Content Include="css\flight-list.min.css">
       <DependentUpon>flight-list.css</DependentUpon>
+    </Content>
+    <Content Include="css\search-settings.css">
+      <DependentUpon>search-settings.less</DependentUpon>
+    </Content>
+    <Content Include="css\search-settings.min.css">
+      <DependentUpon>search-settings.css</DependentUpon>
     </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
@@ -82,6 +94,14 @@
     <Content Include="css\body.less" />
     <Content Include="css\body.css.map">
       <DependentUpon>body.css</DependentUpon>
+    </Content>
+    <Content Include="css\search-settings.less" />
+    <Content Include="css\search-settings.css.map">
+      <DependentUpon>search-settings.css</DependentUpon>
+    </Content>
+    <Content Include="css\button.less" />
+    <Content Include="css\button.css.map">
+      <DependentUpon>button.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

@@ -6,51 +6,21 @@
 		templateUrl: templatesPath + 'filter-panel.html',
 		controller: 'filterPanelCtrl',
 		link: function ($scope) {
-			$scope.filter = {
-				forwardTrip: {
-					departureMorning: false,
-					departureDay: false,
-					departureEvening: false
-				},
-				comebackTrip: {
-					comebackMorning: false,
-					comebackDay: false,
-					comebackEvening: false
+			$scope.filter = {};
 				}
-			};
 		}
-	}
 })
-.filter("listFilter", function () {
-	var filtersProvider = {
-		departureMorning: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 6 && (new Date(item.departureDate)).getHours() < 12
+.filter("timeFilter", function () {
+	var filters = {
+		morning: function (time) {
+			return (new Date(time)).getHours() >= 6 && (new Date(time)).getHours() < 12
 		},
-		departureDay: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 12 && (new Date(item.departureDate)).getHours() < 18
+		day: function (time) {
+			return (new Date(time)).getHours() >= 12 && (new Date(time)).getHours() < 18
 		},
-		departureEvening: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 18 && (new Date(item.departureDate)).getHours() < 24
-		},
-		comebackMorning: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 6 && (new Date(item.departureDate)).getHours() < 12
-		},
-		comebackDay: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 12 && (new Date(item.departureDate)).getHours() < 18
-		},
-		comebackEvening: function (item) {
-			return (new Date(item.departureDate)).getHours() >= 18 && (new Date(item.departureDate)).getHours() < 24
-		}
+		evening: function (time) {
+			return (new Date(time)).getHours() >= 18 && (new Date(time)).getHours() < 24
 	}
-
-	function applyFilters(item, filters) {
-		var result = [];
-
-		angular.forEach(filters, function (value, filter) {
-			result.push(value && filtersProvider[filter](item));
-		});
-
-		return result;
 	}
 
 	Array.prototype.filterItems = function (filterGroup, targetTrip) {
@@ -71,9 +41,10 @@
 	return function (items, filter, twoway) {
 		if (!twoway) {
 			return items.filterItems(filter.forwardTrip);
+				}
+			});
 		}
-		else {
-			return items.filterItems(filter.forwardTrip, "forwardTrip").filterItems(filter.comebackTrip, "comebackTrip");
-		}
+
+		return result;
 	};
 });;
