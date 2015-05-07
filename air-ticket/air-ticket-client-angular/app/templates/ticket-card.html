@@ -25,16 +25,46 @@
 					{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
 				</span>
 			</span>
-
 		</div>
-		<div class="col-md-2">
+
+		<div>
 			<div class="totalCost">{{flight[0].price + flight[1].price}}</div>
 			<button class="btn btn-default">Заказать</button>
 		</div>
-	</div>
 
 	<div class="details" ng-show="detailed">
 		<div class="detailed-trip">
+				<div class="direction">
+					Туда
+				</div>
+				<div class="headers">
+					<h3>Отправление из</h3>
+					<h3>Прибытие в</h3>
+					<h3>Авиакомпания</h3>
+					<h3>Номер рейса</h3>
+				</div>
+				<div class="trip" ng-repeat="(key, trip) in flight">
+					<div class="from">
+						<span class="time">{{trip.departureDate | date: 'HH:mm'}}</span>
+						<span class="place-name">{{trip.from}}</span>
+						<span class="place-code">{{trip.fromCode}}</span>
+						<span class="place-full">{{trip.fromFull}}</span>
+					</div>
+					<div class="to">
+						<span class="time">{{trip.arrivalDate | date: 'HH:mm'}}</span>
+						<span class="place-name">{{trip.to}}</span>
+						<span class="place-code">{{trip.toCode}}</span>
+						<span class="place-full">{{trip.toFull}}</span>
+					</div>
+					<div class="vendor">
+						{{trip.vendor}}
+					</div>
+					<div class="flight-id">
+						{{trip['flight-id']}}
+					</div>
+				</div>
+
+
 			<div ng-repeat="(key, trip) in flight">
 				<span>{{getDirectionName(key)}}</span>
 				<span>{{trip.departureDate | date: 'dd.mm.yyyy'}}</span>
@@ -86,11 +116,10 @@
 				</table>
 			</div>
 		</div>
-
 	</div>
-
-	<button class="btn btn-default" ng-click="toggleDetails()">
+		<button ng-click="toggleDetails()">
 		<span ng-if="!detailed">Подробнее</span>
 		<span ng-if="detailed">Скрыть</span>
 	</button>
+</div>
 </div>
