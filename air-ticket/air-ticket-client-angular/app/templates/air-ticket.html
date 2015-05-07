@@ -1,18 +1,12 @@
 ﻿
 <div class="air-ticket" ng-init="init()">
-	<div class="row">
-		<div class="col-md-4">
-			<search-panel></search-panel>
-			<filter-panel></filter-panel>
-		</div>
-		<div class="col-md-8">
-			<div class="list">
-				<ticket-list ng-if="flights"
-					 flights="flights"
-							 filter="filter"
-					 direction="{{resultsDirection}}">
-				</ticket-list>
-			</div>
-		</div>
+	<div class="flight-list-settings">
+		<search-panel></search-panel>
+		<filter-panel></filter-panel>
 	</div>
+	<ticket-list ng-if="flights"
+				 flights="flights"
+				 filter="filter"
+				 direction="{{resultsDirection}}">
+	</ticket-list>
 </div>	
