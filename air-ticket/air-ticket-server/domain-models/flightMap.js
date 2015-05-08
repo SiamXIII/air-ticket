@@ -2,6 +2,7 @@
     function FlightsMap(flights) {
         this.flights = flights;
     }
+
     FlightsMap.prototype.getFlightsFrom = function (placeCode) {
         var resultFlights = [];
         for (var i = 0; i < this.flights.length; i++) {
@@ -12,6 +13,7 @@
         }
         return resultFlights;
     };
+
     FlightsMap.prototype.getFlightsTo = function (placeCode) {
         var resultFlights = [];
         for (var i = 0; i < this.flights.length; i++) {
@@ -22,27 +24,23 @@
         }
         return resultFlights;
     };
+
     FlightsMap.prototype.checkRoute = function (route, query) {
         if (route.length > 5) {
             return {
-                stopSearching: true,
-                requiredRoute: false,
-                continueSearching: false
+                stopSearching: true
             };
         }
         if (route[0].from.code === query.fromCode && route[route.length - 1].to.code === query.toCode) {
             return {
-                stopSearching: false,
-                requiredRoute: true,
-                continueSearching: false
+                requiredRoute: true
             };
         }
         return {
-            stopSearching: false,
-            requiredRoute: false,
             continueSearching: true
         };
     };
+
     FlightsMap.prototype.getRoutes = function (query) {
         var routeStack = [];
         var fromFlights = this.getFlightsFrom(query.fromCode);
@@ -73,6 +71,7 @@
         }
         return resultRoutes;
     };
+
     return FlightsMap;
 })();
 module.exports = FlightsMap;
