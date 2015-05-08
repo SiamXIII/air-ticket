@@ -36,6 +36,10 @@
     <Compile Include="config\config.js" />
     <Compile Include="data-access\data-access.js" />
     <Compile Include="data-access\models\flight.js" />
+    <Compile Include="data-access\models\location.js" />
+    <Compile Include="domain-models\flight.js" />
+    <Compile Include="domain-models\location.js" />
+    <Compile Include="flightMap.js" />
     <Compile Include="server.js" />
     <Compile Include="ticketsStore.js" />
     <Content Include="config\config.json" />
@@ -45,6 +49,7 @@
     <Folder Include="data-access\" />
     <Folder Include="config\" />
     <Folder Include="data-access\models\" />
+    <Folder Include="domain-models\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

@@ -4,31 +4,16 @@ var Schema = mongoose.Schema;
 // Schemas
 var Flight = new Schema({
 	'from': {
-		type: String,
-		required: true
+		type: Schema.Types.ObjectId,
+		ref: 'Location'
 	},
 	'to': {
-		type: String,
-		required: true
+		type: Schema.Types.ObjectId,
+		ref: 'Location'
 	},
-	'departureDate': {
-		type: Date,
-	},
-	'arrivalDate': {
-		type: Date,
-	},
-	'vendor': {
-		type: String,
-	},
-	'price': {
-		type: Number,
-	},
-	'flight-id': {
-		type: String,
-	},
-	'fromCode': String,
-	'fromFull': String,
-	'toCode': String,
-	'toFull': String,
-	'innerFlightsId': [Schema.ObjectId]
+	'departureTime': Date,
+	'arrivalTime': Date,
+	'vendor': String,
+	'price': Number,
+	'flightCode': String
 });
