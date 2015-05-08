@@ -2,9 +2,6 @@ var express = require('express');
 var ticketsStore = require("./ticketsStore");
 var app = express();
 
-var FlightMap = require('./flightMap.js');
-var FlightsMap = require("./flightsMap");
-
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
@@ -37,7 +34,3 @@ var server = app.listen(3000, function () {
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
 });
-
-var flightMap = new FlightMap();
-
-//# sourceMappingURL=server.js.map

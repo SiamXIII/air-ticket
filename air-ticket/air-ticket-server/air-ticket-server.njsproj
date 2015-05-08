@@ -39,7 +39,7 @@
     <Compile Include="data-access\models\location.js" />
     <Compile Include="domain-models\flight.js" />
     <Compile Include="domain-models\location.js" />
-    <Compile Include="flightMap.js" />
+    <Compile Include="domain-models\flightMap.js" />
     <Compile Include="server.js" />
     <Compile Include="ticketsStore.js" />
     <Content Include="config\config.json" />
