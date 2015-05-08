@@ -1,0 +1,17 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.ticket-list .wrap {
+    @extend .panel;
+    @extend .panel-default;
+
+    h2 {
+        @extend .panel-heading;
+        
+        margin: 0;
+        font-size: $font-size-base;
+    }
+
+    .tickets {
+        @extend .panel-body;
+    }
+}

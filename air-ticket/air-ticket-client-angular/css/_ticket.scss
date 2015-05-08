@@ -1,0 +1,44 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.ticket {
+    @extend .panel;
+    @extend .panel-default;
+
+    h3 {
+        @extend .panel-heading;
+        margin: 0;
+        font-size: $font-size-base;
+    }
+
+    .ticket-body {
+        @extend .panel-body;
+
+        .to-icon {
+            @extend .glyphicon;
+            @extend .glyphicon-triangle-right;
+        }
+
+        .time-icon {
+            @extend .glyphicon;
+            @extend .glyphicon-time;
+        }
+
+        .short-info {
+            .route {
+                @extend .well;
+            }
+        }
+
+        .actions {
+            @extend .form-group;
+        }
+
+        .details table {
+            @extend .table;
+
+            .direction {
+                @extend .info;
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.sass" />
+
+.ticketing {
+    @extend .row;
+
+    .ticket-list-settings {
+        @extend .col-md-4;
+    }
+
+    .ticket-list {
+        @extend .col-md-8;
+    }
+}

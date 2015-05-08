@@ -1,0 +1,16 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.search-settings {
+    @extend .panel;
+    @extend .panel-default;
+
+    h2 {
+        @extend .panel-heading;
+        font-size: $font-size-base;
+        margin: 0;
+    }
+
+    .search-settings-form {
+        @extend .panel-body;
+    }
+}

@@ -35,73 +35,29 @@
     <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
     <Content Include="app\templates\ticket-list.html" />
     <Content Include="app\directives\ticket-list\ticket-list.js" />
-    <Content Include="css\air-ticket.css">
-      <DependentUpon>air-ticket.less</DependentUpon>
-    </Content>
-    <Content Include="css\air-ticket.min.css">
-      <DependentUpon>air-ticket.css</DependentUpon>
-    </Content>
-    <Content Include="css\body.css">
-      <DependentUpon>body.less</DependentUpon>
-    </Content>
-    <Content Include="css\body.min.css">
-      <DependentUpon>body.css</DependentUpon>
-    </Content>
-    <Content Include="css\button.css">
-      <DependentUpon>button.less</DependentUpon>
-    </Content>
-    <Content Include="css\button.min.css">
-      <DependentUpon>button.css</DependentUpon>
-    </Content>
-    <Content Include="css\flight-list.css">
-      <DependentUpon>flight-list.less</DependentUpon>
-    </Content>
-    <Content Include="css\flight-list.min.css">
-      <DependentUpon>flight-list.css</DependentUpon>
-    </Content>
-    <Content Include="css\search-settings.css">
-      <DependentUpon>search-settings.less</DependentUpon>
-    </Content>
-    <Content Include="css\search-settings.min.css">
-      <DependentUpon>search-settings.css</DependentUpon>
-    </Content>
-    <Content Include="Gruntfile.js" />
-    <Content Include="index.html" />
-    <Content Include="app\services\ticket-service.js" />
     <Content Include="css\styles.css">
-      <DependentUpon>styles.less</DependentUpon>
+      <DependentUpon>styles.scss</DependentUpon>
     </Content>
     <Content Include="css\styles.min.css">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
+    <Content Include="Gruntfile.js" />
+    <Content Include="index.html" />
+    <Content Include="app\services\ticket-service.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include="package.json" />
-    <Content Include="css\styles.less" />
+    <Content Include="css\styles.scss" />
+    <Content Include="css\_body.scss" />
+    <Content Include="css\_ticketing.scss" />
+    <Content Include="css\_search-settings.scss" />
+    <Content Include="css\_button.scss" />
+    <Content Include="css\_ticket-list.scss" />
+    <Content Include="css\_ticket.scss" />
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
-    </Content>
-    <Content Include="css\air-ticket.less" />
-    <Content Include="css\air-ticket.css.map">
-      <DependentUpon>air-ticket.css</DependentUpon>
-    </Content>
-    <Content Include="css\flight-list.less" />
-    <Content Include="css\flight-list.css.map">
-      <DependentUpon>flight-list.css</DependentUpon>
-    </Content>
-    <Content Include="css\body.less" />
-    <Content Include="css\body.css.map">
-      <DependentUpon>body.css</DependentUpon>
-    </Content>
-    <Content Include="css\search-settings.less" />
-    <Content Include="css\search-settings.css.map">
-      <DependentUpon>search-settings.css</DependentUpon>
-    </Content>
-    <Content Include="css\button.less" />
-    <Content Include="css\button.css.map">
-      <DependentUpon>button.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

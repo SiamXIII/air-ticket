@@ -6,15 +6,14 @@
 	</h3>
 
 	<div class="ticket-body">
-		
-		<div class="flights-short-info">
-			<div class="trip" ng-repeat="route in flight">
-				<span class="route">
+		<div class="short-info">
+			<div class="route" ng-repeat="route in flight">
+				<span class="route-places">
 					<span class="from">
 						<span class="code">{{route.fromCode}}:</span>
 						<span class="time">{{route.departureDate | date: 'HH:mm'}}</span>
 					</span>
-					<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+					<span class="to-icon" aria-hidden="true"></span>
 					<span class="to">
 						<span class="code">{{route.toCode}}:</span>
 						<span class="time">{{route.arrivalDate | date: 'HH:mm'}}</span>
@@ -22,7 +21,7 @@
 				</span>
 
 				<span class="time">
-					<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+					<span class="time-icon" aria-hidden="true"></span>
 					{{getFlightTime(route.departureDate, route.arrivalDate).hours}} hours
 					<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
 						{{getFlightTime(route.departureDate, route.arrivalDate).minutes}}  minutes

@@ -1,10 +1,10 @@
-﻿<div class="flight-list-wrap">
-	<div class="flight-list">
+﻿<div class="ticket-list">
+	<div class="wrap">
 		<h2>
 			Список рейсов
 		</h2>
 
-		<div class="items">
+		<div class="tickets">
 			<ticket-card ng-if="flights && direction == 'oneway'" ng-repeat="flight in flights | listFilter: filter" flight="[flight]"></ticket-card>
 			<ticket-card ng-if="flights && direction == 'twoway'" ng-repeat="flight in flights | listFilter: filter: true" flight="[flight.forwardTrip, flight.comebackTrip]"></ticket-card>
 		</div>
