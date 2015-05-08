@@ -1,29 +1,31 @@
-﻿<div class="item">
+﻿<div class="ticket">
 	<h3>
 		{{flight[0].from}} - {{flight[0].to}} <span ng-if="flight[1]"> - {{flight[1].to}}</span>
 		/
 		{{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}
 	</h3>
-	<div class="content-wrap">
+
+	<div class="ticket-body">
+		
 		<div class="flights-short-info">
-			<div class="trip" ng-repeat="trip in flight">
+			<div class="trip" ng-repeat="route in flight">
 				<span class="route">
 					<span class="from">
-						<span class="code">{{trip.fromCode}}:</span>
-						<span class="time">{{trip.departureDate | date: 'HH:mm'}}</span>
+						<span class="code">{{route.fromCode}}:</span>
+						<span class="time">{{route.departureDate | date: 'HH:mm'}}</span>
 					</span>
 					<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					<span class="to">
-						<span class="code">{{trip.toCode}}:</span>
-						<span class="time">{{trip.arrivalDate | date: 'HH:mm'}}</span>
+						<span class="code">{{route.toCode}}:</span>
+						<span class="time">{{route.arrivalDate | date: 'HH:mm'}}</span>
 					</span>
 				</span>
 
 				<span class="time">
 					<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-					{{getFlightTime(trip.departureDate, trip.arrivalDate).hours}} hours
+					{{getFlightTime(route.departureDate, route.arrivalDate).hours}} hours
 					<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
-						{{getFlightTime(trip.departureDate, trip.arrivalDate).minutes}}  minutes
+						{{getFlightTime(route.departureDate, route.arrivalDate).minutes}}  minutes
 					</span>
 				</span>
 			</div>

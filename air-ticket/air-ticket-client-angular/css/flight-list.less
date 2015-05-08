@@ -1,5 +1,6 @@
 ﻿@import "../bower_components/bootstrap/less/bootstrap";
 
+
 .flight-list {
 	.panel();
 	.panel-default();
@@ -40,18 +41,36 @@
 	}
 }
 
-.flight-list .actions{
+
+.ticket{
+	.panel();
+	.panel-default();
+}
+
+.ticket h3{
+	.panel-heading();
+	.panel-default .panel-heading();
+
+	font-size: @font-size-base;
+	margin: 0;
+}
+
+.ticket .ticket-body{
+	.panel-body();
+}
+
+.ticket .actions{
 	.form-group();
 }
 
-.flight-list .item .details {
+.ticket .details {
 	.to-flights,
 	.back-flights{
 		.table();
 	}
 } 
 
-.flight-list .item .details .to-flights .direction,
-.flight-list .item .details .back-flights .direction{
+.ticket .details .to-flights .direction,
+.ticket .details .back-flights .direction{
 	.alert-info();
 }
