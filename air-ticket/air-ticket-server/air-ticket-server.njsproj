@@ -36,6 +36,7 @@
     <Compile Include="config\config.js" />
     <Compile Include="data-access\data-access.js" />
     <Compile Include="data-access\models\flight.js" />
+    <Compile Include="flightsMap.js" />
     <Compile Include="server.js" />
     <Compile Include="ticketsStore.js" />
     <Content Include="config\config.json" />
