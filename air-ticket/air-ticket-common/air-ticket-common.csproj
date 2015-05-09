@@ -18,6 +18,8 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="domain\Entities.js" />
+    <Content Include="domain\Entities_DtoConverters.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

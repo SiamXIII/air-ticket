@@ -1,20 +1,35 @@
-﻿angular.module('airTicketApp')
-.service('ticketService', function ($http) {
-	this.serverUrl = "http://localhost:3000";
+﻿/// <reference path="../../domain/Entities.js" />
 
-	this.getAllTickets = function () {
-		return $http.get(this.serverUrl + "/api/0.1.0/tickets");
-	}
+angular.module('airTicketApp')
+	.service('ticketService', function($http) {
+		var locationsDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+		var tripsDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 
-	this.getPlaces = function () {
-		return $http.get(this.serverUrl + "/api/0.1.0/places");
-	}
+		this.serverUrl = "http://localhost:3000";
 
-	this.searchTrips = function (params) {
-		return $http({
-			method: 'GET',
-			url: this.serverUrl + "/api/0.1.0/search-trip",
-			params: params
-		});
-	}
-});
+		this.getLocations = function() {
+			return $http.get(this.serverUrl + "/api/locations")
+				.then(function(data) {
+
+					var result = data.data.map(function(locationDto) {
+						return locationsDtoConverter.convertFromDto(locationDto);
+					});
+
+					return result;
+				});
+		}
+
+		this.searchTrips = function(params) {
+			return $http({
+				method: 'POST',
+				url: this.serverUrl + "/api/trips",
+				params: params
+			}).then(function(data) {
+				var trips = data.data.map(function(tripDto) {
+					return tripsDtoConverter.convertFromDto(tripDto);
+				});
+
+				return trips;
+			});
+		}
+	});
