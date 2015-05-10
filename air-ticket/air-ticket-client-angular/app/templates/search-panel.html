@@ -21,10 +21,10 @@
 		<div class="form-group">
 			<label class="control-label">Цель</label>
 			<div class="checkbox">
-				<label><input type="radio" name="ways" ng-model="direction" value="oneway">В одну сторону</label>
+				<label><input type="radio" name="ways" ng-model="search.twoWay" value="">В одну сторону</label>
 			</div>
 			<div class="checkbox">
-				<label><input type="radio" name="ways" ng-model="direction" value="twoway">Туда и обратно</label>
+				<label><input type="radio" name="ways" ng-model="search.twoWay" value="true">Туда и обратно</label>
 			</div>
 		</div>
 
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<div class="form-group" ng-show="isTwoWay()">
+		<div class="form-group" ng-show="search.twoWay">
 			<div>
 				<label>Дата возвращения</label>
 				<input class="datepicker form-control" type="text"

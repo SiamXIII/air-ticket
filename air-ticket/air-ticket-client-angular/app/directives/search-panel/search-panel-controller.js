@@ -1,10 +1,11 @@
 ﻿/// <reference path="../../../domain/Entities.js" />
 angular.module('airTicketApp')
 	.controller('searchPanelCtrl', function(ticketService, $scope) {
-		$scope.init = function() {
+		$scope.init = function () {
 			$scope.search = {
 				fromLocationCode: '',
-				toLocationCode: ''
+				toLocationCode: '',
+				twoWay: ''
 			};
 		}
 
