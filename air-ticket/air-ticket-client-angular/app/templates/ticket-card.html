@@ -1,8 +1,6 @@
 ﻿<div class="ticket">
 	<h3>
-		{{flight[0].from}} - {{flight[0].to}} <span ng-if="flight[1]"> - {{flight[1].to}}</span>
-		/
-		{{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}
+		{{trip.from.code}} - {{trip.to.code}}
 	</h3>
 
 	<div class="ticket-body">
@@ -10,12 +8,12 @@
 			<div class="route" ng-repeat="route in flight">
 				<span class="route-places">
 					<span class="from">
-						<span class="code">{{route.fromCode}}:</span>
+						<span class="code">{{trip.forwartRoute.from.code}}:</span>
 						<span class="time">{{route.departureDate | date: 'HH:mm'}}</span>
 					</span>
 					<span class="to-icon" aria-hidden="true"></span>
 					<span class="to">
-						<span class="code">{{route.toCode}}:</span>
+						<span class="code">{{trip.forwartRoute.to.code}}:</span>
 						<span class="time">{{route.arrivalDate | date: 'HH:mm'}}</span>
 					</span>
 				</span>
@@ -49,56 +47,24 @@
 					<th>Авиакомпания</th>
 					<th>Номер рейса</th>
 				</tr>
-				<tr class="trip" ng-repeat="f in flight">
+				<tr class="trip" ng-repeat="flight in trip.forwartRoute.flights">
 					<td class="from">
-						<span class="time">{{f.departureDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.from}}</span>
-						<span class="place-code">{{f.fromCode}}</span>
-						<span class="place-full">{{f.fromFull}}</span>
+						<span class="time">{{flight.departureDate | date: 'HH:mm'}}</span>
+						<span class="place-name">{{flight.from.code}}</span>
+						<span class="place-code">{{flight.from.code}}</span>
+						<span class="place-full">{{flight.from.code}}</span>
 					</td>
 					<td class="to">
-						<span class="time">{{f.arrivalDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.to}}</span>
-						<span class="place-code">{{f.toCode}}</span>
-						<span class="place-full">{{f.toFull}}</span>
+						<span class="time">{{flight.arrivalDate | date: 'HH:mm'}}</span>
+						<span class="place-name">{{flight.to.code}}</span>
+						<span class="place-code">{{flight.to.code}}</span>
+						<span class="place-full">{{flight.to.code}}</span>
 					</td>
 					<td class="vendor">
-						{{f.vendor}}
+						{{flight.vendor}}
 					</td>
 					<td class="flight-id">
-						{{f['flight-id']}}
-					</td>
-				</tr>
-			</table>
-
-			<table class="back-flights">
-				<tr class="direction">
-					<th colspan="4">Обратно</th>
-				</tr>
-				<tr class="headers">
-					<th>Отправление из</th>
-					<th>Прибытие в</th>
-					<th>Авиакомпания</th>
-					<th>Номер рейса</th>
-				</tr>
-				<tr class="trip" ng-repeat="f in flight">
-					<td class="from">
-						<span class="time">{{f.departureDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.from}}</span>
-						<span class="place-code">{{f.fromCode}}</span>
-						<span class="place-full">{{f.fromFull}}</span>
-					</td>
-					<td class="to">
-						<span class="time">{{f.arrivalDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.to}}</span>
-						<span class="place-code">{{f.toCode}}</span>
-						<span class="place-full">{{f.toFull}}</span>
-					</td>
-					<td class="vendor">
-						{{f.vendor}}
-					</td>
-					<td class="flight-id">
-						{{f['flight-id']}}
+						{{flight['flight-id']}}
 					</td>
 				</tr>
 			</table>

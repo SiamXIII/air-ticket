@@ -4,9 +4,6 @@
 		restrict: 'E',
 		replace: true,
 		templateUrl: templatesPath + 'ticket-card.html',
-		controller: 'ticketCardCtrl',
-		scope: {
-			flight: '=',
-		}
+		controller: 'ticketCardCtrl'
 	}
 });

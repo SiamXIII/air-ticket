@@ -4,11 +4,6 @@
 		restrict: 'E',
 		replace: true,
 		templateUrl: templatesPath + 'ticket-list.html',
-		controller: 'ticketListCtrl',
-		scope: {
-			flights: '=',
-			direction: '@',
-			filter: "="
-		}
+		controller: 'ticketListCtrl'
 	}
 });

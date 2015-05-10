@@ -1,12 +1,12 @@
 ﻿<div class="search-settings">
-	<h2>Параметры поиска</h2>
+	<h2>Параметры поиска 
+ </h2>
 
 	<form class="search-settings-form" ng-init="init()">
-
 		<div class="form-group">
 			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromLocationCode" data-placeholder="Select origin">
 				<option value=""></option>
-				<option ng-repeat="location in locations" value="{{location.code}}">{{location.code}}</option>
+				<option ng-repeat="location in locations" value="{{location.getCode()}}">{{location.getCode()}}</option>
 			</select>
 		</div>
 
@@ -14,7 +14,7 @@
 			<label class="control-label" for="arrivalSelected">В</label>
 			<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.toLocationCode" data-placeholder="Select destination">
 				<option value=""></option>
-				<option ng-repeat="location in locations" value="{{location.code}}">{{location.code}}</option>
+				<option ng-repeat="location in locations" value="{{location.getCode()}}">{{location.getCode()}}</option>
 			</select>
 		</div>
 
