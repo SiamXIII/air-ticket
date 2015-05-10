@@ -17,16 +17,26 @@ var AirTicket_Domain_Entities_DtoConverters;
     AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter = LocationDtoConverter;
 
     var FlightsDtoConverter = (function () {
+
         function FlightsDtoConverter() {
         }
+
         FlightsDtoConverter.prototype.convertToDto = function (obj) {
             return obj;
         };
-        FlightsDtoConverter.prototype.convertFromDto = function (dto) {
-            var locationDtoConverter = new LocationDtoConverter();
-            var flight = new AirTicket_Domain_Entities.Flight(locationDtoConverter.convertFromDto(dto._from), locationDtoConverter.convertFromDto(dto._to));
-	        return flight;
-        };
+
+	    FlightsDtoConverter.prototype.convertFromDto = function(dto) {
+		    var locationDtoConverter = new LocationDtoConverter();
+
+		    var flight = new AirTicket_Domain_Entities.Flight(
+				locationDtoConverter.convertFromDto(dto._from),
+				locationDtoConverter.convertFromDto(dto._to),
+				new Date(dto._departureTime),
+				new Date(dto._arrivalTime));
+
+		    return flight;
+	    };
+
         return FlightsDtoConverter;
     })();
     AirTicket_Domain_Entities_DtoConverters.FlightsDtoConverter = FlightsDtoConverter;

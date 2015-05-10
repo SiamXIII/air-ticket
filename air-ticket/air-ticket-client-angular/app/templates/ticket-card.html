@@ -5,25 +5,22 @@
 
 	<div class="ticket-body">
 		<div class="short-info">
-			<div class="route" ng-repeat="route in flight">
+			<div class="route">
 				<span class="route-places">
 					<span class="from">
-						<span class="code">{{trip.forwartRoute.from.code}}:</span>
-						<span class="time">{{route.departureDate | date: 'HH:mm'}}</span>
+						<span class="code">{{trip.forwardRoute.from.code}}:</span>
+						<span class="time">{{trip.forwardRoute.departureTime | date: 'HH:mm'}}</span>
 					</span>
 					<span class="to-icon" aria-hidden="true"></span>
 					<span class="to">
-						<span class="code">{{trip.forwartRoute.to.code}}:</span>
-						<span class="time">{{route.arrivalDate | date: 'HH:mm'}}</span>
+						<span class="code">{{trip.forwardRoute.to.code}}:</span>
+						<span class="time">{{trip.forwardRoute.arrivalTime | date: 'HH:mm'}}</span>
 					</span>
 				</span>
 
 				<span class="time">
 					<span class="time-icon" aria-hidden="true"></span>
-					{{getFlightTime(route.departureDate, route.arrivalDate).hours}} hours
-					<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
-						{{getFlightTime(route.departureDate, route.arrivalDate).minutes}}  minutes
-					</span>
+					<span>{{trip.forwardRoute.duration}}</span>
 				</span>
 			</div>
 		</div>
@@ -47,24 +44,22 @@
 					<th>Авиакомпания</th>
 					<th>Номер рейса</th>
 				</tr>
-				<tr class="trip" ng-repeat="flight in trip.forwartRoute.flights">
+				<tr class="trip" ng-repeat="flight in trip.forwardRoute.flights">
 					<td class="from">
-						<span class="time">{{flight.departureDate | date: 'HH:mm'}}</span>
+						<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
 						<span class="place-name">{{flight.from.code}}</span>
 						<span class="place-code">{{flight.from.code}}</span>
 						<span class="place-full">{{flight.from.code}}</span>
 					</td>
 					<td class="to">
-						<span class="time">{{flight.arrivalDate | date: 'HH:mm'}}</span>
+						<span class="time">{{flight.arrivalTime | date: 'HH:mm'}}</span>
 						<span class="place-name">{{flight.to.code}}</span>
 						<span class="place-code">{{flight.to.code}}</span>
 						<span class="place-full">{{flight.to.code}}</span>
 					</td>
 					<td class="vendor">
-						{{flight.vendor}}
 					</td>
 					<td class="flight-id">
-						{{flight['flight-id']}}
 					</td>
 				</tr>
 			</table>

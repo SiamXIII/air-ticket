@@ -44,6 +44,10 @@ var AirTicket_Domain_Entities;
 			return this._arrivalTime;
 		}
 
+		Flight.prototype.getDuration = function () {
+			return this.getArrivalTime() - this.getDepartureTime();
+		}
+
 	    return Flight;
     })();
     AirTicket_Domain_Entities.Flight = Flight;
@@ -89,6 +93,10 @@ var AirTicket_Domain_Entities;
 
 	    Route.prototype.getArrivalTime = function () {
 		    return this.getFlight(this.getFlightsCount() - 1).getArrivalTime();
+	    }
+
+	    Route.prototype.getDuration = function () {
+	    	return this.getArrivalTime() - this.getDepartureTime();
 	    }
 
         return Route;
