@@ -5,42 +5,26 @@
 
 	<div class="ticket-body">
 		<div class="short-info">
-			<div class="route">
+			<div class="route" ng-repeat="route in trip.backRoute ? [trip.forwardRoute, trip.backRoute] : [trip.forwardRoute]">
 				<span class="route-places">
 					<span class="from">
-						<span class="code">{{trip.forwardRoute.from.code}}:</span>
-						<span class="time">{{trip.forwardRoute.departureTime | date: 'HH:mm'}}</span>
+						<span class="code">{{route.from.code}}:</span>
+						<span class="time">{{route.departureTime | date: 'HH:mm'}}</span>
 					</span>
 					<span class="to-icon" aria-hidden="true"></span>
 					<span class="to">
-						<span class="code">{{trip.forwardRoute.to.code}}:</span>
-						<span class="time">{{trip.forwardRoute.arrivalTime | date: 'HH:mm'}}</span>
+						<span class="code">{{route.to.code}}:</span>
+						<span class="time">{{route.arrivalTime | date: 'HH:mm'}}</span>
 					</span>
 				</span>
 
 				<span class="time">
 					<span class="time-icon" aria-hidden="true"></span>
-					<span>{{trip.forwardRoute.duration}}</span>
+					<span>{{route.duration | date: 'HH:mm'}}</span>
 				</span>
 			</div>
 
-			<div class="route" ng-if="trip.backRoute">
-				<span class="route-places">
-					<span class="from">
-						<span class="code">{{trip.backRoute.from.code}}:</span>
-						<span class="time">{{trip.backRoute.departureTime | date: 'HH:mm'}}</span>
-					</span>
-					<span class="to-icon" aria-hidden="true"></span>
-					<span class="to">
-						<span class="code">{{trip.backRoute.to.code}}:</span>
-						<span class="time">{{trip.backRoute.arrivalTime | date: 'HH:mm'}}</span>
-					</span>
-				</span>
-				<span class="time">
-					<span class="time-icon" aria-hidden="true"></span>
-					<span>{{trip.backRoute.duration}}</span>
-				</span>
-			</div>
+
 		</div>
 
 		<div class="actions">
@@ -52,9 +36,9 @@
 		</div>
 
 		<div class="details" ng-show="detailed">
-			<table class="forward-flights">
+			<table class="forward-flights" ng-repeat="(key, route) in trip.backRoute ? {f: trip.forwardRoute, b: trip.backRoute} : {f: trip.forwardRoute}">
 				<tr class="direction">
-					<th colspan="4">Туда</th>
+					<th colspan="4">{{key}}</th>
 				</tr>
 				<tr class="headers">
 					<th>Отправление из</th>
@@ -75,10 +59,8 @@
 						<span class="place-code">{{flight.to.fullName}}</span>
 						<span class="place-full">{{flight.to.code}}</span>
 					</td>
-					<td class="vendor">
-					</td>
-					<td class="flight-id">
-					</td>
+					<td class="vendor"></td>
+					<td class="flight-id"></td>
 				</tr>
 			</table>
 
