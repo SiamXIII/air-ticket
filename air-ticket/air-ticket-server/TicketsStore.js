@@ -25,8 +25,15 @@ var flights = [
 var instance = {
 	getAllLocations: function (callback) {
 		locationsDataAccess.find()
+			.lean(true)
 			.exec(function (err, data) {
-			callback(data);
+			var locations = [];
+			
+			data.forEach(function (location) {
+				locations.push(new Entities.Location(location.code, location.city, location.fullName));
+			})
+			
+			callback(locations);
 		})
 	},
 	
