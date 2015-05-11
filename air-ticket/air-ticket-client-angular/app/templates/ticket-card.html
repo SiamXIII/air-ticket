@@ -5,26 +5,8 @@
 
 	<div class="ticket-body">
 		<div class="short-info">
-			<div class="route" ng-repeat="route in trip.backRoute ? [trip.forwardRoute, trip.backRoute] : [trip.forwardRoute]">
-				<span class="route-places">
-					<span class="from">
-						<span class="code">{{route.from.code}}:</span>
-						<span class="time">{{route.departureTime | date: 'HH:mm'}}</span>
-					</span>
-					<span class="to-icon" aria-hidden="true"></span>
-					<span class="to">
-						<span class="code">{{route.to.code}}:</span>
-						<span class="time">{{route.arrivalTime | date: 'HH:mm'}}</span>
-					</span>
-				</span>
-
-				<span class="time">
-					<span class="time-icon" aria-hidden="true"></span>
-					<span>{{route.duration | date: 'HH:mm'}}</span>
-				</span>
-			</div>
-
-
+			<div class="route" route="trip.forwardRoute"></div>
+			<div class="route" route="trip.backRoute" ng-if="trip.backRoute"></div>
 		</div>
 
 		<div class="actions">
@@ -36,61 +18,8 @@
 		</div>
 
 		<div class="details" ng-show="detailed">
-			<table class="forward-flights" ng-repeat="(key, route) in trip.backRoute ? {f: trip.forwardRoute, b: trip.backRoute} : {f: trip.forwardRoute}">
-				<tr class="direction">
-					<th colspan="4">{{key}}</th>
-				</tr>
-				<tr class="headers">
-					<th>Отправление из</th>
-					<th>Прибытие в</th>
-					<th>Авиакомпания</th>
-					<th>Номер рейса</th>
-				</tr>
-				<tr class="trip" ng-repeat="flight in trip.forwardRoute.flights">
-					<td class="from">
-						<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
-						<span class="place-name">{{flight.from.cityCode}}</span>
-						<span class="place-code">{{flight.from.fullName}}</span>
-						<span class="place-full">{{flight.from.code}}</span>
-					</td>
-					<td class="to">
-						<span class="time">{{flight.arrivalTime | date: 'HH:mm'}}</span>
-						<span class="place-name">{{flight.to.cityCode}}</span>
-						<span class="place-code">{{flight.to.fullName}}</span>
-						<span class="place-full">{{flight.to.code}}</span>
-					</td>
-					<td class="vendor"></td>
-					<td class="flight-id"></td>
-				</tr>
-			</table>
-
-			<table class="back-flights" ng-if="trip.backRoute">
-				<tr class="direction">
-					<th colspan="4">Обратно</th>
-				</tr>
-				<tr class="headers">
-					<th>Отправление из</th>
-					<th>Прибытие в</th>
-					<th>Авиакомпания</th>
-					<th>Номер рейса</th>
-				</tr>
-				<tr class="trip" ng-repeat="flight in trip.backRoute.flights">
-					<td class="from">
-						<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
-						<span class="place-name">{{flight.from.cityCode}}</span>
-						<span class="place-code">{{flight.from.fullName}}</span>
-						<span class="place-full">{{flight.from.code}}</span>
-					</td>
-					<td class="to">
-						<span class="time">{{flight.arrivalTime | date: 'HH:mm'}}</span>
-						<span class="place-name">{{flight.to.cityCode}}</span>
-						<span class="place-code">{{flight.to.fullName}}</span>
-						<span class="place-full">{{flight.to.code}}</span>
-					</td>
-					<td class="vendor"></td>
-					<td class="flight-id"></td>
-				</tr>
-			</table>
+			<table detailed-route="trip.forwardRoute" header="Туда"></table>
+			<table detailed-route="trip.backRoute" header="Обратно" ng-if="trip.backRoute"></table>
 		</div>
 	</div>
 </div>

@@ -1,0 +1,18 @@
+﻿<div>
+	<span class="route-places">
+		<span class="from">
+			<span class="code">{{route.from.code}}:</span>
+			<span class="time">{{route.departureTime | date: 'HH:mm'}}</span>
+		</span>
+		<span class="to-icon" aria-hidden="true"></span>
+		<span class="to">
+			<span class="code">{{route.to.code}}:</span>
+			<span class="time">{{route.arrivalTime | date: 'HH:mm'}}</span>
+		</span>
+	</span>
+
+	<span class="time">
+		<span class="time-icon" aria-hidden="true"></span>
+		<span>{{route.duration | date: 'HH:mm'}}</span>
+	</span>
+</div>

@@ -1,0 +1,25 @@
+﻿<tr class="direction">
+	<th colspan="4">{{header}}</th>
+</tr>
+<tr class="headers">
+	<th>Отправление из</th>
+	<th>Прибытие в</th>
+	<th>Авиакомпания</th>
+	<th>Номер рейса</th>
+</tr>
+<tr class="trip" ng-repeat="flight in route.flights">
+	<td class="from">
+		<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
+		<span class="place-name">{{flight.from.cityCode}}</span>
+		<span class="place-code">{{flight.from.fullName}}</span>
+		<span class="place-full">{{flight.from.code}}</span>
+	</td>
+	<td class="to">
+		<span class="time">{{flight.arrivalTime | date: 'HH:mm'}}</span>
+		<span class="place-name">{{flight.to.cityCode}}</span>
+		<span class="place-code">{{flight.to.fullName}}</span>
+		<span class="place-full">{{flight.to.code}}</span>
+	</td>
+	<td class="vendor"></td>
+	<td class="flight-id"></td>
+</tr>
