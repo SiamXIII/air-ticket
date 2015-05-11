@@ -6,11 +6,16 @@ var Entities = require('./domain/Entities');
 var DtoConverters = require('./domain/Entities_DtoConverters');
 
 var allLocations;
+var allCities;
 var flightMap;
 var tripsService;
 
-flightsStore.getAllLocations(function (data) {
-    allLocations = data;
+flightsStore.getAllLocations(function(data) {
+	allLocations = data;
+});
+
+flightsStore.getAllCities(function(data) {
+	allCities = data;
 });
 
 flightsStore.getAllFlights(function (data) {

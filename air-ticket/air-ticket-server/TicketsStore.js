@@ -26,25 +26,38 @@ var instance = {
 	getAllLocations: function (callback) {
 		locationsDataAccess.find()
 			.lean(true)
-			.exec(function (err, data) {
-			var locations = [];
-			
-			data.forEach(function (location) {
-				locations.push(new Entities.Location(location.code, location.fullName, location.city));
-			})
-			
-			callback(locations);
-		})
+			.exec(function(err, data) {
+				var locations = [];
+
+				data.forEach(function(location) {
+					locations.push(new Entities.Location(location.code, location.fullName, location.city));
+				});
+
+				callback(locations);
+			});
 	},
-	
-	getAllFlights: function (callback) {
+    
+    getAllCities: function(callback) {
+		instance.getAllLocations(function(data) {
+			var allCities = data.map(function(location) { return location.getCity() })
+				.sort()
+				.filter(function(city, index, arr) {
+					return index === 0 ||
+						city !== arr[index - 1];
+				});
+
+            callback(allCities);
+		});
+	},
+
+	getAllFlights: function(callback) {
 		flightsDataAccess.find()
 			.populate('_from')
 			.populate('_to')
 			.lean(true)
-			.exec(function (err, data) {
-			callback(data);
-		})
+			.exec(function(err, data) {
+				callback(data);
+			});
 	}
 }
 
