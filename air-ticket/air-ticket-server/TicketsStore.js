@@ -39,7 +39,7 @@ var instance = {
     
     getAllCities: function(callback) {
 		instance.getAllLocations(function(data) {
-			var allCities = data.map(function(location) { return location.getCity() })
+			var allCities = data.map(function(location) { return location.getCityCode() })
 				.sort()
 				.filter(function(city, index, arr) {
 					return index === 0 ||
@@ -60,8 +60,8 @@ var instance = {
 			
 			data.forEach(function (flight) {
 				flights.push(new Entities.Flight(
-					new Entities.Location(flight._from.code, flight._from.city, flight._from.fullName), 
-					new Entities.Location(flight._to.code, flight._to.city, flight._to.fullName), 
+					new Entities.Location(flight._from.code, flight._from.fullName, flight._from.city), 
+					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.city), 
 					flight.departureTime, flight.arrivalTime));
 			})
 			

@@ -3,10 +3,10 @@ var AirTicket_Domain_Entities;
 (function (AirTicket_Domain_Entities) {
 
 	var Location = (function () {
-		function Location(code, fullName, city) {
+		function Location(code, fullName, cityCode) {
 			this._code = code;
 			this._fullName = fullName;
-			this._city = city;
+			this._cityCode = cityCode;
 		}
 
 		Location.prototype.getCode = function () {
@@ -17,8 +17,8 @@ var AirTicket_Domain_Entities;
 			return this._fullName;
 		}
 
-		Location.prototype.getCity = function () {
-			return this._city;
+		Location.prototype.getCityCode = function () {
+			return this._cityCode;
 		}
 		return Location;
 	})();
@@ -117,7 +117,7 @@ var AirTicket_Domain_Entities;
 			this._flights = flights;
 		}
 
-		FlightMap.prototype.getFlightsFrom = function (locationCode) {
+		FlightMap.prototype.getFlightsFromLocation = function (locationCode) {
 			var resultFlights = [];
 			for (var i = 0; i < this._flights.length; i++) {
 				var flight = this._flights[i];
@@ -128,15 +128,29 @@ var AirTicket_Domain_Entities;
 			return resultFlights;
 		};
 
+		FlightMap.prototype.getFlightsFromCity = function (cityCode) {
+			var resultFlights = [];
+			for (var i = 0; i < this._flights.length; i++) {
+				var flight = this._flights[i];
+				if (flight.getFromLocation().getCityCode() === cityCode) {
+					resultFlights.push(flight);
+				}
+			}
+			return resultFlights;
+		};
+
 		FlightMap.prototype.getNextFlights = function (query, route) {
 
 			if (!route) {
-				var nextFlights = this.getFlightsFrom(query.fromLocationCode);
+				var nextFlights = query.fromLocationCode
+					? this.getFlightsFromLocation(query.fromLocationCode)
+					: this.getFlightsFromCity(query.fromCityCode);
+
 				return nextFlights;
 			}
 
 			if (route) {
-				var nextFlights = this.getFlightsFrom(route.getToLocation().getCode()).filter(function (flight) {
+				var nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function (flight) {
 					var filter = route.getFlightsCount() < 5 &&
 					    flight.getDepartureTime() > route.getArrivalTime();
 					return filter;
@@ -144,6 +158,24 @@ var AirTicket_Domain_Entities;
 
 				return nextFlights;
 			}
+		};
+
+		FlightMap.prototype.checkForTargetReached = function(query, route) {
+			var targetReached;
+
+			if (query.fromLocationCode && query.toLocationCode) {
+				targetReached =
+					route.getFromLocation().getCode() === query.fromLocationCode &&
+					route.getToLocation().getCode() === query.toLocationCode;
+			} else if (query.fromCityCode && query.toCityCode) {
+				targetReached =
+					route.getFromLocation().getCityCode() === query.fromCityCode &&
+					route.getToLocation().getCityCode() === query.toCityCode;
+			} else {
+				throw new Error('Bad request.');
+			}
+
+			return targetReached;
 		};
 
 		FlightMap.prototype.createNewRoute = function (route, additionalFlight) {
@@ -175,10 +207,8 @@ var AirTicket_Domain_Entities;
 			var resultRoutes = [];
 			while (routeStack.length > 0) {
 				var route = routeStack.pop();
-				var targetReached =
-					route.getFromLocation().getCode() === query.fromLocationCode &&
-					route.getToLocation().getCode() === query.toLocationCode;
-				if (targetReached) {
+				
+				if (this.checkForTargetReached(query, route)) {
 					resultRoutes.push(route);
 				} else {
 					var nextFlights = this.getNextFlights(query, route);
@@ -228,6 +258,8 @@ var AirTicket_Domain_Entities;
 
 		/*
 		 * query{
+		 *		fromCityCode: "",
+		 *		toCityCode: "",
 		 *		fromLocationCode: "",
 		 *		toLocationCode: "",
 		 *		forwardRoute: {
@@ -248,6 +280,8 @@ var AirTicket_Domain_Entities;
 		TripsService.prototype.getTrips = function (query) {
 
 			var forwardRoutes = this._flightMap.getRoutes({
+				fromCityCode: query.fromCityCode,
+				toCityCode: query.toCityCode,
 				fromLocationCode: query.fromLocationCode,
 				toLocationCode: query.toLocationCode,
 				departureTimeStartValue: query.forwardRoute.departureTimeStartValue,
@@ -258,6 +292,8 @@ var AirTicket_Domain_Entities;
 
 			if (query.backRoute) {
 				var backRoutes = this._flightMap.getRoutes({
+					fromCityCode: query.fromCityCode,
+					toCityCode: query.toCityCode,
 					fromLocationCode: query.toLocationCode,
 					toLocationCode: query.fromLocationCode,
 					departureTimeStartValue: query.backRoute.departureTimeStartValue,
