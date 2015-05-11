@@ -6,18 +6,31 @@ var instance = {
 	getAllLocations: function (callback) {
 		locationsDataAccess.find()
 			.lean(true)
-			.exec(function (err, data) {
+			.exec(function(err, data) {
 			var locations = [];
 			
-			data.forEach(function (location) {
-				locations.push(new Entities.Location(location.code, location.city, location.fullName));
-			})
+				data.forEach(function(location) {
+					locations.push(new Entities.Location(location.code, location.fullName, location.city));
+				});
 			
 			callback(locations);
-		})
+			});
+	},
+    
+    getAllCities: function(callback) {
+		instance.getAllLocations(function(data) {
+			var allCities = data.map(function(location) { return location.getCityCode() })
+				.sort()
+				.filter(function(city, index, arr) {
+					return index === 0 ||
+						city !== arr[index - 1];
+				});
+
+            callback(allCities);
+		});
 	},
 	
-	getAllFlights: function (callback) {
+	getAllFlights: function(callback) {
 		flightsDataAccess.find()
 			.populate('_from')
 			.populate('_to')
@@ -27,8 +40,8 @@ var instance = {
 			
 			data.forEach(function (flight) {
 				flights.push(new Entities.Flight(
-					new Entities.Location(flight._from.code, flight._from.city, flight._from.fullName), 
-					new Entities.Location(flight._to.code, flight._to.city, flight._to.fullName), 
+					new Entities.Location(flight._from.code, flight._from.fullName, flight._from.city), 
+					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.city), 
 					flight.departureTime, flight.arrivalTime));
 			})
 			

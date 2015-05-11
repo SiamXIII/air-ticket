@@ -4,17 +4,17 @@
 
 	<form class="search-settings-form" ng-init="init()">
 		<div class="form-group">
-			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromLocationCode" data-placeholder="Select origin">
+			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromCityCode" data-placeholder="Select origin">
 				<option value=""></option>
-				<option ng-repeat="location in locations" value="{{location.getCode()}}">{{location.getCode()}}</option>
+				<option ng-repeat="cityCode in cityCodes" value="{{cityCode}}">{{cityCode}}</option>
 			</select>
 		</div>
 
 		<div class="form-group">
 			<label class="control-label" for="arrivalSelected">В</label>
-			<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.toLocationCode" data-placeholder="Select destination">
+			<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.toCityCode" data-placeholder="Select destination">
 				<option value=""></option>
-				<option ng-repeat="location in locations" value="{{location.getCode()}}">{{location.getCode()}}</option>
+				<option ng-repeat="cityCode in cityCodes" value="{{cityCode}}">{{cityCode}}</option>
 			</select>
 		</div>
 
