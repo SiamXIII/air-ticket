@@ -1,5 +1,4 @@
 var express = require('express');
-var enumerable = require("linq");
 
 var flightsStore = require("./ticketsStore")();
 
@@ -32,12 +31,10 @@ app.get('/api/locations', function(incomingMessage, serverResponse) {
 
 	var locationDtoConverter = new DtoConverters.LocationDtoConverter();
 
-	serverResponse.json(enumerable
-		.from(allLocations)
-		.select(function(location) {
+	serverResponse.json(
+		allLocations.map(function(location) {
 			return locationDtoConverter.convertToDto(location);
-		})
-		.toArray());
+		}));
 
 	serverResponse.end();
 });
