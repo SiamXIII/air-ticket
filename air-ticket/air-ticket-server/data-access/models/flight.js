@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 // Schemas
 var Flight = new Schema({
 	'from': {
-		type: Schema.Types.ObjectId,
+		type: Schema.ObjectId,
 		ref: 'Location'
 	},
 	'to': {
-		type: Schema.Types.ObjectId,
+		type: Schema.ObjectId,
 		ref: 'Location'
 	},
 	'departureTime': Date,
@@ -17,3 +17,4 @@ var Flight = new Schema({
 	'price': Number,
 	'flightCode': String
 });
+

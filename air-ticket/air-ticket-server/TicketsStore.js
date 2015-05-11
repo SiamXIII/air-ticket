@@ -1,4 +1,5 @@
 var flightsDataAccess = require('./data-access/data-access.js').Flights;
+var locationsDataAccess = require('./data-access/data-access.js').Locations;
 var Entities = require('./domain/Entities.js');
 
 var locations = [
@@ -20,13 +21,24 @@ var flights = [
 ];
 
 var instance = {
-	getAllLocations: function(callback) {
-		callback(locations);
+	getAllLocations: function (callback) {
+		locationsDataAccess.find()
+			.distinct('city')
+			.sort()
+			.exec(function (err, data) {
+			callback(data);
+		})
 	},
-
-    getAllFlights: function(callback) {
-	    callback(flights);
-    }
+	
+	getAllFlights: function (callback) {
+		flightsDataAccess.find()
+			.populate('from')
+			.populate('to')
+			.lean(true)
+			.exec(function (err, data) {
+			callback(data);
+		})
+	}
 }
 
 module.exports = function () {
