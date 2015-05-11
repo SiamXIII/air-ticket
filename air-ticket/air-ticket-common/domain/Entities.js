@@ -3,16 +3,23 @@ var AirTicket_Domain_Entities;
 (function (AirTicket_Domain_Entities) {
 
 	var Location = (function () {
-		function Location(code, city, fullName) {
+		function Location(code, fullName, city) {
 			this._code = code;
-			this._city = city;
 			this._fullName = fullName;
+			this._city = city;
 		}
 
 		Location.prototype.getCode = function () {
 			return this._code;
 		}
 
+		Location.prototype.getFullName = function() {
+			return this._fullName;
+		}
+
+		Location.prototype.getCity = function () {
+			return this._city;
+		}
 		return Location;
 	})();
 	AirTicket_Domain_Entities.Location = Location;

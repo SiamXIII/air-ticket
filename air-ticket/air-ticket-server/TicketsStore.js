@@ -30,7 +30,7 @@ var instance = {
 			var locations = [];
 			
 			data.forEach(function (location) {
-				locations.push(new Entities.Location(location.code, location.city, location.fullName));
+				locations.push(new Entities.Location(location.code, location.fullName, location.city));
 			})
 			
 			callback(locations);

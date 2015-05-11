@@ -20,7 +20,9 @@ angular.module('airTicketApp')
 
 					var mapLocation = function(location) {
 						var result = {
-							code: location.getCode()
+							code: location.getCode(),
+							fullName: location.getFullName(),
+							city: location.getCity()
 						};
 
 						return result;
