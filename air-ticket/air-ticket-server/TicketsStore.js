@@ -43,7 +43,16 @@ var instance = {
 			.populate('_to')
 			.lean(true)
 			.exec(function (err, data) {
-			callback(data);
+			var flights = [];
+			
+			data.forEach(function (flight) {
+				flights.push(new Entities.Flight(
+					new Entities.Location(flight._from.code, flight._from.city, flight._from.fullName), 
+					new Entities.Location(flight._to.code, flight._to.city, flight._to.fullName), 
+					flight.departureTime, flight.arrivalTime));
+			})
+			
+			callback(flights);
 		})
 	}
 }
