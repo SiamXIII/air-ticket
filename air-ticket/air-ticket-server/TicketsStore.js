@@ -27,13 +27,13 @@ var instance = {
 		locationsDataAccess.find()
 			.lean(true)
 			.exec(function(err, data) {
-				var locations = [];
-
+			var locations = [];
+			
 				data.forEach(function(location) {
 					locations.push(new Entities.Location(location.code, location.fullName, location.city));
 				});
-
-				callback(locations);
+			
+			callback(locations);
 			});
 	},
     
@@ -49,15 +49,24 @@ var instance = {
             callback(allCities);
 		});
 	},
-
+	
 	getAllFlights: function(callback) {
 		flightsDataAccess.find()
 			.populate('_from')
 			.populate('_to')
 			.lean(true)
-			.exec(function(err, data) {
-				callback(data);
-			});
+			.exec(function (err, data) {
+			var flights = [];
+			
+			data.forEach(function (flight) {
+				flights.push(new Entities.Flight(
+					new Entities.Location(flight._from.code, flight._from.city, flight._from.fullName), 
+					new Entities.Location(flight._to.code, flight._to.city, flight._to.fullName), 
+					flight.departureTime, flight.arrivalTime));
+			})
+			
+			callback(flights);
+		})
 	}
 }
 
