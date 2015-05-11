@@ -292,8 +292,8 @@ var AirTicket_Domain_Entities;
 
 			if (query.backRoute) {
 				var backRoutes = this._flightMap.getRoutes({
-					fromCityCode: query.fromCityCode,
-					toCityCode: query.toCityCode,
+					fromCityCode: query.toCityCode,
+					toCityCode: query.fromCityCode,
 					fromLocationCode: query.toLocationCode,
 					toLocationCode: query.fromLocationCode,
 					departureTimeStartValue: query.backRoute.departureTimeStartValue,
