@@ -156,6 +156,8 @@ var AirTicket_Domain_Entities;
 		};
 
 		//  * query: {
+		//  *		fromCityCode: "",
+		//  *		toCityCode: "",
 		//  *		fromLocationCode: "",
 		//  *		toLocationCode: "",
 		//	*		departureTimeStartValue: "",

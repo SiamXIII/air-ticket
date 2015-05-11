@@ -3,6 +3,8 @@ angular.module('airTicketApp')
 	.controller('searchPanelCtrl', function(ticketService, $scope) {
 		$scope.init = function() {
 			$scope.search = {
+				fromCityCode: '',
+				toCityCode: '',
 				fromLocationCode: '',
 				toLocationCode: '',
 				twoWay: ''
@@ -11,6 +13,8 @@ angular.module('airTicketApp')
 
 		$scope.searchTrips = function() {
 			ticketService.searchTrips({
+				fromCityCode: $scope.search.fromCityCode,
+				toCityCode: $scope.search.toCityCode,
 				fromLocationCode: $scope.search.fromLocationCode,
 				toLocationCode: $scope.search.toLocationCode,
 				forwardRoute: {},

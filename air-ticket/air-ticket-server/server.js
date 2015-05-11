@@ -31,6 +31,13 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
+app.get('/api/cityCodes', function (incomingMessage, serverResponse) {
+    serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
+
+    serverResponse.json(allCities);
+	serverResponse.end();
+});
+
 app.get('/api/locations', function(incomingMessage, serverResponse) {
 	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
 

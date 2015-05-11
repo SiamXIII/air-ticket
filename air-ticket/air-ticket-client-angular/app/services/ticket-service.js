@@ -19,6 +19,13 @@ angular.module('airTicketApp')
 				});
 		}
 
+		this.getCityCodes = function() {
+			return $http.get(this.serverUrl + "/api/cityCodes")
+				.then(function(response) {
+				return response.data;
+			});
+		}
+
 		this.searchTrips = function(params) {
 			return $http({
 				method: 'POST',

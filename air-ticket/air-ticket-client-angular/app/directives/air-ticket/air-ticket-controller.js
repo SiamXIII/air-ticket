@@ -1,12 +1,12 @@
 ﻿angular.module('airTicketApp')
 	.controller('ticketsCtrl', function(ticketService, $scope) {
-		$scope.init = function () {
-			$scope.locations = {};
+		$scope.init = function() {
+			$scope.cityCodes = {};
 			$scope.trips = {};
 
-			ticketService.getLocations()
+			ticketService.getCityCodes()
 				.then(function(data) {
-					$scope.locations = data;
+					$scope.cityCodes = data;
 				});
 		};
 	});
