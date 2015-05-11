@@ -3,11 +3,11 @@ var Schema = mongoose.Schema;
 
 // Schemas
 var Flight = new Schema({
-	'from': {
+	'_from': {
 		type: Schema.ObjectId,
 		ref: 'Location'
 	},
-	'to': {
+	'_to': {
 		type: Schema.ObjectId,
 		ref: 'Location'
 	},
@@ -18,3 +18,4 @@ var Flight = new Schema({
 	'flightCode': String
 });
 
+module.exports = mongoose.model('Flight', Flight);

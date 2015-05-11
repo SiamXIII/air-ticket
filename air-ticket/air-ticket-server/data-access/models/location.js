@@ -7,3 +7,5 @@ var Location = new Schema({
 	'fullName': String,
 	'code': String
 });
+
+module.exports = mongoose.model('Location', Location);

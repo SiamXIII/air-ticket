@@ -25,8 +25,6 @@ var flights = [
 var instance = {
 	getAllLocations: function (callback) {
 		locationsDataAccess.find()
-			.distinct('city')
-			.sort()
 			.exec(function (err, data) {
 			callback(data);
 		})
@@ -34,8 +32,8 @@ var instance = {
 	
 	getAllFlights: function (callback) {
 		flightsDataAccess.find()
-			.populate('from')
-			.populate('to')
+			.populate('_from')
+			.populate('_to')
 			.lean(true)
 			.exec(function (err, data) {
 			callback(data);
