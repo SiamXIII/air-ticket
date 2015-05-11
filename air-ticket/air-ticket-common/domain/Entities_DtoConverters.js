@@ -68,9 +68,13 @@ var AirTicket_Domain_Entities_DtoConverters;
     		return obj;
     	};
 
-    	TripDtoConverter.prototype.convertFromDto = function (dto) {
-    		var routeDtoConverter = new RouteDtoConverter();
-    		var trip = new AirTicket_Domain_Entities.Trip(routeDtoConverter.convertFromDto(dto._forwardRoute));
+	    TripDtoConverter.prototype.convertFromDto = function(dto) {
+		    var routeDtoConverter = new RouteDtoConverter();
+		    var trip = new AirTicket_Domain_Entities.Trip(
+			    routeDtoConverter.convertFromDto(dto._forwardRoute),
+			    dto._backRoute
+					? routeDtoConverter.convertFromDto(dto._backRoute)
+					: null);
 		    return trip;
 	    };
 

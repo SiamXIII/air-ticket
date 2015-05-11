@@ -119,14 +119,22 @@ var AirTicket_Domain_Entities;
             return resultFlights;
 	    };
 
-	    FlightMap.prototype.getNextFlights = function(route) {
-		    var nextFlights = this.getFlightsFrom(route.getToLocation().getCode())
-			    .filter(function(flight) {
-				    return route.getFlightsCount() < 5 &&
+	    FlightMap.prototype.getNextFlights = function (query, route) {
+
+		    if (!route) {
+		    	var nextFlights = this.getFlightsFrom(query.fromLocationCode);
+			    return nextFlights;
+		    }
+
+		    if (route) {
+			    var nextFlights = this.getFlightsFrom(route.getToLocation().getCode()).filter(function(flight) {
+				    var filter = route.getFlightsCount() < 5 &&
 					    flight.getDepartureTime() > route.getArrivalTime();
+				    return filter;
 			    });
 
-		    return nextFlights;
+			    return nextFlights;
+		    }
 	    };
 
         FlightMap.prototype.createNewRoute = function (route, additionalFlight) {
@@ -138,19 +146,31 @@ var AirTicket_Domain_Entities;
             return new Route(flightsArray);
         };
 
+    	//  * query: {
+        //  *		fromLocationCode: "",
+	    //  *		toLocationCode: "",
+    	//	*		departureTimeStartValue: "",
+		//	*		departureTimeEndValue: "",
+		//	*		maxFlightsCount: "",
+		//	*		maxWaitingTime: ""
+		//	* }
+
 	    FlightMap.prototype.getRoutes = function(query) {
 		    var routeStack = new Array();
-		    var fromFlights = this.getFlightsFrom(query.fromLocationCode);
-		    while (fromFlights.length > 0) {
-			    routeStack.push(new Route([fromFlights.shift()]));
+		    var startFlights = this.getNextFlights(query);
+		    while (startFlights.length > 0) {
+			    routeStack.push(new Route([startFlights.shift()]));
 		    }
 		    var resultRoutes = [];
 		    while (routeStack.length > 0) {
-			    var route = routeStack.pop();
-			    if (route.getFromLocation().getCode() === query.fromLocationCode && route.getToLocation().getCode() === query.toLocationCode) {
+		    	var route = routeStack.pop();
+		    	var targetReached = 
+					route.getFromLocation().getCode() === query.fromLocationCode && 
+					route.getToLocation().getCode() === query.toLocationCode;
+			    if (targetReached) {
 				    resultRoutes.push(route);
 			    } else {
-				    var nextFlights = this.getNextFlights(route);
+				    var nextFlights = this.getNextFlights(query, route);
 				    while (nextFlights.length > 0) {
 					    routeStack.push(this.createNewRoute(route, nextFlights.shift()));
 				    }
@@ -182,6 +202,10 @@ var AirTicket_Domain_Entities;
 			return this._forwardRoute;
 		}
 
+		Trip.prototype.getBackRoute = function () {
+			return this._backRoute;
+		}
+
 	    return Trip;
     })();
     AirTicket_Domain_Entities.Trip = Trip;
@@ -191,12 +215,64 @@ var AirTicket_Domain_Entities;
     		this._flightMap= flightMap;
     	}
 
-    	TripsService.prototype.getTrips = function(query) {
-		    var routes = this._flightMap.getRoutes(query);
+		/*
+		 * query{
+		 *		fromLocationCode: "",
+		 *		toLocationCode: "",
+		 *		forwardRoute: {
+		 *			departureTimeStartValue: "",
+		 *			departureTimeEndValue: "",
+		 *			maxFlightsCount: "",
+		 *			maxWaitingTime: ""
+		 *		},
+		 *		backRoute: {
+		 *			departureTimeStartValue: "",
+		 *			departureTimeEndValue: "",
+		 *			maxFlightsCount: "",
+		 *			maxWaitingTime: ""
+		 *		}
+		 * }
+		 */
 
-		    return routes.map(function(route) {
-			    return new Trip(route);
+    	TripsService.prototype.getTrips = function (query) {
+
+		    var forwardRoutes = this._flightMap.getRoutes({
+			    fromLocationCode: query.fromLocationCode,
+			    toLocationCode: query.toLocationCode,
+			    departureTimeStartValue: query.forwardRoute.departureTimeStartValue,
+			    departureTimeEndValue: query.forwardRoute.departureTimeEndValue,
+			    maxFlightsCount: query.forwardRoute.maxFlightsCount,
+			    maxWaitingTime: query.forwardRoute.maxWaitingTime
 		    });
+
+		    if (query.backRoute) {
+		    	var backRoutes = this._flightMap.getRoutes({
+		    		fromLocationCode: query.toLocationCode,
+		    		toLocationCode: query.fromLocationCode,
+		    		departureTimeStartValue: query.backRoute.departureTimeStartValue,
+		    		departureTimeEndValue: query.backRoute.departureTimeEndValue,
+		    		maxFlightsCount: query.backRoute.maxFlightsCount,
+		    		maxWaitingTime: query.backRoute.maxWaitingTime
+		    	});
+
+			    var trips = [];
+
+			    for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
+			    	for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
+			    		var trip = new Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex]);
+					    trips.push(trip);
+				    }
+			    }
+
+			    return trips;
+		    }
+
+		    var trips = forwardRoutes.map(function(route) {
+		    	var trip = new Trip(route);
+			    return trip;
+		    });
+
+		    return trips;
 	    }
 
 	    return TripsService;
