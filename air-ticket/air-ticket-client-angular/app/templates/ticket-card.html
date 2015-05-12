@@ -16,10 +16,10 @@
 				<span ng-if="detailed">Скрыть</span>
 			</button>
 		</div>
-
+		
 		<div class="details" ng-show="detailed">
-			<table detailed-route="trip.forwardRoute" header="Туда"></table>
-			<table detailed-route="trip.backRoute" header="Обратно" ng-if="trip.backRoute"></table>
+			<table detailed-route="trip.forwardRoute" header="{{'forwardTrip' | translate}}"></table>
+			<table detailed-route="trip.backRoute" header="{{'comebackTrip' | translate}}" ng-if="trip.backRoute"></table>
 		</div>
 	</div>
 </div>
