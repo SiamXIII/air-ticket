@@ -143,7 +143,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		RouteQuery.prototype.getToQuery = function () {
-			return this._toLocarionQuery;
+			return this._toLocationQuery;
 		}
 
 		RouteQuery.prototype.getMinDepartureTime = function () {
@@ -216,17 +216,17 @@ var AirTicket_Domain_Entities;
 			return nextFlights;
 		};
 
-		FlightMap.prototype.checkForTargetReached = function(query, route) {
+		FlightMap.prototype.checkForTargetReached = function(routeQuery, route) {
 			var targetReached;
 
-			if (query.fromLocationCode && query.toLocationCode) {
+			if (routeQuery.getFromQuery().getCode() && routeQuery.getToQuery().getCode()) {
 				targetReached =
-					route.getFromLocation().getCode() === query.fromLocationCode &&
-					route.getToLocation().getCode() === query.toLocationCode;
-			} else if (query.fromCityCode && query.toCityCode) {
+					route.getFromLocation().getCode() === routeQuery.getFromQuery().getCode() &&
+					route.getToLocation().getCode() === routeQuery.getToQuery().getCode();
+			} else if (routeQuery.getFromQuery().getCityCode() && routeQuery.getToQuery().getCityCode()) {
 				targetReached =
-					route.getFromLocation().getCityCode() === query.fromCityCode &&
-					route.getToLocation().getCityCode() === query.toCityCode;
+					route.getFromLocation().getCityCode() === routeQuery.getFromQuery().getCityCode() &&
+					route.getToLocation().getCityCode() === routeQuery.getToQuery().getCityCode();
 			} else {
 				throw new Error('Bad request.');
 			}
