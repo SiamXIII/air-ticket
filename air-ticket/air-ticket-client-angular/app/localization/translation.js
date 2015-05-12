@@ -68,5 +68,5 @@
 		'selectDestination': 'Пункт назначения'
 	});
 
-	$translateProvider.preferredLanguage('ru');
+	$translateProvider.preferredLanguage('en');
 });

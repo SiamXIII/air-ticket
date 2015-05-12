@@ -27,7 +27,9 @@ angular.module('airTicketApp')
 						new Date($scope.search.backRouteDepartureDate),
 						new Date(new Date($scope.search.backRouteDepartureDate).valueOf() + 1000 * 60 * 60 * 24 - 1)) :
 					null)
-			).then(function(data) {
+			).then(function (data) {
+				$scope.resultsDirection = $scope.search.twoWay;
+
 				$scope.trips = data.map(function(trip) {
 
 					var mapLocation = function(location) {

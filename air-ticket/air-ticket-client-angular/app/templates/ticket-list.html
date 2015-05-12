@@ -1,9 +1,9 @@
 ﻿<div class="ticket-list">
 	<div class="wrap">
-		<h2>{{'flightList' | translate}}</h2>
+		<h2>{{::'flightList' | translate}}</h2>
 
 		<div class="tickets">
-			<ticket-card ng-repeat="trip in trips"></ticket-card>
+			<ticket-card ng-repeat="trip in trips | listFilter : filter : resultsDirection"></ticket-card>
 		</div>
 	</div>
 </div>
