@@ -19,7 +19,9 @@ angular.module('airTicketApp')
 				toLocationCode: $scope.search.toLocationCode,
 				forwardRoute: {},
 				backRoute: $scope.search.twoWay
-			}).then(function(data) {
+			}).then(function (data) {
+				$scope.resultsDirection = $scope.search.twoWay;
+
 				$scope.trips = data.map(function(trip) {
 
 					var mapLocation = function(location) {
