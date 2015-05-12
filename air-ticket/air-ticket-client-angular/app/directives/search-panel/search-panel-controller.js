@@ -7,19 +7,27 @@ angular.module('airTicketApp')
 				toCityCode: '',
 				fromLocationCode: '',
 				toLocationCode: '',
+				forwardRouteDepartureDate: '',
+				backRouteDepartureDate: '',
 				twoWay: ''
 			};
 		}
 
 		$scope.searchTrips = function() {
-			ticketService.searchTrips({
-				fromCityCode: $scope.search.fromCityCode,
-				toCityCode: $scope.search.toCityCode,
-				fromLocationCode: $scope.search.fromLocationCode,
-				toLocationCode: $scope.search.toLocationCode,
-				forwardRoute: {},
-				backRoute: $scope.search.twoWay
-			}).then(function(data) {
+			ticketService.searchTrips(new AirTicket_Domain_Entities.TripQuery(
+					new AirTicket_Domain_Entities.RouteQuery(
+						new AirTicket_Domain_Entities.LocationQuery(null, $scope.search.fromCityCode),
+						new AirTicket_Domain_Entities.LocationQuery(null, $scope.search.toCityCode),
+						new Date($scope.search.forwardRouteDepartureDate),
+						new Date(new Date($scope.search.forwardRouteDepartureDate).valueOf() + 1000 * 60 * 24 - 1)),
+					$scope.search.twoWay ?
+					new AirTicket_Domain_Entities.RouteQuery(
+						new AirTicket_Domain_Entities.LocationQuery(null, $scope.search.toCityCode),
+						new AirTicket_Domain_Entities.LocationQuery(null, $scope.search.fromCityCode),
+						new Date($scope.search.backRouteDepartureDate),
+						new Date(new Date($scope.search.backRouteDepartureDate).valueOf() + 1000 * 60 * 24 - 1)) :
+					null)
+			).then(function(data) {
 				$scope.trips = data.map(function(trip) {
 
 					var mapLocation = function(location) {

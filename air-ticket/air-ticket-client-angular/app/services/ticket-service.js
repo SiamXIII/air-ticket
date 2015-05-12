@@ -22,21 +22,18 @@ angular.module('airTicketApp')
 		this.getCityCodes = function() {
 			return $http.get(this.serverUrl + "/api/cityCodes")
 				.then(function(response) {
-				return response.data;
-			});
+					return response.data;
+				});
 		}
 
-		this.searchTrips = function(params) {
-			return $http({
-				method: 'POST',
-				url: this.serverUrl + "/api/trips",
-				params: params
-			}).then(function(data) {
-				var trips = data.data.map(function(tripDto) {
-					return tripsDtoConverter.convertFromDto(tripDto);
-				});
+		this.searchTrips = function(query) {
+			return $http.post(this.serverUrl + "/api/trips", new AirTicket_Domain_Entities_DtoConverters.TripQueryDtoConverter().convertToDto(query))
+				.then(function(data) {
+					var trips = data.data.map(function(tripDto) {
+						return tripsDtoConverter.convertFromDto(tripDto);
+					});
 
-				return trips;
-			});
+					return trips;
+				});
 		}
 	});

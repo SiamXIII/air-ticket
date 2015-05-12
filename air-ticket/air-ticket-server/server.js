@@ -2,8 +2,8 @@ var express = require('express');
 
 var flightsStore = require("./ticketsStore")();
 
-var Entities = require('./domain/Entities');
-var DtoConverters = require('./domain/Entities_DtoConverters');
+var AirTicket_Domain_Entities = require('./domain/Entities.js');
+var AirTicket_Domain_Entities_DtoConverters = require('./domain/Entities_DtoConverters.js');
 
 var allLocations;
 var allCities;
@@ -19,8 +19,8 @@ flightsStore.getAllCities(function(data) {
 });
 
 flightsStore.getAllFlights(function (data) {
-    flightMap = new Entities.FlightMap(data);
-	tripsService = new Entities.TripsService(flightMap);
+    flightMap = new AirTicket_Domain_Entities.FlightMap(data);
+	tripsService = new AirTicket_Domain_Entities.TripsService(flightMap);
 });
 
 
@@ -41,7 +41,7 @@ app.get('/api/cityCodes', function (incomingMessage, serverResponse) {
 app.get('/api/locations', function(incomingMessage, serverResponse) {
 	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
 
-	var locationDtoConverter = new DtoConverters.LocationDtoConverter();
+	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 
 	serverResponse.json(
 		allLocations.map(function (location) {
@@ -60,17 +60,35 @@ app.get('/api/cities', function (incomingMessage, serverResponse) {
 	});
 });
 
-app.post('/api/trips', function (incomingMessage, serverResponse) {
+app.options('/api/trips', function(incomingMessage, serverResponse) {
+	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
+    serverResponse.setHeader('Access-Control-Allow-Headers', "Content-Type");
+	serverResponse.end();
+});
+
+app.post('/api/trips', function(incomingMessage, serverResponse) {
 	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
 
-	var tripDtoConverter = new DtoConverters.TripDtoConverter();
+	var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 
-	serverResponse.json(tripsService.getTrips(incomingMessage.query)
-		.map(function (trip) {
-			return tripDtoConverter.convertToDto(trip);
-		}));
+	var body = "";
 
-	serverResponse.end();
+	incomingMessage.on("data", function(data) {
+		body += data;
+	});
+
+	incomingMessage.on("end", function() {
+        var tripQueryDto = JSON.parse(body);
+
+		var tripQuery = new AirTicket_Domain_Entities_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
+
+		serverResponse.json(tripsService.getTrips(tripQuery)
+			.map(function(trip) {
+				return tripDtoConverter.convertToDto(trip);
+			}));
+
+		serverResponse.end();
+	});
 });
 
 var server = app.listen(3000, function () {
