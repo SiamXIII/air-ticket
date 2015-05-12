@@ -324,7 +324,7 @@ var AirTicket_Domain_Entities;
 
 			var forwardRoutes = this._flightMap.getRoutes(tripQuery.GetForwardRouteQuery());
 
-			if (tripQuery._backRouteQuery) {
+			if (tripQuery.GetBackRouteQuery()) {
 				var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
 
 				var trips = [];
