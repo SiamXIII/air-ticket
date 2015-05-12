@@ -1,74 +1,73 @@
 ﻿<div class="search-settings">
-	<h2>Параметры поиска 
- </h2>
+	<h2>{{'searchParams' | translate}}</h2>
 
 	<form class="search-settings-form" ng-init="init()">
 		<div class="form-group">
-			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromCityCode" data-placeholder="Select origin">
+			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromCityCode" data-placeholder="{{'selectOrigin' | translate}}">
 				<option value=""></option>
 				<option ng-repeat="cityCode in cityCodes" value="{{cityCode}}">{{cityCode}}</option>
 			</select>
 		</div>
 
 		<div class="form-group">
-			<label class="control-label" for="arrivalSelected">В</label>
-			<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.toCityCode" data-placeholder="Select destination">
+			<label class="control-label" for="arrivalSelected">{{'to' | translate}}</label>
+			<select class="form-control" id="arrivalSelected" ui-select2="select2options" ng-model="search.toCityCode" data-placeholder="{{'selectDestination' | translate}}">
 				<option value=""></option>
 				<option ng-repeat="cityCode in cityCodes" value="{{cityCode}}">{{cityCode}}</option>
 			</select>
 		</div>
 
 		<div class="form-group">
-			<label class="control-label">Цель</label>
+			<label class="control-label">{{'directions' | translate}}</label>
 			<div class="checkbox">
-				<label><input type="radio" name="ways" ng-model="search.twoWay" value="">В одну сторону</label>
+				<label><input type="radio" name="ways" ng-model="search.twoWay" value="">{{'oneWay' | translate}}</label>
 			</div>
 			<div class="checkbox">
-				<label><input type="radio" name="ways" ng-model="search.twoWay" value="true">Туда и обратно</label>
+				<label><input type="radio" name="ways" ng-model="search.twoWay" value="true">{{'twoWay' | translate}}</label>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div>
-				<label>Дата отправления</label>
+				<label>{{'departureDate' | translate}}</label>
 				<input class="datepicker form-control" type="text"
 					   pick-a-date="date"
 					   ng-model="search.forwardRouteDepartureDate"
-					   placeholder="Departure" />
+					   placeholder="{{'departure' | translate}}" />
 			</div>
 		</div>
 
 		<div class="form-group" ng-show="search.twoWay">
 			<div>
-				<label>Дата возвращения</label>
+				<label>{{'comebackDate' | translate}}</label>
 				<input class="datepicker form-control" type="text"
 					   pick-a-date="date"
 					   ng-model="search.backRouteDepartureDate"
-					   placeholder="Comeback" />
+					   placeholder="{{'comeback' | translate}}" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div>
-				<label>Взрослые</label>
+				<label>{{'adults' | translate}}</label>
 				<input class="form-control" type="number" min="0" max="100" ng-model="people.adults" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div>
-				<label>Дети</label>
+				<label>{{'children' | translate}}</label>
 				<input class="form-control" type="number" min="0" max="100" ng-model="people.children" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div>
-				<label>Младенцы</label>
+				<label>{{'babies' | translate}}</label>
 				<input class="form-control" type="number" min="0" max="100" ng-model="people.newborns" />
 			</div>
 		</div>
 
-		<button ng-click="searchTrips()">Поиск</button>
+		<button ng-click="searchTrips()">{{'search' | translate}}</button>
 	</form>
 </div>
