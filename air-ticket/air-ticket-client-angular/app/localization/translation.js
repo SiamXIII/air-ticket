@@ -27,7 +27,11 @@
 		'departureFrom': 'Departure from',
 		'arrivalTo': 'Arrival to',
 		'vendor': 'Vendor',
-		'flightCode': 'Flight ID'
+		'flightCode': 'Flight ID',
+		'departure': 'Departure',
+		'comeback': 'Comeback',
+		'selectOrigin': 'Select origin',
+		'selectDestination': 'Select destination'
 	});
 
 	$translateProvider.translations('ru', {
@@ -57,8 +61,12 @@
 		'departureFrom': 'Отправление из',
 		'arrivalTo': 'Прибытие в',
 		'vendor': 'Авиакомпания',
-		'flightCode': 'Номер рейса'
+		'flightCode': 'Номер рейса',
+		'departure': 'Отправление',
+		'comeback': 'Возвращение',
+		'selectOrigin': 'Пункт отправления',
+		'selectDestination': 'Пункт назначения'
 	});
 
-	$translateProvider.preferredLanguage('en');
+	$translateProvider.preferredLanguage('ru');
 });
