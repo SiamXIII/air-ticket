@@ -185,7 +185,7 @@ var AirTicket_Domain_Entities;
 			return resultFlights;
 		};
 
-		FlightMap.prototype.getNextFlights = function (routeQuery, route) {
+		FlightMap.prototype.getNextFlights = function(routeQuery, route) {
 
 			var nextFlights;
 
@@ -193,23 +193,23 @@ var AirTicket_Domain_Entities;
 				nextFlights = routeQuery.getFromQuery().getCode()
 					? this.getFlightsFromLocation(routeQuery.getFromQuery().getCode())
 					: this.getFlightsFromCity(routeQuery.getFromQuery().getCityCode());
-			}else {
+
+				if (routeQuery.getMinDepartureTime()) {
+					nextFlights = nextFlights.filter(function(flight) {
+						return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
+					});
+				}
+
+				if (routeQuery.getMaxDepartureTime()) {
+					nextFlights = nextFlights.filter(function(flight) {
+						return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
+					});
+				}
+			} else {
 				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function(flight) {
 					var filter = route.getFlightsCount() < 5 &&
 						flight.getDepartureTime() > route.getArrivalTime();
 					return filter;
-				});
-			}
-
-			if (routeQuery.getMinDepartureTime()) {
-				nextFlights = nextFlights.filter(function(flight) {
-					return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
-				});
-			}
-
-			if (routeQuery.getMaxDepartureTime()) {
-				nextFlights = nextFlights.filter(function (flight) {
-					return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
 				});
 			}
 
