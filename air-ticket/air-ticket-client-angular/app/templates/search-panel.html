@@ -3,6 +3,7 @@
 
 	<form class="search-settings-form" ng-init="init()">
 		<div class="form-group">
+			<label class="control-label" for="arrivalSelected">{{::'from' | translate}}</label>
 			<select class="form-control" id="departureSelected" ui-select2="select2options" ng-model="search.fromCityCode" data-placeholder="{{::'selectOrigin' | translate}}">
 				<option value=""></option>
 				<option ng-repeat="cityCode in cityCodes" value="{{cityCode}}">{{cityCode}}</option>
