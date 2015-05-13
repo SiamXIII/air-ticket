@@ -36,7 +36,6 @@ angular.module('airTicketApp')
 						var result = {
 							code: location.getCode(),
 							fullName: location.getFullName(),
-							cityCode: location.getCityCode()
 						};
 
 						return result;
