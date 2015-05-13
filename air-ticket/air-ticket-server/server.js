@@ -1,9 +1,12 @@
 var express = require('express');
 
-var flightsStore = require("./ticketsStore")();
-
 var AirTicket_Domain_Entities = require('./domain/Entities.js');
 var AirTicket_Domain_Entities_DtoConverters = require('./domain/Entities_DtoConverters.js');
+var AirTicket_Domain_Services = require('./domain/Services.js');
+var AirTicket_Domain_Queries = require("./domain/Queries.js");
+var AirTicket_Domain_Queries_DtoConverters = require("./domain/Queries_DtoConverters.js");
+
+var flightsStore = require("./ticketsStore")();
 
 var allLocations;
 var allCities;
@@ -19,8 +22,8 @@ flightsStore.getAllCities(function(data) {
 });
 
 flightsStore.getAllFlights(function (data) {
-    flightMap = new AirTicket_Domain_Entities.FlightMap(data);
-	tripsService = new AirTicket_Domain_Entities.TripsService(flightMap);
+    flightMap = new AirTicket_Domain_Services.FlightMap(data);
+	tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 });
 
 
@@ -80,7 +83,7 @@ app.post('/api/trips', function(incomingMessage, serverResponse) {
 	incomingMessage.on("end", function() {
         var tripQueryDto = JSON.parse(body);
 
-		var tripQuery = new AirTicket_Domain_Entities_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
+		var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
 
 		serverResponse.json(tripsService.getTrips(tripQuery)
 			.map(function(trip) {

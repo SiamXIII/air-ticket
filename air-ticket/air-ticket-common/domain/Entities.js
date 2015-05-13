@@ -24,23 +24,6 @@ var AirTicket_Domain_Entities;
 	})();
 	AirTicket_Domain_Entities.Location = Location;
 
-	var LocationQuery = (function () {
-		function LocationQuery(code, cityCode) {
-			this._code = code;
-			this._cityCode = cityCode;
-		}
-
-		LocationQuery.prototype.getCode = function () {
-			return this._code;
-		}
-
-		LocationQuery.prototype.getCityCode = function () {
-			return this._cityCode;
-		}
-		return LocationQuery;
-	})();
-	AirTicket_Domain_Entities.LocationQuery = LocationQuery;
-
 	var Flight = (function () {
 		function Flight(from, to, departureTime, arrivalTime) {
 			this._from = from;
@@ -128,35 +111,6 @@ var AirTicket_Domain_Entities;
 		return Route;
 	})();
 	AirTicket_Domain_Entities.Route = Route;
-
-	var RouteQuery = (function () {
-
-		function RouteQuery(fromLocarionQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
-			this._fromLocarionQuery = fromLocarionQuery;
-			this._toLocationQuery = toLocationQuery;
-			this._minDepartureTime = minDepartureTime;
-			this._maxDepartureTime = maxDepartureTime;
-		}
-
-		RouteQuery.prototype.getFromQuery = function() {
-			return this._fromLocarionQuery;
-		}
-
-		RouteQuery.prototype.getToQuery = function () {
-			return this._toLocationQuery;
-		}
-
-		RouteQuery.prototype.getMinDepartureTime = function () {
-			return this._minDepartureTime;
-		}
-
-		RouteQuery.prototype.getMaxDepartureTime = function () {
-			return this._maxDepartureTime;
-		}
-
-		return RouteQuery;
-	})();
-	AirTicket_Domain_Entities.RouteQuery = RouteQuery;
 
 	var FlightMap = (function () {
 		function FlightMap(flights) {
@@ -295,25 +249,6 @@ var AirTicket_Domain_Entities;
 		return Trip;
 	})();
 	AirTicket_Domain_Entities.Trip = Trip;
-
-	var TripQuery = (function () {
-		function TripQuery(forwardRouteQuery, backRouteQuery) {
-			this._forwardRouteQuery = forwardRouteQuery;
-			this._backRouteQuery = backRouteQuery;
-		}
-
-		TripQuery.prototype.GetForwardRouteQuery = function () {
-			return this._forwardRouteQuery;
-		}
-
-		TripQuery.prototype.GetBackRouteQuery = function () {
-			return this._backRouteQuery;
-		}
-
-		return TripQuery;
-
-	})();
-	AirTicket_Domain_Entities.TripQuery = TripQuery;
 
 	var TripsService = (function () {
 		function TripsService(flightMap) {

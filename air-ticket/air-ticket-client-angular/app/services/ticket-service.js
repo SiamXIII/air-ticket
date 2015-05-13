@@ -27,7 +27,7 @@ angular.module('airTicketApp')
 		}
 
 		this.searchTrips = function(query) {
-			return $http.post(this.serverUrl + "/api/trips", new AirTicket_Domain_Entities_DtoConverters.TripQueryDtoConverter().convertToDto(query))
+			return $http.post(this.serverUrl + "/api/trips", new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertToDto(query))
 				.then(function(data) {
 					var trips = data.data.map(function(tripDto) {
 						return tripsDtoConverter.convertFromDto(tripDto);
