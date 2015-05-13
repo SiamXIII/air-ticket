@@ -32,9 +32,9 @@
 			<div>
 				<label>{{::'departureDate' | translate}}</label>
 				<input class="datepicker form-control" type="text"
-					   pick-a-date="date"
 					   ng-model="search.forwardRouteDepartureDate"
-					   placeholder="{{::'departure' | translate}}" />
+					   placeholder="{{::'departure' | translate}}" 
+					   datepicker/>
 			</div>
 		</div>
 
@@ -42,9 +42,9 @@
 			<div>
 				<label>{{::'comebackDate' | translate}}</label>
 				<input class="datepicker form-control" type="text"
-					   pick-a-date="date"
 					   ng-model="search.backRouteDepartureDate"
-					   placeholder="{{::'comeback' | translate}}" />
+					   placeholder="{{::'comeback' | translate}}"
+					   datepicker />
 			</div>
 		</div>
 
