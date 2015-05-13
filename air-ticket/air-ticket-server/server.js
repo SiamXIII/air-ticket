@@ -8,14 +8,9 @@ var AirTicket_Domain_Queries_DtoConverters = require("./domain/Queries_DtoConver
 
 var flightsStore = require("./ticketsStore")();
 
-var allLocations;
 var allCities;
 var flightMap;
 var tripsService;
-
-flightsStore.getAllLocations(function(data) {
-    allLocations = data;
-});
 
 flightsStore.getAllCities(function(data) {
 	allCities = data;
@@ -26,52 +21,26 @@ flightsStore.getAllFlights(function (data) {
 	tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 });
 
-
-
 var app = express();
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.get('/api/cityCodes', function (incomingMessage, serverResponse) {
-    serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
 
+app.use("*", function (incomingMessage, serverResponse, next) {
+    serverResponse.setHeader('Access-Control-Allow-Origin', "*");
+    serverResponse.setHeader('Access-Control-Allow-Headers', "Content-Type");
+    serverResponse.setHeader('Access-Control-Allow-Methods', "GET,PUT,POST,DELETE");
+	next();
+});
+
+app.get('/api/cityCodes', function (incomingMessage, serverResponse) {
     serverResponse.json(allCities);
 	serverResponse.end();
 });
 
-app.get('/api/locations', function(incomingMessage, serverResponse) {
-	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
-
-	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-
-	serverResponse.json(
-		allLocations.map(function (location) {
-			return locationDtoConverter.convertToDto(location);
-		}));
-
-	serverResponse.end();
-});
-
-app.get('/api/cities', function (incomingMessage, serverResponse) {
-	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
-	
-	flightsStore.getAllCities(function (data) {
-		serverResponse.json(data);
-		serverResponse.end();
-	});
-});
-
-app.options('/api/trips', function(incomingMessage, serverResponse) {
-	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
-    serverResponse.setHeader('Access-Control-Allow-Headers', "Content-Type");
-	serverResponse.end();
-});
-
 app.post('/api/trips', function(incomingMessage, serverResponse) {
-	serverResponse.setHeader('Access-Control-Allow-Origin', "http://localhost:52923");
-
 	var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 
 	var body = "";
