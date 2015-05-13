@@ -8,12 +8,12 @@ var AirTicket_Domain_Queries_DtoConverters = require("./domain/Queries_DtoConver
 
 var flightsStore = require("./ticketsStore")();
 
-var allCities;
+var allLocations;
 var flightMap;
 var tripsService;
 
-flightsStore.getAllCities(function(data) {
-	allCities = data;
+flightsStore.getAllLocations(function(data) {
+    allLocations = data;
 });
 
 flightsStore.getAllFlights(function (data) {
@@ -35,8 +35,12 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 	next();
 });
 
-app.get('/api/cityCodes', function (incomingMessage, serverResponse) {
-    serverResponse.json(allCities);
+app.get('/api/locations', function(incomingMessage, serverResponse) {
+	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+	serverResponse.json(
+		allLocations.map(function(location) {
+			return locationDtoConverter.convertToDto(location);
+		}));
 	serverResponse.end();
 });
 

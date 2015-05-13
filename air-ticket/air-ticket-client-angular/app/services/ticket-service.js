@@ -19,10 +19,15 @@ angular.module('airTicketApp')
 				});
 		}
 
-		this.getCityCodes = function() {
-			return $http.get(this.serverUrl + "/api/cityCodes")
+		this.getLocations = function() {
+			return $http.get(this.serverUrl + "/api/locations")
 				.then(function(response) {
-					return response.data;
+					var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+					var locations = response.data.map(function(locationDto) {
+						return locationDtoConverter.convertFromDto(locationDto);
+					});
+
+					return locations;
 				});
 		}
 
