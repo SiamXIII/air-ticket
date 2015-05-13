@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="clearfix">
 	<span class="route-places">
 		<span class="from">
 			<span class="code">{{route.from.code}}:</span>
@@ -15,4 +15,13 @@
 		<span class="time-icon" aria-hidden="true"></span>
 		<span>{{route.duration | date: 'HH:mm'}}</span>
 	</span>
+
+	<div class="details" ng-show="detailed">
+		<table detailed-route="route"></table>
+	</div>
+
+	<button ng-click="toggleDetails()" class="pull-right">
+		<span ng-if="!detailed">{{::'details' | translate}}</span>
+		<span ng-if="detailed">{{::'hide' | translate}}</span>
+	</button>
 </div>
