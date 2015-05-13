@@ -19,11 +19,22 @@ module.exports = function (grunt) {
 					}
 				]
 			}
+		},
+
+		watch: {
+			domain: {
+				files: ['air-ticket-common/domain/*.js'],
+				tasks: ['copy'],
+				options: {
+					spawn: true
+				}
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['copy']);
+	grunt.registerTask('default', ['copy', 'watch']);
 };
