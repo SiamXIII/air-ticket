@@ -5,7 +5,14 @@
 		require: '^ticket-list',
 		templateUrl: templatesPath + 'route.html',
 		scope: {
-			route: "="
+			route: "=",
+		},
+		controller: function ($scope) {
+			$scope.detailed = false;
+
+			$scope.toggleDetails = function () {
+				$scope.detailed = $scope.detailed ? false : true;
+			}
 		}
 	}
 });

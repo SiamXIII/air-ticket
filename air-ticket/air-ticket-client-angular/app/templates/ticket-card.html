@@ -7,16 +7,8 @@
 			<div class="route" route="trip.forwardRoute"></div>
 			<div class="route" route="trip.backRoute" ng-if="trip.backRoute"></div>
 		</div>
-		<div class="actions">
+		<div class="actions pull-right">
 			<button class="btn btn-default">{{::'order' | translate}}</button>
-			<button ng-click="toggleDetails()">
-				<span ng-if="!detailed">{{::'details' | translate}}</span>
-				<span ng-if="detailed">{{::'hide' | translate}}</span>
-			</button>
-		</div>
-		<div class="details" ng-show="detailed">
-			<table detailed-route="trip.forwardRoute" header="{{::'forwardTrip' | translate}}"></table>
-			<table detailed-route="trip.backRoute" header="{{::'comebackTrip' | translate}}" ng-if="trip.backRoute"></table>
 		</div>
 	</div>
 </div>
