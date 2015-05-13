@@ -40,25 +40,23 @@ var AirTicket_Domain_Services;
 			var nextFlights;
 
 			if (!route) {
-				nextFlights = routeQuery.getFromQuery().getCode()
-					? this.getFlightsFromLocation(routeQuery.getFromQuery().getCode())
-					: this.getFlightsFromCity(routeQuery.getFromQuery().getCityCode());
+				nextFlights = this.getFlightsFromLocation(routeQuery.getFromQuery().getCode());
 
 				if (routeQuery.getMinDepartureTime()) {
 					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
+						return flight.getDepartureTimeUtc() >= routeQuery.getMinDepartureTime();
 					});
 				}
 
 				if (routeQuery.getMaxDepartureTime()) {
 					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
+						return flight.getDepartureTimeUtc() <= routeQuery.getMaxDepartureTime();
 					});
 				}
 			} else {
 				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function (flight) {
 					var filter = route.getFlightsCount() < 5 &&
-						flight.getDepartureTime() > route.getArrivalTime();
+						flight.getDepartureTimeUtc() > route.getArrivalTimeUtc();
 					return filter;
 				});
 			}
@@ -73,10 +71,6 @@ var AirTicket_Domain_Services;
 				targetReached =
 					route.getFromLocation().getCode() === routeQuery.getFromQuery().getCode() &&
 					route.getToLocation().getCode() === routeQuery.getToQuery().getCode();
-			} else if (routeQuery.getFromQuery().getCityCode() && routeQuery.getToQuery().getCityCode()) {
-				targetReached =
-					route.getFromLocation().getCityCode() === routeQuery.getFromQuery().getCityCode() &&
-					route.getToLocation().getCityCode() === routeQuery.getToQuery().getCityCode();
 			} else {
 				throw new Error('Bad request.');
 			}

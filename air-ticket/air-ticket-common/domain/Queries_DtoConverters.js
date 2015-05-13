@@ -14,7 +14,7 @@ var AirTicket_Domain_Queries_DtoConverters;
 			return obj;
 		};
 		LocationQueryDtoConverter.prototype.convertFromDto = function (dto) {
-			return new AirTicket_Domain_Queries.LocationQuery(dto._code, dto._cityCode);
+			return new AirTicket_Domain_Queries.LocationQuery(dto._code);
 		};
 		return LocationQueryDtoConverter;
 	})();

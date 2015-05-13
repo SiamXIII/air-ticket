@@ -14,7 +14,7 @@ var AirTicket_Domain_Entities_DtoConverters;
 			return obj;
 		};
 		LocationDtoConverter.prototype.convertFromDto = function (dto) {
-			return new AirTicket_Domain_Entities.Location(dto._code, dto._fullName, dto._cityCode);
+			return new AirTicket_Domain_Entities.Location(dto._code, dto._fullName, dto._timeZoneOffset);
 		};
 		return LocationDtoConverter;
 	})();
@@ -35,8 +35,8 @@ var AirTicket_Domain_Entities_DtoConverters;
 			var flight = new AirTicket_Domain_Entities.Flight(
 				locationDtoConverter.convertFromDto(dto._from),
 				locationDtoConverter.convertFromDto(dto._to),
-				new Date(dto._departureTime),
-				new Date(dto._arrivalTime),
+				new Date(dto._departureTimeUtc),
+				new Date(dto._arrivalTimeUtc),
 				dto._code,
 				dto._vendorCode);
 

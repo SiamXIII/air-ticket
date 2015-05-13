@@ -16,8 +16,8 @@ angular.module('airTicketApp')
 		$scope.searchTrips = function() {
 			ticketService.searchTrips(new AirTicket_Domain_Queries.TripQuery(
 					new AirTicket_Domain_Queries.RouteQuery(
-						new AirTicket_Domain_Queries.LocationQuery(null, $scope.search.fromCityCode),
-						new AirTicket_Domain_Queries.LocationQuery(null, $scope.search.toCityCode),
+						new AirTicket_Domain_Queries.LocationQuery($scope.search.fromCityCode),
+						new AirTicket_Domain_Queries.LocationQuery($scope.search.toCityCode),
 						new Date($scope.search.forwardRouteDepartureDate),
 						new Date(new Date($scope.search.forwardRouteDepartureDate).valueOf() + (1000 * 60 * 60 * 24 - 1))),
 					$scope.search.twoWay ?
@@ -46,8 +46,8 @@ angular.module('airTicketApp')
 						var result = {
 							from: mapLocation(flight.getFromLocation()),
 							to: mapLocation(flight.getToLocation()),
-							departureTime: flight.getDepartureTime(),
-							arrivalTime: flight.getArrivalTime(),
+							departureTime: flight.getDepartureTimeUtc(),
+							arrivalTime: flight.getArrivalTimeUtc(),
 							duration: flight.getDuration(),
 							code: flight.getCode(),
 							vendorCode: flight.getVendorCode()
@@ -66,8 +66,8 @@ angular.module('airTicketApp')
 						var result = {
 							from: mapLocation(route.getFromLocation()),
 							to: mapLocation(route.getToLocation()),
-							departureTime: route.getDepartureTime(),
-							arrivalTime: route.getArrivalTime(),
+							departureTime: route.getDepartureTimeUtc(),
+							arrivalTime: route.getArrivalTimeUtc(),
 							duration: route.getDuration(),
 							flights: flightViewModels
 						};

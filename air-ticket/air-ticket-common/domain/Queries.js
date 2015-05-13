@@ -8,18 +8,14 @@ var AirTicket_Domain_Queries;
 (function (AirTicket_Domain_Queries) {
 
 	var LocationQuery = (function () {
-		function LocationQuery(code, cityCode) {
+		function LocationQuery(code) {
 			this._code = code;
-			this._cityCode = cityCode;
 		}
 
 		LocationQuery.prototype.getCode = function () {
 			return this._code;
 		}
 
-		LocationQuery.prototype.getCityCode = function () {
-			return this._cityCode;
-		}
 		return LocationQuery;
 	})();
 	AirTicket_Domain_Queries.LocationQuery = LocationQuery;

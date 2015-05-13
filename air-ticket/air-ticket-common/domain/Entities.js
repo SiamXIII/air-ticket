@@ -1,40 +1,53 @@
-var AirTicket_Domain_Entities;
+﻿var AirTicket_Domain_Entities;
 
 (function (AirTicket_Domain_Entities) {
 
 	var Location = (function () {
-		function Location(code, fullName, cityCode) {
+		function Location(code, fullName, timeZoneOffset) {
 			this._code = code;
 			this._fullName = fullName;
-			this._cityCode = cityCode;
+			this._timeZoneOffset = timeZoneOffset;
 		}
 
 		Location.prototype.getCode = function () {
 			return this._code;
 		}
 
-		Location.prototype.getFullName = function() {
+		Location.prototype.getFullName = function () {
 			return this._fullName;
 		}
 
-		Location.prototype.getCityCode = function () {
-			return this._cityCode;
+		Location.prototype.getTimeZoneOffsetMiliseconds = function () {
+			var timeZoneOffset = this._timeZoneOffset * 60 * 1000;
+			return timeZoneOffset;
 		}
+
+		Location.prototype.getTimeZoneString = function () {
+			var operator =
+				this._timeZoneOffset > 0
+					? "+"
+					: "-";
+
+			var offsetString = "GMT" + operator + this._timeZoneOffset.toString();
+
+			return offsetString;
+		}
+
 		return Location;
 	})();
 	AirTicket_Domain_Entities.Location = Location;
 
 	var Flight = (function () {
-		function Flight(from, to, departureTime, arrivalTime, code, vendorCode) {
+		function Flight(from, to, departureTimeUtc, arrivalTimeUtc, code, vendorCode) {
 			this._from = from;
 			this._to = to;
 
-			if (departureTime >= arrivalTime) {
+			if (departureTimeUtc >= arrivalTimeUtc) {
 				throw new Error("Departure time must be less than arrival time.");
 			}
 
-			this._departureTime = departureTime;
-			this._arrivalTime = arrivalTime;
+			this._departureTimeUtc = departureTimeUtc;
+			this._arrivalTimeUtc = arrivalTimeUtc;
 
 			this._code = code;
 			this._vendorCode = vendorCode;
@@ -48,16 +61,36 @@ var AirTicket_Domain_Entities;
 			return this._to;
 		}
 
-		Flight.prototype.getDepartureTime = function () {
-			return this._departureTime;
+		Flight.prototype.getDepartureTimeUtc = function () {
+			return this._departureTimeUtc;
 		}
 
-		Flight.prototype.getArrivalTime = function () {
-			return this._arrivalTime;
+		Flight.prototype.getDepartureTimeLocal = function () {
+			var result = this.getDepartureTimeUtc()
+				.toString()
+				.replace("GMT", this.getFromLocation().getTimeZoneString());
+
+			result = new Date(result - this.getFromLocation().getTimeZoneOffsetMiliseconds());
+
+			return result;
+		}
+
+		Flight.prototype.getArrivalTimeUtc = function () {
+			return this._arrivalTimeUtc;
+		}
+
+		Flight.prototype.getArrivalTimeLocal = function () {
+			var result = this.getArrivalTimeUtc()
+				.toString()
+				.replace("GMT", this.getFromLocation().getTimeZoneString());
+
+			result = new Date(result - this.getFromLocation().getTimeZoneOffsetMiliseconds());
+
+			return result;
 		}
 
 		Flight.prototype.getDuration = function () {
-			return this.getArrivalTime() - this.getDepartureTime();
+			return this.getArrivalTimeUtc() - this.getDepartureTimeUtc();
 		}
 
 		Flight.prototype.getCode = function () {
@@ -79,7 +112,7 @@ var AirTicket_Domain_Entities;
 				var prevFlight = flights[i - 1];
 				var nextFlight = flights[i];
 
-				if (prevFlight.getArrivalTime() > nextFlight.getDepartureTime()) {
+				if (prevFlight.getArrivalTimeUtc() > nextFlight.getDepartureTimeUtc()) {
 					throw new Error("Route must contains only serial flights.");
 				}
 			}
@@ -107,133 +140,29 @@ var AirTicket_Domain_Entities;
 			return this._flights[lastFlightIndex].getToLocation();
 		}
 
-		Route.prototype.getDepartureTime = function () {
-			return this.getFlight(0).getDepartureTime();
+		Route.prototype.getDepartureTimeUtc = function () {
+			return this.getFlight(0).getDepartureTimeUtc();
 		}
 
-		Route.prototype.getArrivalTime = function () {
-			return this.getFlight(this.getFlightsCount() - 1).getArrivalTime();
+		Route.prototype.getDepartureTimeLocal = function () {
+			return this.getFlight(0).getDepartureTimeLocal();
+		}
+
+		Route.prototype.getArrivalTimeUtc = function () {
+			return this.getFlight(this.getFlightsCount() - 1).getArrivalTimeUtc();
+		}
+
+		Route.prototype.getArrivalTimeLocal = function () {
+			return this.getFlight(this.getFlightsCount() - 1).getArrivalTimeLocal();
 		}
 
 		Route.prototype.getDuration = function () {
-			return this.getArrivalTime() - this.getDepartureTime();
+			return this.getArrivalTimeUtc() - this.getDepartureTimeUtc();
 		}
 
 		return Route;
 	})();
 	AirTicket_Domain_Entities.Route = Route;
-
-	var FlightMap = (function () {
-		function FlightMap(flights) {
-			this._flights = flights;
-		}
-
-		FlightMap.prototype.getFlightsFromLocation = function (locationCode) {
-			var resultFlights = [];
-			for (var i = 0; i < this._flights.length; i++) {
-				var flight = this._flights[i];
-				if (flight.getFromLocation().getCode() === locationCode) {
-					resultFlights.push(flight);
-				}
-			}
-			return resultFlights;
-		};
-
-		FlightMap.prototype.getFlightsFromCity = function (cityCode) {
-			var resultFlights = [];
-			for (var i = 0; i < this._flights.length; i++) {
-				var flight = this._flights[i];
-				if (flight.getFromLocation().getCityCode() === cityCode) {
-					resultFlights.push(flight);
-				}
-			}
-			return resultFlights;
-		};
-
-		FlightMap.prototype.getNextFlights = function(routeQuery, route) {
-
-			var nextFlights;
-
-			if (!route) {
-				nextFlights = routeQuery.getFromQuery().getCode()
-					? this.getFlightsFromLocation(routeQuery.getFromQuery().getCode())
-					: this.getFlightsFromCity(routeQuery.getFromQuery().getCityCode());
-
-				if (routeQuery.getMinDepartureTime()) {
-					nextFlights = nextFlights.filter(function(flight) {
-						return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
-					});
-				}
-
-				if (routeQuery.getMaxDepartureTime()) {
-					nextFlights = nextFlights.filter(function(flight) {
-						return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
-					});
-				}
-			} else {
-				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function(flight) {
-					var filter = route.getFlightsCount() < 5 &&
-						flight.getDepartureTime() > route.getArrivalTime();
-					return filter;
-				});
-			}
-
-			return nextFlights;
-		};
-
-		FlightMap.prototype.checkForTargetReached = function(routeQuery, route) {
-			var targetReached;
-
-			if (routeQuery.getFromQuery().getCode() && routeQuery.getToQuery().getCode()) {
-				targetReached =
-					route.getFromLocation().getCode() === routeQuery.getFromQuery().getCode() &&
-					route.getToLocation().getCode() === routeQuery.getToQuery().getCode();
-			} else if (routeQuery.getFromQuery().getCityCode() && routeQuery.getToQuery().getCityCode()) {
-				targetReached =
-					route.getFromLocation().getCityCode() === routeQuery.getFromQuery().getCityCode() &&
-					route.getToLocation().getCityCode() === routeQuery.getToQuery().getCityCode();
-			} else {
-				throw new Error('Bad request.');
-			}
-
-			return targetReached;
-		};
-
-		FlightMap.prototype.createNewRoute = function (route, additionalFlight) {
-			var flightsArray = [];
-			for (var i = 0; i < route.getFlightsCount() ; i++) {
-				flightsArray.push(route.getFlight(i));
-			}
-			flightsArray.push(additionalFlight);
-			return new Route(flightsArray);
-		};
-
-		FlightMap.prototype.getRoutes = function (routeQuery) {
-			var routeStack = new Array();
-			var startFlights = this.getNextFlights(routeQuery);
-			while (startFlights.length > 0) {
-				routeStack.push(new Route([startFlights.shift()]));
-			}
-			var resultRoutes = [];
-			while (routeStack.length > 0) {
-				var route = routeStack.pop();
-				
-				if (this.checkForTargetReached(routeQuery, route)) {
-					resultRoutes.push(route);
-				} else {
-					var nextFlights = this.getNextFlights(routeQuery, route);
-					while (nextFlights.length > 0) {
-						routeStack.push(this.createNewRoute(route, nextFlights.shift()));
-					}
-				}
-			}
-			return resultRoutes;
-		};
-
-		return FlightMap;
-
-	})();
-	AirTicket_Domain_Entities.FlightMap = FlightMap;
 
 	var Trip = (function () {
 		function Trip(forwardRoute, backRoute) {
@@ -260,42 +189,6 @@ var AirTicket_Domain_Entities;
 		return Trip;
 	})();
 	AirTicket_Domain_Entities.Trip = Trip;
-
-	var TripsService = (function () {
-		function TripsService(flightMap) {
-			this._flightMap = flightMap;
-		}
-
-		TripsService.prototype.getTrips = function (tripQuery) {
-
-			var forwardRoutes = this._flightMap.getRoutes(tripQuery.GetForwardRouteQuery());
-
-			if (tripQuery.GetBackRouteQuery()) {
-				var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
-
-				var trips = [];
-
-				for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
-					for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
-						var trip = new Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex]);
-						trips.push(trip);
-					}
-				}
-
-				return trips;
-			}
-
-			var trips = forwardRoutes.map(function (route) {
-				var trip = new Trip(route);
-				return trip;
-			});
-
-			return trips;
-		}
-
-		return TripsService;
-	})();
-	AirTicket_Domain_Entities.TripsService = TripsService;
 
 })(AirTicket_Domain_Entities || (AirTicket_Domain_Entities = {}));
 
