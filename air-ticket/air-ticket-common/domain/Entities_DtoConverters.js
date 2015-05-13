@@ -20,19 +20,6 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter = LocationDtoConverter;
 
-	var LocationQueryDtoConverter = (function () {
-		function LocationQueryDtoConverter() {
-		}
-		LocationQueryDtoConverter.prototype.convertToDto = function (obj) {
-			return obj;
-		};
-		LocationQueryDtoConverter.prototype.convertFromDto = function (dto) {
-			return new AirTicket_Domain_Entities.LocationQuery(dto._code, dto._cityCode);
-		};
-		return LocationQueryDtoConverter;
-	})();
-	AirTicket_Domain_Entities_DtoConverters.LocationQueryDtoConverter = LocationQueryDtoConverter;
-
 	var FlightsDtoConverter = (function () {
 
 		function FlightsDtoConverter() {
@@ -49,7 +36,9 @@ var AirTicket_Domain_Entities_DtoConverters;
 				locationDtoConverter.convertFromDto(dto._from),
 				locationDtoConverter.convertFromDto(dto._to),
 				new Date(dto._departureTime),
-				new Date(dto._arrivalTime));
+				new Date(dto._arrivalTime),
+				dto._code,
+				dto._vendorCode);
 
 			return flight;
 		};
@@ -77,27 +66,6 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.RouteDtoConverter = RouteDtoConverter;
 
-	var RouteQueryDtoConverter = (function () {
-		function RouteQueryDtoConverter() {
-		}
-		RouteQueryDtoConverter.prototype.convertToDto = function (obj) {
-			return obj;
-		};
-		RouteQueryDtoConverter.prototype.convertFromDto = function (dto) {
-			var locationQueryDtoConverter = new LocationQueryDtoConverter();
-
-			var routeQuery = new AirTicket_Domain_Entities.RouteQuery(
-			    locationQueryDtoConverter.convertFromDto(dto._fromLocarionQuery),
-			    locationQueryDtoConverter.convertFromDto(dto._toLocationQuery),
-			    new Date(dto._minDepartureTime),
-			    new Date(dto._maxDepartureTime));
-
-			return routeQuery;
-		};
-		return RouteQueryDtoConverter;
-	})();
-	AirTicket_Domain_Entities_DtoConverters.RouteQueryDtoConverter = RouteQueryDtoConverter;
-
 	var TripDtoConverter = (function () {
 		function TripDtoConverter() {
 		}
@@ -120,29 +88,6 @@ var AirTicket_Domain_Entities_DtoConverters;
 
 	})();
 	AirTicket_Domain_Entities_DtoConverters.TripDtoConverter = TripDtoConverter;
-
-	var TripQueryDtoConverter = (function () {
-		function TripQueryDtoConverter() {
-		}
-
-		TripQueryDtoConverter.prototype.convertToDto = function (obj) {
-			return obj;
-		};
-
-		TripQueryDtoConverter.prototype.convertFromDto = function (dto) {
-			var routeQuqeryDtoConverter = new RouteQueryDtoConverter();
-			var tripQuery = new AirTicket_Domain_Entities.TripQuery(
-			    routeQuqeryDtoConverter.convertFromDto(dto._forwardRouteQuery),
-			    dto._backRouteQuery
-			    ? routeQuqeryDtoConverter.convertFromDto(dto._backRouteQuery)
-			    : null);
-			return tripQuery;
-		};
-
-		return TripQueryDtoConverter;
-
-	})();
-	AirTicket_Domain_Entities_DtoConverters.TripQueryDtoConverter = TripQueryDtoConverter;
 
 })(AirTicket_Domain_Entities_DtoConverters || (AirTicket_Domain_Entities_DtoConverters = {}));
 

@@ -19,7 +19,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="domain\Entities.js" />
+    <Content Include="domain\Queries_DtoConverters.js" />
     <Content Include="domain\Entities_DtoConverters.js" />
+    <Content Include="domain\Queries.js" />
+    <Content Include="domain\Services.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
