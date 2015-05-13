@@ -48,7 +48,9 @@ angular.module('airTicketApp')
 							to: mapLocation(flight.getToLocation()),
 							departureTime: flight.getDepartureTime(),
 							arrivalTime: flight.getArrivalTime(),
-							duration: flight.getDuration()
+							duration: flight.getDuration(),
+							code: flight.getCode(),
+							vendorCode: flight.getVendorCode()
 						};
 
 						return result;

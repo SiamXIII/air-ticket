@@ -25,7 +25,7 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.Location = Location;
 
 	var Flight = (function () {
-		function Flight(from, to, departureTime, arrivalTime) {
+		function Flight(from, to, departureTime, arrivalTime, code, vendorCode) {
 			this._from = from;
 			this._to = to;
 
@@ -35,6 +35,9 @@ var AirTicket_Domain_Entities;
 
 			this._departureTime = departureTime;
 			this._arrivalTime = arrivalTime;
+
+			this._code = code;
+			this._vendorCode = vendorCode;
 		}
 
 		Flight.prototype.getFromLocation = function () {
@@ -55,6 +58,14 @@ var AirTicket_Domain_Entities;
 
 		Flight.prototype.getDuration = function () {
 			return this.getArrivalTime() - this.getDepartureTime();
+		}
+
+		Flight.prototype.getCode = function () {
+			return this._code;
+		}
+
+		Flight.prototype.getVendorCode = function () {
+			return this._vendorCode;
 		}
 
 		return Flight;
