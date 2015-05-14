@@ -11,7 +11,6 @@ angular.module('airTicketApp')
 			};
 		}
 
-
 		$scope.searchTrips = function () {
 			ticketService.searchTrips(new AirTicket_Domain_Queries.TripQuery(
 					new AirTicket_Domain_Queries.RouteQuery(

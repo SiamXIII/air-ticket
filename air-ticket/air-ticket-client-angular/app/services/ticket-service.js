@@ -1,31 +1,18 @@
 ﻿/// <reference path="../../domain/Entities.js" />
 
 angular.module('airTicketApp')
-.service('ticketService', function ($http, Tickets, CONFIG) {
+.service('ticketService', function ($http, Tickets, Locations, CONFIG) {
 	var locationsDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 	var tripsDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 
-	this.getLocations = function () {
-		return $http.get(CONFIG.serverUrl + "/api/locations")
-			.then(function (data) {
-
-				var result = data.data.map(function (locationDto) {
-					return locationsDtoConverter.convertFromDto(locationDto);
-				});
-
-				return result;
-			});
-	}
-
-	this.getLocations = function () {
-		return $http.get(CONFIG.serverUrl + "/api/locations")
-			.then(function (response) {
+	this.getLocations = function (callback) {
+		return Locations.get(function (response) {
 				var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-				var locations = response.data.map(function (locationDto) {
+				var locations = response.map(function (locationDto) {
 					return locationDtoConverter.convertFromDto(locationDto);
 				});
 
-				return locations;
+				callback(locations);
 			});
 	}
 
@@ -46,6 +33,14 @@ angular.module('airTicketApp')
 	return $resource(CONFIG.serverUrl + "/api/trips/:params", {}, {
 		save: {
 			method: 'POST',
+			isArray: true
+		}
+	});
+})
+.factory('Locations', function ($resource, CONFIG) {
+	return $resource(CONFIG.serverUrl + "/api/locations/:params", {}, {
+		get: {
+			method: 'GET',
 			isArray: true
 		}
 	});
