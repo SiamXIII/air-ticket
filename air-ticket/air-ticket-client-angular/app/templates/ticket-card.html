@@ -1,12 +1,13 @@
 ﻿<div class="trip">
 	<div class=" trip__summary" ng-click="toggleDetails()">
-		{{trip.from.code}} - {{trip.to.code}}
+		<span>{{trip.from.code}} - {{trip.to.code}}</span>
+		<span class="trip__price">{{trip.price}}</span>
 	</div>
 	<div class="trip__details" ng-if="detailed">
 		<div class="trip__routes">
 			<div class="trip__route" route="trip.forwardRoute"></div>
 			<div class="trip__route" route="trip.backRoute" ng-if="trip.backRoute"></div>
 		</div>
-		<button>{{::'order' | translate}}</button>
+		<button class="trip__order-button">{{::'order' | translate}}</button>
 	</div>
 </div>

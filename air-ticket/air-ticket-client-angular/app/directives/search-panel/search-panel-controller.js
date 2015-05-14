@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../../domain/Entities.js" />
 angular.module('airTicketApp')
-	.controller('searchPanelCtrl', function (ticketService, $scope) {
-		$scope.init = function () {
+	.controller('searchPanelCtrl', function(ticketService, $scope) {
+		$scope.init = function() {
 			$scope.search = {
 				fromLocationCode: 'MCA',
 				toLocationCode: 'JFK',
@@ -11,33 +11,33 @@ angular.module('airTicketApp')
 			};
 		}
 
-		$scope.searchTrips = function () {
+		$scope.searchTrips = function() {
 			ticketService.searchTrips(new AirTicket_Domain_Queries.TripQuery(
-					new AirTicket_Domain_Queries.RouteQuery(
-						new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
-						new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
-						AirTicket_Utils.DateTimeUtils.changeUtcOffset(
-							new Date($scope.search.forwardRouteDepartureDate),
-							$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
-						AirTicket_Utils.DateTimeUtils.changeUtcOffset(
-							AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
-								new Date($scope.search.forwardRouteDepartureDate)),
-							$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset())),
-					$scope.search.twoWay
-					? new AirTicket_Domain_Queries.RouteQuery(
-						new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.code),
-						new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.code),
-						AirTicket_Utils.DateTimeUtils.changeUtcOffset(
-							new Date($scope.search.backRouteDepartureDate),
-							$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
-						AirTicket_Utils.DateTimeUtils.changeUtcOffset(
-							AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
-								new Date($scope.search.backRouteDepartureDate)),
-							$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()))
-					: null), function (data) {
-						$scope.trips = data.map(function (trip) {
+				new AirTicket_Domain_Queries.RouteQuery(
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
+					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+						new Date($scope.search.forwardRouteDepartureDate),
+						$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
+					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+						AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
+							new Date($scope.search.forwardRouteDepartureDate)),
+						$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset())),
+				$scope.search.twoWay
+				? new AirTicket_Domain_Queries.RouteQuery(
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.code),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.code),
+					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+						new Date($scope.search.backRouteDepartureDate),
+						$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
+					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+						AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
+							new Date($scope.search.backRouteDepartureDate)),
+						$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()))
+				: null), function(data) {
+				$scope.trips = data.map(function(trip) {
 
-							var mapLocation = function (location) {
+					var mapLocation = function(location) {
 						var result = {
 							code: location.getCode(),
 							fullName: location.getFullName(),
@@ -46,7 +46,7 @@ angular.module('airTicketApp')
 						return result;
 					}
 
-							var mapFlight = function (flight) {
+					var mapFlight = function(flight) {
 						var result = {
 							from: mapLocation(flight.getFromLocation()),
 							to: mapLocation(flight.getToLocation()),
@@ -61,10 +61,10 @@ angular.module('airTicketApp')
 						return result;
 					}
 
-							var mapRoute = function (route) {
+					var mapRoute = function(route) {
 						var flightViewModels = [];
 
-								for (var i = 0; i < route.getFlightsCount() ; i++) {
+						for (var i = 0; i < route.getFlightsCount(); i++) {
 							flightViewModels.push(mapFlight(route.getFlight(i)));
 						}
 

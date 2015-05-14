@@ -6,23 +6,27 @@
 
     &__summary {
         @extend .panel-heading;
+        @extend .clearfix;
+        
+        cursor: pointer;
     }
 
     &__details {
         @extend .panel-body;
     }
 
+    &__price {
+        float: right;
+        color: $brand-success;
+    }
+
+    &__duration {
+        margin-left: $padding-base-horizontal;
+    }
+
     &__route {
         @extend .panel;
         @extend .panel-default;
-    }
-
-    &__route-summary {
-        @extend .panel-heading;
-    }
-
-    &__route-details {
-        @extend .panel-body;
     }
 
     &__flight-headers {

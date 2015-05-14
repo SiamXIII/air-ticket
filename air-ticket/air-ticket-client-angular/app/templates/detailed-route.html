@@ -3,20 +3,22 @@
 	<th>{{::'arrivalTo' | translate}}</th>
 	<th>{{::'vendor' | translate}}</th>
 	<th>{{::'flightCode' | translate}}</th>
+	<th>{{::'price' | translate}}</th>
 </tr>
 <tr class="trip__flight" ng-repeat="flight in route.flights">
-	<td class="from">
-		<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
-		<span class="place-name">{{flight.from.cityCode}}</span>
-		<span class="place-code">{{flight.from.fullName}}</span>
-		<span class="place-full">{{flight.from.code}}</span>
+	<td>
+		<span>{{flight.departureTime | date: 'HH:mm'}}</span>
+		<span>{{flight.from.cityCode}}</span>
+		<span>{{flight.from.fullName}}</span>
+		<span>{{flight.from.code}}</span>
 	</td>
-	<td class="to">
-		<span class="time">{{flight.arrivalTime | date: 'HH:mm'}}</span>
-		<span class="place-name">{{flight.to.cityCode}}</span>
-		<span class="place-code">{{flight.to.fullName}}</span>
-		<span class="place-full">{{flight.to.code}}</span>
+	<td>
+		<span>{{flight.arrivalTime | date: 'HH:mm'}}</span>
+		<span>{{flight.to.cityCode}}</span>
+		<span>{{flight.to.fullName}}</span>
+		<span>{{flight.to.code}}</span>
 	</td>
-	<td class="vendor">{{vendorCode}}</td>
-	<td class="flight-id">{{code}}</td>
+	<td>{{flight.vendorCode}}</td>
+	<td>{{flight.code}}</td>
+	<td>{{flight.price}}</td>
 </tr>
