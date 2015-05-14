@@ -1,13 +1,13 @@
 ﻿<div class="trip__summary" ng-click="toggleDetails()">
-	<span class="trip__summary-places">
-		<span class="from">
+	<span>
+		<span>
 			<span>{{route.from.code}}:</span>
 			<span>{{route.departureTime | date: 'HH:mm'}}</span>
 		</span>
 		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-		<span class="to">
-			<span class="code">{{route.to.code}}:</span>
-			<span class="time">{{route.arrivalTime | date: 'HH:mm'}}</span>
+		<span>
+			<span>{{route.to.code}}:</span>
+			<span>{{route.arrivalTime | date: 'HH:mm'}}</span>
 		</span>
 	</span>
 
@@ -17,7 +17,7 @@
 	</span>
 
 	<span class="trip__price">
-		<span>{{route.price}}</span>
+		<span>{{route.price | currency}}</span>
 	</span>
 </div>
 <div class="trip__details" ng-show="detailed">
