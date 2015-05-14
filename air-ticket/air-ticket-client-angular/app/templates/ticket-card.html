@@ -1,19 +1,12 @@
-﻿<div class="ticket clearfix">
-	<div class="ticket-header">
-		<h3>{{trip.from.code}} - {{trip.to.code}}</h3>
-
-		<button ng-click="toggleDetails()" class="pull-right">
-			<span ng-if="!detailed">{{::'details' | translate}}</span>
-			<span ng-if="detailed">{{::'hide' | translate}}</span>
-		</button>
+﻿<div class="trip">
+	<div class=" trip__summary" ng-click="toggleDetails()">
+		{{trip.from.code}} - {{trip.to.code}}
 	</div>
-	<div class="ticket-body" ng-if="detailed">
-		<div class="short-info">
-			<div class="route" route="trip.forwardRoute"></div>
-			<div class="route" route="trip.backRoute" ng-if="trip.backRoute"></div>
+	<div class="trip__details" ng-if="detailed">
+		<div class="trip__routes">
+			<div class="trip__route" route="trip.forwardRoute"></div>
+			<div class="trip__route" route="trip.backRoute" ng-if="trip.backRoute"></div>
 		</div>
-		<div class="actions pull-right">
-			<button class="btn btn-default">{{::'order' | translate}}</button>
-		</div>
+		<button>{{::'order' | translate}}</button>
 	</div>
 </div>
