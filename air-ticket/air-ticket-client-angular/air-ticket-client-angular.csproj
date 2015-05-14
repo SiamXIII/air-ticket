@@ -20,6 +20,7 @@
   <ItemGroup>
     <Content Include="3rd_components\select2-bootstrap.css" />
     <Content Include="app\app.js" />
+    <Content Include="app\config.js" />
     <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
     <Content Include="app\directives\calendar\calendar.js" />

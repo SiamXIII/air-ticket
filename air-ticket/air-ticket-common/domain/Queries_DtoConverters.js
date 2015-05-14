@@ -30,7 +30,7 @@ var AirTicket_Domain_Queries_DtoConverters;
 			var locationQueryDtoConverter = new LocationQueryDtoConverter();
 
 			var routeQuery = new AirTicket_Domain_Queries.RouteQuery(
-			    locationQueryDtoConverter.convertFromDto(dto._fromLocarionQuery),
+			    locationQueryDtoConverter.convertFromDto(dto._fromLocationQuery),
 			    locationQueryDtoConverter.convertFromDto(dto._toLocationQuery),
 			    new Date(dto._minDepartureTime),
 			    new Date(dto._maxDepartureTime));

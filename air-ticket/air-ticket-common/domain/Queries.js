@@ -22,15 +22,15 @@ var AirTicket_Domain_Queries;
 	
 	var RouteQuery = (function () {
 
-		function RouteQuery(fromLocarionQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
-			this._fromLocarionQuery = fromLocarionQuery;
+		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
+			this._fromLocationQuery = fromLocationQuery;
 			this._toLocationQuery = toLocationQuery;
 			this._minDepartureTime = minDepartureTime;
 			this._maxDepartureTime = maxDepartureTime;
 		}
 
 		RouteQuery.prototype.getFromQuery = function () {
-			return this._fromLocarionQuery;
+			return this._fromLocationQuery;
 		}
 
 		RouteQuery.prototype.getToQuery = function () {

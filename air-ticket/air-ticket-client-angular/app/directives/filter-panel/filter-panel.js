@@ -31,7 +31,7 @@
 		},
 		departureEvening: function (item) {
 			return (new Date(item.departureTime)).getHours() >= 18 && (new Date(item.departureTime)).getHours() < 24
-		}		
+		}
 	}
 
 	function applyFilters(item, filters) {
@@ -57,10 +57,10 @@
 		return result;
 	}
 
-	return function(items, filter) {
+	return function (items, filter) {
 
-		return items
-			? _.every(items.map(function(trip) { return trip.backRoute; }))
+		return _.some(items)
+			? _.every(items.map(function (trip) { return trip.backRoute; }))
 					? items.filterItems(filter.forwardRoute, "forwardRoute").filterItems(filter.comebackRoute, "backRoute")
 					: items.filterItems(filter.forwardRoute, "forwardRoute")
 			: null;

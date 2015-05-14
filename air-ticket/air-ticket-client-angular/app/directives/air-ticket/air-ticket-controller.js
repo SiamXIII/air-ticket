@@ -21,10 +21,9 @@
 			}
 
 			$scope.locationCodes = {};
-			$scope.trips = {};
 
-			ticketService.getLocations()
-				.then(function(data) {
+			ticketService.getLocations(
+				function(data) {
 					allLocations = data;
 					$scope.locationCodes = allLocations.map(function(location) {
 						var locationCode = location.getCode();
