@@ -163,9 +163,9 @@
 		}
 
 		Trip.prototype.getPrice = function () {
-			return this._backRoute ?
-				this._forwardRoute.getPrice() + this._backRoute.getPrice() :
-				this._forwardRoute.getPrice();
+			return this._backRoute
+				? this._forwardRoute.getPrice() + this._backRoute.getPrice()
+				: this._forwardRoute.getPrice();
 		}
 
 		return Trip;

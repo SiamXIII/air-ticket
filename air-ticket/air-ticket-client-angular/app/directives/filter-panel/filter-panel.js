@@ -57,14 +57,12 @@
 		return result;
 	}
 
-	return function (items, filter, twoway) {
-		if (items.length) {
-			if (!twoway) {
-				return items.filterItems(filter.forwardRoute, "forwardRoute");
-			}
-			else {
-				return items.filterItems(filter.forwardRoute, "forwardRoute").filterItems(filter.comebackRoute, "backRoute");
-			}
-		}
-	};
+	return function(items, filter) {
+
+		return items
+			? _.every(items.map(function(trip) { return trip.backRoute; }))
+					? items.filterItems(filter.forwardRoute, "forwardRoute").filterItems(filter.comebackRoute, "backRoute")
+					: items.filterItems(filter.forwardRoute, "forwardRoute")
+			: null;
+	}
 });
