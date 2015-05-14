@@ -16,10 +16,10 @@ angular.module('airTicketApp')
 				new AirTicket_Domain_Queries.RouteQuery(
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
-					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
 						$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
-					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
 							new Date($scope.search.forwardRouteDepartureDate)),
 						$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset())),
@@ -27,10 +27,10 @@ angular.module('airTicketApp')
 				? new AirTicket_Domain_Queries.RouteQuery(
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
-					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
 						$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
-					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
+					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						AirTicket_Utils.DateTimeUtils.addOneDayWithoutOneMilisecond(
 							new Date($scope.search.backRouteDepartureDate)),
 						$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()))

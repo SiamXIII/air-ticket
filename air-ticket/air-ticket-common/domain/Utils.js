@@ -8,7 +8,7 @@
 			
 		}
 
-		DateTimeUtils.changeUtcOffset = function(date, newUtcOffset) {
+		DateTimeUtils.setUtcOffset = function(date, newUtcOffset) {
 			var dateString = date.toString();
 			var gmtIndex = dateString.lastIndexOf("GMT");
 			var dateStringWithoutGmt = dateString.substring(0, gmtIndex);
