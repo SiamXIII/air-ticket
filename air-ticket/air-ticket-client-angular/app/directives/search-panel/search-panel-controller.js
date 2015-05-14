@@ -39,56 +39,59 @@ angular.module('airTicketApp')
 						$scope.trips = data.map(function (trip) {
 
 							var mapLocation = function (location) {
-								var result = {
-									code: location.getCode(),
-									fullName: location.getFullName(),
-								};
+						var result = {
+							code: location.getCode(),
+							fullName: location.getFullName(),
+						};
 
-								return result;
-							}
+						return result;
+					}
 
 							var mapFlight = function (flight) {
-								var result = {
-									from: mapLocation(flight.getFromLocation()),
-									to: mapLocation(flight.getToLocation()),
-									departureTime: flight.getDepartureTime(),
-									arrivalTime: flight.getArrivalTime(),
-									duration: flight.getDuration(),
-									code: flight.getCode(),
-									vendorCode: flight.getVendorCode()
-								};
+						var result = {
+							from: mapLocation(flight.getFromLocation()),
+							to: mapLocation(flight.getToLocation()),
+							departureTime: flight.getDepartureTime(),
+							arrivalTime: flight.getArrivalTime(),
+							duration: flight.getDuration(),
+							code: flight.getCode(),
+							vendorCode: flight.getVendorCode(),
+							price: flight.getPrice()
+						};
 
-								return result;
-							}
+						return result;
+					}
 
 							var mapRoute = function (route) {
-								var flightViewModels = [];
+						var flightViewModels = [];
 
 								for (var i = 0; i < route.getFlightsCount() ; i++) {
-									flightViewModels.push(mapFlight(route.getFlight(i)));
-								}
+							flightViewModels.push(mapFlight(route.getFlight(i)));
+						}
 
-								var result = {
-									from: mapLocation(route.getFromLocation()),
-									to: mapLocation(route.getToLocation()),
-									departureTime: route.getDepartureTime(),
-									arrivalTime: route.getArrivalTime(),
-									duration: route.getDuration(),
-									flights: flightViewModels
-								};
+						var result = {
+							from: mapLocation(route.getFromLocation()),
+							to: mapLocation(route.getToLocation()),
+							departureTime: route.getDepartureTime(),
+							arrivalTime: route.getArrivalTime(),
+							duration: route.getDuration(),
+							flights: flightViewModels,
+							price: route.getPrice()
+						};
 
-								return result;
-							}
+						return result;
+					}
 
-							var tripViewModel = {
-								from: mapLocation(trip.getFromLocation()),
-								to: mapLocation(trip.getToLocation()),
-								forwardRoute: mapRoute(trip.getForwardRoute()),
-								backRoute: trip.getBackRoute() ? mapRoute(trip.getBackRoute()) : null
-							};
+					var tripViewModel = {
+						from: mapLocation(trip.getFromLocation()),
+						to: mapLocation(trip.getToLocation()),
+						forwardRoute: mapRoute(trip.getForwardRoute()),
+						backRoute: trip.getBackRoute() ? mapRoute(trip.getBackRoute()) : null,
+						price: trip.getPrice()
+					};
 
-							return tripViewModel;
-						});
-					});
+					return tripViewModel;
+				});
+			});
 		}
 	});

@@ -27,7 +27,7 @@
 	AirTicket_Domain_Entities.Location = Location;
 
 	var Flight = (function () {
-		function Flight(from, to, departureTime, arrivalTime, code, vendorCode) {
+		function Flight(from, to, departureTime, arrivalTime, code, vendorCode, price) {
 			this._from = from;
 			this._to = to;
 
@@ -40,6 +40,8 @@
 
 			this._code = code;
 			this._vendorCode = vendorCode;
+
+			this._price = price;
 		}
 
 		Flight.prototype.getFromLocation = function () {
@@ -68,6 +70,10 @@
 
 		Flight.prototype.getVendorCode = function () {
 			return this._vendorCode;
+		}
+
+		Flight.prototype.getPrice = function () {
+			return this._price;
 		}
 
 		return Flight;
@@ -123,6 +129,13 @@
 			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
+		Route.prototype.getPrice = function () {
+			var price = this._flights.reduce(function (price, flight) {
+				return price + flight.getPrice();
+			}, 0);
+			return price;
+		}
+
 		return Route;
 	})();
 	AirTicket_Domain_Entities.Route = Route;
@@ -147,6 +160,12 @@
 
 		Trip.prototype.getBackRoute = function () {
 			return this._backRoute;
+		}
+
+		Trip.prototype.getPrice = function () {
+			return this._backRoute
+				? this._forwardRoute.getPrice() + this._backRoute.getPrice()
+				: this._forwardRoute.getPrice();
 		}
 
 		return Trip;
