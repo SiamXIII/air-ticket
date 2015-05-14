@@ -3,9 +3,9 @@ angular.module('airTicketApp')
 	.controller('searchPanelCtrl', function (ticketService, $scope) {
 		$scope.init = function () {
 			$scope.search = {
-				fromLocationCode: '',
-				toLocationCode: '',
-				forwardRouteDepartureDate: '',
+				fromLocationCode: 'MCA',
+				toLocationCode: 'JFK',
+				forwardRouteDepartureDate: '05/11/2015',
 				backRouteDepartureDate: '',
 				twoWay: ''
 			};

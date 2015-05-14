@@ -1,10 +1,10 @@
-﻿<tr class="headers">
+﻿<tr class="trip__flight-headers">
 	<th>{{::'departureFrom' | translate}}</th>
 	<th>{{::'arrivalTo' | translate}}</th>
 	<th>{{::'vendor' | translate}}</th>
 	<th>{{::'flightCode' | translate}}</th>
 </tr>
-<tr class="trip" ng-repeat="flight in route.flights">
+<tr class="trip__flight" ng-repeat="flight in route.flights">
 	<td class="from">
 		<span class="time">{{flight.departureTime | date: 'HH:mm'}}</span>
 		<span class="place-name">{{flight.from.cityCode}}</span>
