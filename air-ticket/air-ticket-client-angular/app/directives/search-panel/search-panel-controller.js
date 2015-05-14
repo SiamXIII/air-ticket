@@ -25,8 +25,8 @@ angular.module('airTicketApp')
 						$scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset())),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.RouteQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.code),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.code),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					AirTicket_Utils.DateTimeUtils.changeUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
 						$scope.getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
