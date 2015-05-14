@@ -42,7 +42,7 @@ var instance = {
                 flights.push(new Entities.Flight(
                     new Entities.Location(flight._from.code, flight._from.fullName, flight._from.city), 
 					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.city), 
-					flight.departureTime, flight.arrivalTime, undefined, undefined, 12));
+					flight.departureTime, flight.arrivalTime, flight.flightCode, flight.vendor, flight.price));
             })
             
             callback(flights);
