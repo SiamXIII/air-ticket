@@ -44,19 +44,19 @@ var AirTicket_Domain_Services;
 
 				if (routeQuery.getMinDepartureTime()) {
 					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTimeUtc() >= routeQuery.getMinDepartureTime();
+						return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
 					});
 				}
 
 				if (routeQuery.getMaxDepartureTime()) {
 					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTimeUtc() <= routeQuery.getMaxDepartureTime();
+						return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
 					});
 				}
 			} else {
 				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function (flight) {
 					var filter = route.getFlightsCount() < 5 &&
-						flight.getDepartureTimeUtc() > route.getArrivalTimeUtc();
+						flight.getDepartureTime() > route.getArrivalTime();
 					return filter;
 				});
 			}

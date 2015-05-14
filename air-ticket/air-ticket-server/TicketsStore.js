@@ -10,7 +10,7 @@ var instance = {
 			var locations = [];
 			
 				data.forEach(function(location) {
-					locations.push(new Entities.Location(location.code, location.fullName, location.city));
+					locations.push(new Entities.Location(location.code, location.fullName, "-0500"));
 				});
 			
 			callback(locations);

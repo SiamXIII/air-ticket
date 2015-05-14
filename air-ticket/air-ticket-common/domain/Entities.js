@@ -17,20 +17,9 @@
 			return this._fullName;
 		}
 
-		Location.prototype.getTimeZoneOffsetMiliseconds = function () {
-			var timeZoneOffset = this._timeZoneOffset * 60 * 1000;
+		Location.prototype.getTimeZoneOffset = function () {
+			var timeZoneOffset = this._timeZoneOffset;
 			return timeZoneOffset;
-		}
-
-		Location.prototype.getTimeZoneString = function () {
-			var operator =
-				this._timeZoneOffset > 0
-					? "+"
-					: "-";
-
-			var offsetString = "GMT" + operator + this._timeZoneOffset.toString();
-
-			return offsetString;
 		}
 
 		return Location;
@@ -38,16 +27,16 @@
 	AirTicket_Domain_Entities.Location = Location;
 
 	var Flight = (function () {
-		function Flight(from, to, departureTimeUtc, arrivalTimeUtc, code, vendorCode) {
+		function Flight(from, to, departureTime, arrivalTime, code, vendorCode) {
 			this._from = from;
 			this._to = to;
 
-			if (departureTimeUtc >= arrivalTimeUtc) {
+			if (departureTime >= arrivalTime) {
 				throw new Error("Departure time must be less than arrival time.");
 			}
 
-			this._departureTimeUtc = departureTimeUtc;
-			this._arrivalTimeUtc = arrivalTimeUtc;
+			this._departureTime = departureTime;
+			this._arrivalTime = arrivalTime;
 
 			this._code = code;
 			this._vendorCode = vendorCode;
@@ -61,36 +50,16 @@
 			return this._to;
 		}
 
-		Flight.prototype.getDepartureTimeUtc = function () {
-			return this._departureTimeUtc;
+		Flight.prototype.getDepartureTime = function () {
+			return this._departureTime;
 		}
 
-		Flight.prototype.getDepartureTimeLocal = function () {
-			var result = this.getDepartureTimeUtc()
-				.toString()
-				.replace("GMT", this.getFromLocation().getTimeZoneString());
-
-			result = new Date(result - this.getFromLocation().getTimeZoneOffsetMiliseconds());
-
-			return result;
-		}
-
-		Flight.prototype.getArrivalTimeUtc = function () {
-			return this._arrivalTimeUtc;
-		}
-
-		Flight.prototype.getArrivalTimeLocal = function () {
-			var result = this.getArrivalTimeUtc()
-				.toString()
-				.replace("GMT", this.getFromLocation().getTimeZoneString());
-
-			result = new Date(result - this.getFromLocation().getTimeZoneOffsetMiliseconds());
-
-			return result;
+		Flight.prototype.getArrivalTime = function () {
+			return this._arrivalTime;
 		}
 
 		Flight.prototype.getDuration = function () {
-			return this.getArrivalTimeUtc() - this.getDepartureTimeUtc();
+			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
 		Flight.prototype.getCode = function () {
@@ -112,7 +81,7 @@
 				var prevFlight = flights[i - 1];
 				var nextFlight = flights[i];
 
-				if (prevFlight.getArrivalTimeUtc() > nextFlight.getDepartureTimeUtc()) {
+				if (prevFlight.getArrivalTime() > nextFlight.getDepartureTime()) {
 					throw new Error("Route must contains only serial flights.");
 				}
 			}
@@ -140,24 +109,18 @@
 			return this._flights[lastFlightIndex].getToLocation();
 		}
 
-		Route.prototype.getDepartureTimeUtc = function () {
-			return this.getFlight(0).getDepartureTimeUtc();
+		Route.prototype.getDepartureTime = function () {
+			return this.getFlight(0).getDepartureTime();
 		}
 
-		Route.prototype.getDepartureTimeLocal = function () {
-			return this.getFlight(0).getDepartureTimeLocal();
+
+		Route.prototype.getArrivalTime = function () {
+			return this.getFlight(this.getFlightsCount() - 1).getArrivalTime();
 		}
 
-		Route.prototype.getArrivalTimeUtc = function () {
-			return this.getFlight(this.getFlightsCount() - 1).getArrivalTimeUtc();
-		}
-
-		Route.prototype.getArrivalTimeLocal = function () {
-			return this.getFlight(this.getFlightsCount() - 1).getArrivalTimeLocal();
-		}
 
 		Route.prototype.getDuration = function () {
-			return this.getArrivalTimeUtc() - this.getDepartureTimeUtc();
+			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
 		return Route;

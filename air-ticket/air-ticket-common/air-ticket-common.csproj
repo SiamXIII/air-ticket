@@ -23,6 +23,7 @@
     <Content Include="domain\Entities_DtoConverters.js" />
     <Content Include="domain\Queries.js" />
     <Content Include="domain\Services.js" />
+    <Content Include="domain\Utils.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
