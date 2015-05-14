@@ -56,7 +56,8 @@ angular.module('airTicketApp')
 							arrivalTime: flight.getArrivalTime(),
 							duration: flight.getDuration(),
 							code: flight.getCode(),
-							vendorCode: flight.getVendorCode()
+							vendorCode: flight.getVendorCode(),
+							price: flight.getPrice()
 						};
 
 						return result;
@@ -75,7 +76,8 @@ angular.module('airTicketApp')
 							departureTime: route.getDepartureTime(),
 							arrivalTime: route.getArrivalTime(),
 							duration: route.getDuration(),
-							flights: flightViewModels
+							flights: flightViewModels,
+							price: route.getPrice()
 						};
 
 						return result;
@@ -85,7 +87,8 @@ angular.module('airTicketApp')
 						from: mapLocation(trip.getFromLocation()),
 						to: mapLocation(trip.getToLocation()),
 						forwardRoute: mapRoute(trip.getForwardRoute()),
-						backRoute: trip.getBackRoute() ? mapRoute(trip.getBackRoute()) : null
+						backRoute: trip.getBackRoute() ? mapRoute(trip.getBackRoute()) : null,
+						price: trip.getPrice()
 					};
 
 					return tripViewModel;
