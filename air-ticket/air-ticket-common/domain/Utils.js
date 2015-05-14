@@ -1,4 +1,10 @@
-﻿var AirTicket_Utils;
+﻿var moment;
+
+if (!moment) {
+	moment = require("moment");
+}
+
+var AirTicket_Utils;
 
 (function (AirTicket_Utils) {
 
@@ -9,6 +15,14 @@
 		}
 
 		DateTimeUtils.setUtcOffset = function(date, newUtcOffset) {
+			var dateString = date.toString();
+			var gmtIndex = dateString.lastIndexOf("GMT");
+			var dateStringWithoutGmt = dateString.substring(0, gmtIndex);
+			var dateStringWithNewGmt = dateStringWithoutGmt + "GMT" + newUtcOffset;
+			return dateStringWithNewGmt;
+		}
+
+		DateTimeUtils.changeUtcOffset = function (date, newUtcOffset) {
 			var dateString = date.toString();
 			var gmtIndex = dateString.lastIndexOf("GMT");
 			var dateStringWithoutGmt = dateString.substring(0, gmtIndex);

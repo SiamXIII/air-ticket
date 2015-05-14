@@ -4,7 +4,7 @@ if (!AirTicket_Utils) {
 	AirTicket_Utils = require("./Utils.js");
 }
 
-var AirTicket_Utils;
+var AirTicket_Domain_Entities;
 
 (function (AirTicket_Domain_Entities) {
 
