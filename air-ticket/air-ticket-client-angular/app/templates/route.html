@@ -2,12 +2,12 @@
 	<span>
 		<span>
 			<span>{{route.from.code}}:</span>
-			<span>{{route.departureTime | date: 'HH:mm'}}</span>
+			<span>{{route.departureTime | localized: route.from.timeZoneOffset}}</span>
 		</span>
 		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 		<span>
 			<span>{{route.to.code}}:</span>
-			<span>{{route.arrivalTime | date: 'HH:mm'}}</span>
+			<span>{{route.arrivalTime | localized: route.to.timeZoneOffset}}</span>
 		</span>
 	</span>
 
