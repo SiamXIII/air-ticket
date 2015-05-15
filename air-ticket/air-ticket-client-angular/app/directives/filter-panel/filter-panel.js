@@ -24,17 +24,17 @@
 .filter("listFilter", function () {
 	var filtersProvider = {
 		departureMorning: function (item) {
-			var correctedTime = item.departureTime.utc().hour() + +item.from.timeZoneOffset;
+			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
 
 			return correctedTime >= 6 && correctedTime < 12
 		},
 		departureDay: function (item) {
-			var correctedTime = item.departureTime.utc().hour() + +item.from.timeZoneOffset;
+			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
 
 			return correctedTime >= 12 && correctedTime < 18
 		},
 		departureEvening: function (item) {
-			var correctedTime = item.departureTime.utc().hour() + +item.from.timeZoneOffset;
+			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
 
 			return correctedTime >= 18 && correctedTime < 24
 		}
