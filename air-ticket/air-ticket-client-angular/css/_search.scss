@@ -1,0 +1,58 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.search {
+    @extend .panel;
+    @extend .panel-default;
+
+    &__header {
+        @extend .panel-heading;
+        font-size: $font-size-base;
+        margin: 0;
+    }
+
+    &__form {
+    }
+
+    &__route, &__direction, &__dates, &__passengers, &__controls {
+        @extend .row;
+        margin: $padding-large-vertical * 2 0;
+    }
+
+    &__label {
+        display: block;
+    }
+
+    &__from,
+    &__to {
+        @extend .col-md-6;
+    }
+
+    &__directions {
+        @extend .col-md-12;
+    }
+
+    &__one-way,
+    &__two-way {
+        @extend .checkbox;
+        display: inline-block;
+        margin: 0;
+    }
+
+    &__two-way {
+        margin-left: $padding-base-horizontal;
+    }
+
+    &__adults,
+    &__children,
+    &__infants {
+        @extend .col-md-4;
+    }
+
+    &__search-button-wrap {
+        @extend .col-md-12;
+    }
+
+    label {
+        padding: 0;
+    }
+}
