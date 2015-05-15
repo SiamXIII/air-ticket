@@ -23,9 +23,7 @@ angular.module('airTicketApp')
 				return tripsDtoConverter.convertFromDto(tripDto);
 			});
 
-			return callback(trips);
-		}, function (data) {
-			alert(data);
+			callback(trips);
 		});
 	}
 })

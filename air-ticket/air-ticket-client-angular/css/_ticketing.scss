@@ -4,10 +4,10 @@
     @extend .row;
 
     .ticket-list-settings {
-        @extend .col-md-4;
+        @extend .col-md-3;
     }
 
     .ticket-list {
-        @extend .col-md-8;
+        @extend .col-md-9;
     }
 }
