@@ -13,7 +13,7 @@
 
 	<span class="trip__duration">
 		<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-		<span>{{route.duration | date: 'HH:mm'}}</span>
+		<span>{{route.duration | date: 'HH:mm' : 'UTC'}}</span>
 	</span>
 
 	<span class="trip__price">
