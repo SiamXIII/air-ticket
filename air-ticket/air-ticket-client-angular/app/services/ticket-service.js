@@ -24,8 +24,6 @@ angular.module('airTicketApp')
 			});
 
 			return callback(trips);
-		}, function (data) {
-			alert(data);
 		});
 	}
 })
