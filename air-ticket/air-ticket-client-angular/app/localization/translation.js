@@ -33,7 +33,8 @@
 		'departure': 'Departure',
 		'comeback': 'Return',
 		'selectOrigin': 'Select origin',
-		'selectDestination': 'Select destination'
+		'selectDestination': 'Select destination',
+		'transferTime':'Transfer time'
 	});
 
 	$translateProvider.translations('ru', {
@@ -69,7 +70,8 @@
 		'departure': 'Отправление',
 		'comeback': 'Возвращение',
 		'selectOrigin': 'Пункт отправления',
-		'selectDestination': 'Пункт назначения'
+		'selectDestination': 'Пункт назначения',
+		'transferTime': 'Время пересадки'
 	});
 
 	$translateProvider.preferredLanguage('en');

@@ -5,7 +5,7 @@
 	<th>{{::'flightCode' | translate}}</th>
 	<th>{{::'price' | translate}}</th>
 </tr>
-<tr class="trip__flight" ng-repeat="flight in route.flights">
+<tr class="trip__flight" ng-repeat-start="(key, flight) in route.flights">
 	<td>
 		<span>{{flight.departureTime | localized: flight.from.timeZoneOffset}}</span>
 		<span>{{flight.from.cityCode}}</span>
@@ -21,4 +21,7 @@
 	<td>{{flight.vendorCode}}</td>
 	<td>{{flight.code}}</td>
 	<td>{{flight.price | currency}}</td>
+</tr>
+<tr ng-repeat-end ng-if="!$last">
+	<td colspan="4">{{::'transferTime' | translate }}</td>
 </tr>
