@@ -1,7 +1,6 @@
-﻿var AirTicket_Utils;
-
-if (!AirTicket_Utils) {
-	AirTicket_Utils = require("./Utils.js");
+﻿var moment;
+if (!moment) {
+	var moment = require('moment-timezone');
 }
 
 var AirTicket_Domain_Entities;
