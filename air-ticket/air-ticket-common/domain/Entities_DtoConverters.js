@@ -81,7 +81,8 @@ var AirTicket_Domain_Entities_DtoConverters;
 			    routeDtoConverter.convertFromDto(dto._forwardRoute),
 			    dto._backRoute
 					? routeDtoConverter.convertFromDto(dto._backRoute)
-					: null);
+					: null,
+				dto._people);
 			return trip;
 		};
 

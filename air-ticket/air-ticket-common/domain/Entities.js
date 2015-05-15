@@ -78,7 +78,7 @@ var AirTicket_Domain_Entities;
 			return this._vendorCode;
 		}
 
-		Flight.prototype.getPrice = function () {
+		Flight.prototype.getAdultPrice = function () {
 			return this._price;
 		}
 
@@ -135,9 +135,9 @@ var AirTicket_Domain_Entities;
 			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
-		Route.prototype.getPrice = function () {
+		Route.prototype.getAdultPrice = function () {
 			var price = this._flights.reduce(function (price, flight) {
-				return price + flight.getPrice();
+				return price + flight.getAdultPrice();
 			}, 0);
 			return price;
 		}
@@ -147,9 +147,10 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.Route = Route;
 
 	var Trip = (function () {
-		function Trip(forwardRoute, backRoute) {
+		function Trip(forwardRoute, backRoute, people) {
 			this._forwardRoute = forwardRoute;
 			this._backRoute = backRoute;
+			this._people = people;
 		}
 
 		Trip.prototype.getFromLocation = function () {
@@ -169,9 +170,13 @@ var AirTicket_Domain_Entities;
 		}
 
 		Trip.prototype.getPrice = function () {
-			return this._backRoute
-				? this._forwardRoute.getPrice() + this._backRoute.getPrice()
-				: this._forwardRoute.getPrice();
+			return (this._backRoute
+				? (this._forwardRoute.getAdultPrice() + this._backRoute.getAdultPrice())
+				: this._forwardRoute.getAdultPrice()) * (this._people.adults + 0.9 * this._people.children + 0.8 * this._people.infants);
+		}
+
+		Trip.prototype.getPeople = function () {
+			return this._people;
 		}
 
 		return Trip;
