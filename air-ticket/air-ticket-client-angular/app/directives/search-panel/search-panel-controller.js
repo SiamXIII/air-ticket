@@ -11,6 +11,12 @@ angular.module('airTicketApp')
 			};
 		}
 
+		$scope.people = {
+			adults: 1,
+			children: 0,
+			infants: 0
+		}
+
 		$scope.searchTrips = function () {
 			var currentZone = moment().zone();
 			var departureDay = moment($scope.search.forwardRouteDepartureDate).subtract(currentZone, 'm').subtract($scope.getLocation($scope.search.fromLocationCode).getTimeZoneOffset(), 'h');
@@ -30,7 +36,8 @@ angular.module('airTicketApp')
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					moment(returnDate).utc(),
 					moment(returnDate).utc().add(1, 'd'))
-				: null), function (data) {
+				: null,
+				$scope.people), function (data) {
 					$scope.trips = data.map(function (trip) {
 
 						var mapLocation = function (location) {
@@ -52,7 +59,7 @@ angular.module('airTicketApp')
 								duration: flight.getDuration(),
 								code: flight.getCode(),
 								vendorCode: flight.getVendorCode(),
-								price: flight.getPrice()
+								price: flight.getAdultPrice()
 							};
 
 							return result;
@@ -72,7 +79,7 @@ angular.module('airTicketApp')
 								arrivalTime: route.getArrivalTime(),
 								duration: route.getDuration(),
 								flights: flightViewModels,
-								price: route.getPrice()
+								price: route.getAdultPrice()
 							};
 
 							return result;
@@ -83,7 +90,8 @@ angular.module('airTicketApp')
 							to: mapLocation(trip.getToLocation()),
 							forwardRoute: mapRoute(trip.getForwardRoute()),
 							backRoute: trip.getBackRoute() ? mapRoute(trip.getBackRoute()) : null,
-							price: trip.getPrice()
+							price: trip.getPrice(),
+							people: trip.getPeople()
 						};
 
 						return tripViewModel;

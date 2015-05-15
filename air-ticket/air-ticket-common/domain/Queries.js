@@ -50,9 +50,10 @@ var AirTicket_Domain_Queries;
 	AirTicket_Domain_Queries.RouteQuery = RouteQuery;
 
 	var TripQuery = (function () {
-		function TripQuery(forwardRouteQuery, backRouteQuery) {
+		function TripQuery(forwardRouteQuery, backRouteQuery, people) {
 			this._forwardRouteQuery = forwardRouteQuery;
 			this._backRouteQuery = backRouteQuery;
+			this._people = people;
 		}
 
 		TripQuery.prototype.GetForwardRouteQuery = function () {
@@ -61,6 +62,10 @@ var AirTicket_Domain_Queries;
 
 		TripQuery.prototype.GetBackRouteQuery = function () {
 			return this._backRouteQuery;
+		}
+
+		TripQuery.prototype.GetPeople = function () {
+			return this._people;
 		}
 
 		return TripQuery;

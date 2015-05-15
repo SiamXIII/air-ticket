@@ -130,7 +130,7 @@ var AirTicket_Domain_Services;
 
 				for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
 					for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
-						var trip = new AirTicket_Domain_Entities.Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex]);
+						var trip = new AirTicket_Domain_Entities.Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex], tripQuery.GetPeople());
 						trips.push(trip);
 					}
 				}
@@ -139,7 +139,7 @@ var AirTicket_Domain_Services;
 			}
 
 			var trips = forwardRoutes.map(function (route) {
-				var trip = new AirTicket_Domain_Entities.Trip(route);
+				var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.GetPeople());
 				return trip;
 			});
 
