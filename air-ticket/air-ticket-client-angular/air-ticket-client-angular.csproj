@@ -59,15 +59,15 @@
     <Content Include="css\styles.scss" />
     <Content Include="css\_body.scss" />
     <Content Include="css\_ticketing.scss" />
-    <Content Include="css\_search-settings.scss" />
+    <Content Include="css\_search.scss" />
     <Content Include="css\_button.scss" />
     <Content Include="css\_ticket-list.scss" />
     <Content Include="css\_ticket.scss" />
     <Content Include="css\_filter.scss" />
+    <Content Include="css\_table.scss" />
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
-    <Content Include="css\_table.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
