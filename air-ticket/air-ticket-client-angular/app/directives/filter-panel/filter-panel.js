@@ -24,19 +24,13 @@
 .filter("listFilter", function () {
 	var filtersProvider = {
 		departureMorning: function (item) {
-			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
-
-			return correctedTime >= 6 && correctedTime < 12
+			return getCorrectedTimeHours(item)>= 6 && getCorrectedTimeHours(item) < 12
 		},
 		departureDay: function (item) {
-			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
-
-			return correctedTime >= 12 && correctedTime < 18
+			return getCorrectedTimeHours(item) >= 12 && getCorrectedTimeHours(item) < 18
 		},
 		departureEvening: function (item) {
-			var correctedTime = (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
-
-			return correctedTime >= 18 && correctedTime < 24
+			return getCorrectedTimeHours(item) >= 18 && getCorrectedTimeHours(item) < 24
 		}
 	}
 
@@ -70,6 +64,10 @@
 					? items.filterItems(filter.forwardRoute, "forwardRoute").filterItems(filter.comebackRoute, "backRoute")
 					: items.filterItems(filter.forwardRoute, "forwardRoute")
 			: null;
+	}
+
+	function getCorrectedTimeHours(item) {
+		return (item.departureTime.utc().hour() + +item.from.timeZoneOffset) % 24;
 	}
 })
 .filter('localized', function () {
