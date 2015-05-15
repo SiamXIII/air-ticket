@@ -2,17 +2,15 @@
     @extend .panel;
     @extend .panel-default;
 
-    h2 {
+    &__header {
         @extend .panel-heading;
-        font-size: $font-size-base;
-        margin: 0;
     }
 
-    form {
+    &__form {
         @extend .panel-body;
+    }
 
-        .checkbox label {
-            display: block;
-        }
+    &__condition {
+        display: block;    
     }
 }

@@ -62,7 +62,7 @@
     <Content Include="css\_search.scss" />
     <Content Include="css\_button.scss" />
     <Content Include="css\_ticket-list.scss" />
-    <Content Include="css\_ticket.scss" />
+    <Content Include="css\_trip.scss" />
     <Content Include="css\_filter.scss" />
     <Content Include="css\_table.scss" />
     <Content Include="css\styles.css.map">

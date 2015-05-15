@@ -3,11 +3,13 @@
 .ticketing {
     @extend .row;
 
-    .ticket-list-settings {
-        @extend .col-md-3;
+    &__search {
+        @extend .col-lg-3;
+        @extend .col-md-4;
     }
 
-    .ticket-list {
-        @extend .col-md-9;
+    &__trips {
+        @extend .col-lg-9;
+        @extend .col-md-8;
     }
 }
