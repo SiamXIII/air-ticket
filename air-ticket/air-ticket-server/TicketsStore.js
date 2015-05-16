@@ -10,7 +10,7 @@ var instance = {
 			var locations = [];
 			
 			data.forEach(function (location) {
-				locations.push(new Entities.Location(location.code, location.fullName, location.timeZoneOffset));
+				locations.push(new Entities.Location(location.code, location.fullName, location.timeZoneOffset * 60));
 			});
 			
 			callback(locations);
@@ -35,26 +35,26 @@ var instance = {
 			.populate('_from')
 			.populate('_to')
 			.lean(true)
-			.exec(function (err, data) {
-			var flights = [];
-			
-			data.forEach(function (flight) {
+			.exec(function(err, data) {
+				var flights = [];
+
+			data.forEach(function(flight) {
 				flights.push(new Entities.Flight(
-					new Entities.Location(flight._from.code, flight._from.fullName, flight._from.timeZoneOffset), 
-					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.timeZoneOffset), 
+					new Entities.Location(flight._from.code, flight._from.fullName, flight._from.timeZoneOffset * 60),
+					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.timeZoneOffset * 60),
 					flight.departureTime, flight.arrivalTime, flight.flightCode, flight.vendor, flight.price));
-			})
-			
-			callback(flights);
-		})
+			});
+
+				callback(flights);
+			});
 	},
 	
 	getAllCities: function (callback) {
 		locationsDataAccess.find()
 			.distinct('city')
-			.exec(function (err, data) {
-			callback(data);
-		})
+			.exec(function(err, data) {
+				callback(data);
+			});
 	}
 }
 

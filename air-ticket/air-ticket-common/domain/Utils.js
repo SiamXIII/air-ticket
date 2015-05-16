@@ -14,24 +14,42 @@ var AirTicket_Utils;
 			
 		}
 
+		function pad(str, max) {
+			str = str.toString();
+			return str.length < max ? pad("0" + str, max) : str;
+		}
+
 		DateTimeUtils.setUtcOffset = function(date, newUtcOffset) {
 			var dateString = date.toString();
 			var gmtIndex = dateString.lastIndexOf("GMT");
 			var dateStringWithoutGmt = dateString.substring(0, gmtIndex);
-			var dateStringWithNewGmt = dateStringWithoutGmt + "GMT" + newUtcOffset;
-			return dateStringWithNewGmt;
+
+			var hours = pad((Math.abs(newUtcOffset) / 60).toString(), 2);
+			var minutes = pad((Math.abs(newUtcOffset) % 60).toString(), 2);
+
+			var utcOffsetString = "GMT" +
+				(newUtcOffset > 0 ? "+" : "-") +
+				hours +
+				minutes;
+			
+			var dateStringWithNewGmt = dateStringWithoutGmt + utcOffsetString;
+			return new Date(dateStringWithNewGmt);
 		}
 
-		DateTimeUtils.changeUtcOffset = function (date, newUtcOffset) {
-			var dateString = date.toString();
-			var gmtIndex = dateString.lastIndexOf("GMT");
-			var dateStringWithoutGmt = dateString.substring(0, gmtIndex);
-			var dateStringWithNewGmt = dateStringWithoutGmt + "GMT" + newUtcOffset;
-			return dateStringWithNewGmt;
+		DateTimeUtils.getHours = function (date, utcOffset) {
+			var newDate = new Date(date + utcOffset * 60 * 1000);
+			var hours = newDate.getUTCHours();
+			return hours;
 		}
 
-		DateTimeUtils.addOneDayWithoutOneMilisecond = function (date) {
-			return new Date(date.valueOf() + (1000 * 60 * 60 * 24 - 1));
+		DateTimeUtils.getMinutes = function (date, utcOffset) {
+			var newDate = new Date(date + utcOffset * 60 * 1000);
+			var minutes = newDate.getUTCMinutes();
+			return minutes;
+		}
+
+		DateTimeUtils.addDays = function (date, daysCount) {
+			return new Date(date.valueOf() + (1000 * 60 * 60 * 24 * daysCount));
 		}
 
 		return DateTimeUtils;
