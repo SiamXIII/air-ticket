@@ -50,7 +50,7 @@ var AirTicket_Domain_Services;
 
 				if (routeQuery.getMaxDepartureTime()) {
 					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTime() <= routeQuery.getMaxDepartureTime();
+						return flight.getDepartureTime() < routeQuery.getMaxDepartureTime();
 					});
 				}
 			} else {

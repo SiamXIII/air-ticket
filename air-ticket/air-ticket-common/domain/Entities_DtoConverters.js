@@ -35,8 +35,8 @@ var AirTicket_Domain_Entities_DtoConverters;
 			var flight = new AirTicket_Domain_Entities.Flight(
 				locationDtoConverter.convertFromDto(dto._from),
 				locationDtoConverter.convertFromDto(dto._to),
-				new moment(dto._departureTime),
-				new moment(dto._arrivalTime),
+				new Date(dto._departureTime),
+				new Date(dto._arrivalTime),
 				dto._code,
 				dto._vendorCode,
 				dto._price);

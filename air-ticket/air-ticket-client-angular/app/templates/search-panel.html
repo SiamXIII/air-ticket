@@ -21,13 +21,15 @@
 		</div>
 
 		<div class="search__direction">
-			<div class="search__directions"><label class="search__label">{{::'directions' | translate}}</label>
+			<div class="search__directions">
+				<label class="search__label">{{::'directions' | translate}}</label>
 				<div class="search__one-way">
 					<label><input type="radio" name="ways" ng-model="search.twoWay" value="">{{::'oneWay' | translate}}</label>
 				</div>
 				<div class="search__two-way">
 					<label><input type="radio" name="ways" ng-model="search.twoWay" value="true">{{::'twoWay' | translate}}</label>
-				</div></div>
+				</div>
+			</div>
 		</div>
 
 		<div class="search__dates">
