@@ -142,22 +142,16 @@ var AirTicket_Domain_Entities;
 		}
 
 		Route.prototype.getTransferDurationAfterFlight = function (flightCode) {
-			var flight;
 			var index;
+			var flight;
 
-			if (!Array.prototype.find) {
-				for (var i = 0; i < this._flights.length; i++) {
-					if (this._flights[i].getCode() == flightCode) {
-						flight = this._flights[i];
-						index = i;
-						break;
-					}
+			for (var i = 0; i < this.getFlightsCount() ; i++) {
+				if (this._flights[i].getCode() == flightCode) {
+					index = i;
+					flight = this._flights[i];
+
+					break;
 				}
-			}
-			else {
-				flight = this._flights.find(function (flight) {
-					return flight.getColde() == flightCode;
-				});
 			}
 
 			if (!flight) {
@@ -165,12 +159,27 @@ var AirTicket_Domain_Entities;
 			}
 
 			if (index == this._flights.length - 1) {
-				return 0;
+				throw new Error('This is last flight.');
 			}
 			else {
-				return this._flights.getFlight(index + 1).getDepartureTime() - flight.getArrivalTime();
+				return this.getFlight(index + 1).getDepartureTime().getTime() - flight.getArrivalTime().getTime();
 			}
 		}
+
+		Route.prototype.getMaxTransferDuration = function () {
+			var max = 0;
+
+			for (var i = 0; i < this.getFlightsCount() - 1 ; i++) {
+				var flight = this.getFlight(i);
+
+				var transferDurationAfterFlight = this.getTransferDurationAfterFlight(this.getFlight(i).getCode());
+
+				if (max < transferDurationAfterFlight) {
+					max = transferDurationAfterFlight;
+				}
+			}
+			return max;
+		};
 
 		return Route;
 	})();

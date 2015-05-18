@@ -46,7 +46,8 @@ angular.module('airTicketApp')
 							getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
 						1))
 				: null,
-				$scope.people);
+				$scope.people,
+				1528199921900);
 
 			return tripQuery;
 		}

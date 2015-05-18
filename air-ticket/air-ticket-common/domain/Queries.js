@@ -19,15 +19,14 @@ var AirTicket_Domain_Queries;
 		return LocationQuery;
 	})();
 	AirTicket_Domain_Queries.LocationQuery = LocationQuery;
-	
+
 	var RouteQuery = (function () {
 
-		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime, maxTransferTime) {
+		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
 			this._fromLocationQuery = fromLocationQuery;
 			this._toLocationQuery = toLocationQuery;
 			this._minDepartureTime = minDepartureTime;
 			this._maxDepartureTime = maxDepartureTime;
-			this._maxTransferTime = maxTransferTime;
 		}
 
 		RouteQuery.prototype.getFromQuery = function () {
@@ -46,19 +45,16 @@ var AirTicket_Domain_Queries;
 			return this._maxDepartureTime;
 		}
 
-		RouteQuery.prototype.getMaxTransferTime = function () {
-			return this._maxTransferTime;
-		}
-
 		return RouteQuery;
 	})();
 	AirTicket_Domain_Queries.RouteQuery = RouteQuery;
 
 	var TripQuery = (function () {
-		function TripQuery(forwardRouteQuery, backRouteQuery, people) {
+		function TripQuery(forwardRouteQuery, backRouteQuery, people, maxTransferDuration) {
 			this._forwardRouteQuery = forwardRouteQuery;
 			this._backRouteQuery = backRouteQuery;
 			this._people = people;
+			this._maxTransferDuration = maxTransferDuration;
 		}
 
 		TripQuery.prototype.GetForwardRouteQuery = function () {
@@ -71,6 +67,10 @@ var AirTicket_Domain_Queries;
 
 		TripQuery.prototype.GetPeople = function () {
 			return this._people;
+		}
+
+		TripQuery.prototype.getMaxTransferDuration = function () {
+			return this._maxTransferDuration;
 		}
 
 		return TripQuery;

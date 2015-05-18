@@ -109,16 +109,6 @@ var AirTicket_Domain_Services;
 			return resultRoutes;
 		};
 
-		FlightMap.prototype.checkTimeAfterFlight = function (routeQuery, route) {
-			for (var i = 0; i < route.getFlightsCount; i++) {
-				if (route.getTransferDurationAfterFlight(route.getFlight(i).getCode()) > routeQuery.getMaxDurationTimeAfterFlight) {
-					return false;
-				}
-			}
-
-			return true;
-		};
-
 		return FlightMap;
 
 	})();
@@ -133,34 +123,39 @@ var AirTicket_Domain_Services;
 
 			var forwardRoutes = this._flightMap.getRoutes(tripQuery.GetForwardRouteQuery());
 
-			if (this._flightMap.checkTimeAfterFlight(tripQuery.GetForwardRouteQuery(), forwardRoutes)) {
-				if (tripQuery.GetBackRouteQuery()) {
-					var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
+			forwardRoutes.filter(function (route) {
+				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
-					if (this._flightMap.checkTimeAfterFlight(tripQuery.GetBackRouteQuery(), backRoutes)) {
-						var trips = [];
+				return result;
+			})
 
-						for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
-							for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
-								var trip = new AirTicket_Domain_Entities.Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex], tripQuery.GetPeople());
-								trips.push(trip);
-							}
-						}
+			if (tripQuery.GetBackRouteQuery()) {
+				var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
 
-						return trips;
+				backRoutes.filter(function (route) {
+					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
+
+					return result;
+				})
+
+				var trips = [];
+
+				for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
+					for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
+						var trip = new AirTicket_Domain_Entities.Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex], tripQuery.GetPeople());
+						trips.push(trip);
 					}
 				}
 
-				var trips = forwardRoutes.map(function (route) {
-					var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.GetPeople());
-					return trip;
-				});
-
 				return trips;
 			}
-			else {
-				return null;
-			}
+
+			var trips = forwardRoutes.map(function (route) {
+				var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.GetPeople());
+				return trip;
+			});
+
+			return trips;
 		}
 
 		return TripsService;
