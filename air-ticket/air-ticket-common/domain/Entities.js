@@ -141,6 +141,37 @@ var AirTicket_Domain_Entities;
 			return price;
 		}
 
+		Route.prototype.getTransferDurationAfterFlight = function (flightCode) {
+			var flight;
+			var index;
+
+			if (!Array.prototype.find) {
+				for (var i = 0; i < this._flights.length; i++) {
+					if (this._flights[i].getCode() == flightCode) {
+						flight = this._flights[i];
+						index = i;
+						break;
+					}
+				}
+			}
+			else {
+				flight = this._flights.find(function (flight) {
+					return flight.getColde() == flightCode;
+				});
+			}
+
+			if (!flight) {
+				throw new Error('Flight is not found.');
+			}
+
+			if (index == this._flights.length - 1) {
+				return 0;
+			}
+			else {
+				return this._flights.getFlight(index + 1).getDepartureTime() - flight.getArrivalTime();
+			}
+		}
+
 		return Route;
 	})();
 	AirTicket_Domain_Entities.Route = Route;

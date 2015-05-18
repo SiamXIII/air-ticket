@@ -22,11 +22,12 @@ var AirTicket_Domain_Queries;
 	
 	var RouteQuery = (function () {
 
-		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
+		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime, maxTransferTime) {
 			this._fromLocationQuery = fromLocationQuery;
 			this._toLocationQuery = toLocationQuery;
 			this._minDepartureTime = minDepartureTime;
 			this._maxDepartureTime = maxDepartureTime;
+			this._maxTransferTime = maxTransferTime;
 		}
 
 		RouteQuery.prototype.getFromQuery = function () {
@@ -43,6 +44,10 @@ var AirTicket_Domain_Queries;
 
 		RouteQuery.prototype.getMaxDepartureTime = function () {
 			return this._maxDepartureTime;
+		}
+
+		RouteQuery.prototype.getMaxTransferTime = function () {
+			return this._maxTransferTime;
 		}
 
 		return RouteQuery;

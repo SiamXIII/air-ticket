@@ -29,13 +29,15 @@ angular.module('airTicketApp')
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
 					moment(departureDay).utc(),
-					moment(departureDay).utc().add(1, 'd')),
+					moment(departureDay).utc().add(1, 'd'),
+				100),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.RouteQuery(
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					moment(returnDate).utc(),
-					moment(returnDate).utc().add(1, 'd'))
+					moment(returnDate).utc().add(1, 'd'),
+				100)
 				: null,
 				$scope.people), function (data) {
 					$scope.trips = data.map(function (trip) {
