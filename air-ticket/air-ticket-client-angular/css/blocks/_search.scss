@@ -24,7 +24,10 @@
 
     &__from,
     &__to {
+        @extend .col-lg-6;
         @extend .col-md-6;
+        @extend .col-sm-6;
+        @extend .col-xs-6;
     }
 
     &__directions {
@@ -45,7 +48,10 @@
     &__adults,
     &__children,
     &__infants {
+        @extend .col-lg-4;
         @extend .col-md-4;
+        @extend .col-sm-4;
+        @extend .col-xs-4;
     }
 
     &__search-button-wrap {

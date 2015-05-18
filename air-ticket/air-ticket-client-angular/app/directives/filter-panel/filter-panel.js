@@ -4,11 +4,10 @@
 			restrict: 'E',
 			replace: true,
 			templateUrl: templatesPath + 'filter-panel.html',
-			controller: 'filterPanelCtrl'
-		}
-	})
-	.filter('localized', function() {
-		return function(item, correction) {
-			return moment(item).utc().add(correction, 'm').format('HH:mm');
+			controller: 'filterPanelCtrl',
+			scope: {
+				trips: "=",
+				filteredTrips: "="
+			}
 		}
 	});

@@ -2,7 +2,7 @@
 	<div class="filter__header">{{::'filter' | translate}}</div>
 
 	<form class="filter__form">
-		<div class="checkbox">
+		<div class="filter__departure">
 			<h4>{{::'departureTime' | translate}}</h4>
 			<label class="filter__condition">
 				<input type="checkbox" ng-model="filter.forwardRoute.departureMorning" /> {{::'morning' | translate}} 6.00 - 12.00
@@ -15,7 +15,7 @@
 			</label>
 		</div>
 
-		<div class="checkbox">
+		<div class="filter__departure">
 			<h4>{{::'comebackTime' | translate}}</h4>
 			<label class="filter__condition">
 				<input type="checkbox" ng-model="filter.comebackRoute.departureMorning" />{{::'morning' | translate}} 6.00 - 12.00

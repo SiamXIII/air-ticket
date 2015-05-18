@@ -22,6 +22,8 @@
     <Content Include="app\app.js" />
     <Content Include="app\config.js" />
     <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
+    <Content Include="app\directives\air-ticket\air-ticket-filters.js" />
+    <Content Include="app\directives\air-ticket\air-ticket-view-model-mappers.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
     <Content Include="app\directives\calendar\calendar.js" />
     <Content Include="app\directives\ticket-card\detailed-route\detailed-route.js" />
