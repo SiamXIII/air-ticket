@@ -50,10 +50,12 @@ var AirTicket_Domain_Queries;
 	AirTicket_Domain_Queries.RouteQuery = RouteQuery;
 
 	var TripQuery = (function () {
-		function TripQuery(forwardRouteQuery, backRouteQuery, people, maxTransferDuration) {
+		function TripQuery(forwardRouteQuery, backRouteQuery, adults, children, infants, maxTransferDuration) {
 			this._forwardRouteQuery = forwardRouteQuery;
 			this._backRouteQuery = backRouteQuery;
-			this._people = people;
+			this._adults = adults;
+			this._children = children;
+			this._infants = infants;
 			this._maxTransferDuration = maxTransferDuration;
 		}
 
@@ -65,8 +67,16 @@ var AirTicket_Domain_Queries;
 			return this._backRouteQuery;
 		}
 
-		TripQuery.prototype.GetPeople = function () {
-			return this._people;
+		TripQuery.prototype.getAdults = function () {
+			return this._adults;
+		}
+
+		TripQuery.prototype.getChildren = function () {
+			return this._children;
+		}
+
+		TripQuery.prototype.getInfants = function () {
+			return this._infants;
 		}
 
 		TripQuery.prototype.getMaxTransferDuration = function () {

@@ -186,10 +186,12 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.Route = Route;
 
 	var Trip = (function () {
-		function Trip(forwardRoute, backRoute, people) {
+		function Trip(forwardRoute, backRoute, adults, children, infants) {
 			this._forwardRoute = forwardRoute;
 			this._backRoute = backRoute;
-			this._people = people;
+			this._adults = adults;
+			this._children = children;
+			this._infants = infants;
 		}
 
 		Trip.prototype.getFromLocation = function () {
@@ -211,11 +213,19 @@ var AirTicket_Domain_Entities;
 		Trip.prototype.getPrice = function () {
 			return (this._backRoute
 				? (this._forwardRoute.getAdultPrice() + this._backRoute.getAdultPrice())
-				: this._forwardRoute.getAdultPrice()) * (this._people.adults + 0.9 * this._people.children + 0.8 * this._people.infants);
+				: this._forwardRoute.getAdultPrice()) * (this._adults + 0.9 * this._children + 0.8 * this._infants);
 		}
 
-		Trip.prototype.getPeople = function () {
-			return this._people;
+		Trip.prototype.getAdults = function () {
+			return this._adults;
+		}
+
+		Trip.prototype.getChildren = function () {
+			return this._children;
+		}
+
+		Trip.prototype.getInfants = function () {
+			return this._infants;
 		}
 
 		return Trip;

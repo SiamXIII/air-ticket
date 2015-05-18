@@ -23,5 +23,5 @@
 	<td>{{flight.price | currency}}</td>
 </tr>
 <tr ng-repeat-end ng-if="!$last">
-	<td colspan="4">{{::'transferTime' | translate }}</td>
+	<td colspan="4">{{::'transferTime' | translate }} = {{::flight.transferDurationAfterFlight | duration}}</td>
 </tr>

@@ -1,5 +1,5 @@
 ﻿angular.module('airTicketApp')
-	.factory('mapTripToViewModel', function() {
+	.factory('mapTripToViewModel', function () {
 		function mapLocationToViewModel(location) {
 			var result = {
 				code: location.getCode(),
@@ -27,9 +27,16 @@
 
 		function mapRouteToViewModel(route) {
 			var flightViewModels = [];
+			var flightCount = route.getFlightsCount();
 
-			for (var i = 0; i < route.getFlightsCount(); i++) {
-				flightViewModels.push(mapFlightToViewModel(route.getFlight(i)));
+			for (var i = 0; i < flightCount; i++) {
+				var flight = route.getFlight(i);
+
+				flightViewModels.push(mapFlightToViewModel(flight));
+
+				if (i != flightCount - 1) {
+					flightViewModels[i].transferDurationAfterFlight = route.getTransferDurationAfterFlight(flight.getCode());
+				}
 			}
 
 			var result = {
@@ -53,7 +60,9 @@
 				forwardRoute: mapRouteToViewModel(trip.getForwardRoute()),
 				backRoute: trip.getBackRoute() ? mapRouteToViewModel(trip.getBackRoute()) : null,
 				price: trip.getPrice(),
-				people: trip.getPeople()
+				adults: trip.getAdults(),
+				children: trip.getChildren(),
+				infants: trip.getInfants()
 			};
 
 			return result;

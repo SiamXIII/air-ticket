@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../domain/Entities.js" />
 angular.module('airTicketApp')
-	.controller('searchPanelCtrl', function(ticketService, mapTripToViewModel, $scope) {
+	.controller('searchPanelCtrl', function (ticketService, mapTripToViewModel, $scope) {
 		var allLocations = [];
 
 		function getAllLocations() {
@@ -46,7 +46,9 @@ angular.module('airTicketApp')
 							getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
 						1))
 				: null,
-				$scope.people,
+				$scope.search.adults,
+				$scope.search.children,
+				$scope.search.infants,
 				1528199921900);
 
 			return tripQuery;
@@ -60,25 +62,22 @@ angular.module('airTicketApp')
 			toLocationCode: 'JFK',
 			forwardRouteDepartureDate: '05/11/2015',
 			backRouteDepartureDate: '05/12/2015',
-			twoWay: 'true'
-		};
-
-		$scope.people = {
+			twoWay: 'true',
 			adults: 1,
 			children: 0,
 			infants: 0
-		}
+		};
 
-		$scope.searchTrips = function() {
-			ticketService.searchTrips(buildTripQuery(), function(data) {
+		$scope.searchTrips = function () {
+			ticketService.searchTrips(buildTripQuery(), function (data) {
 				$scope.trips = data.map(mapTripToViewModel);
 			});
 		}
 
 		ticketService.getLocations(
-			function(data) {
+			function (data) {
 				allLocations = data;
-				$scope.locationCodes = allLocations.map(function(location) {
+				$scope.locationCodes = allLocations.map(function (location) {
 					var locationCode = location.getCode();
 					return locationCode;
 				});
