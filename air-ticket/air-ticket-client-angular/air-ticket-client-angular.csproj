@@ -58,7 +58,7 @@
     <Content Include="package.json" />
     <Content Include="css\styles.scss" />
     <Content Include="css\_body.scss" />
-    <Content Include="css\_ticketing.scss" />
+    <Content Include="css\_booking.scss" />
     <Content Include="css\_search.scss" />
     <Content Include="css\_button.scss" />
     <Content Include="css\_ticket-list.scss" />
