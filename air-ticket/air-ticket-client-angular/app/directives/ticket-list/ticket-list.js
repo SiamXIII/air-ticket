@@ -4,6 +4,9 @@
 		restrict: 'E',
 		replace: true,
 		templateUrl: templatesPath + 'ticket-list.html',
-		controller: 'ticketListCtrl'
+		controller: 'ticketListCtrl',
+		scope: {
+			trips: "="
+		}
 	}
 });
