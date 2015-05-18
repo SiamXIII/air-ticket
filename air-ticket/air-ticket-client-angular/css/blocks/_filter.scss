@@ -10,7 +10,15 @@
         @extend .panel-body;
     }
 
+    &__departure {
+        @extend .col-lg-12;
+        @extend .col-md-12;
+        @extend .col-sm-6;
+        @extend .col-xs-12;
+    }
+
     &__condition {
-        display: block;    
+        display: block;
+        font-weight: normal;
     }
 }

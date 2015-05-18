@@ -48,7 +48,10 @@
     &__adults,
     &__children,
     &__infants {
+        @extend .col-lg-4;
         @extend .col-md-4;
+        @extend .col-sm-4;
+        @extend .col-xs-4;
     }
 
     &__search-button-wrap {
