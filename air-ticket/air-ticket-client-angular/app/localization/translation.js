@@ -75,4 +75,5 @@
 	});
 
 	$translateProvider.preferredLanguage('en');
+	
 });
