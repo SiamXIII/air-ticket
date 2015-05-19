@@ -1,14 +1,19 @@
 ﻿angular.module('airTicketApp')
 .directive('datepicker', function () {
 	return {
-		link: function (scope, element, attrs) {
+		restrict: "A",
+		scope: {
+			ngModel: '=',
+			minDate: '=',
+			maxDate: '='
+		},
+		link: function ($scope, element, attrs) {
 			element.attr('readonly', true);
 
 			element.datepicker({
 				showOnFocus: false,
 				autoclose: true,
-				todayBtn: "linked",
-				clearBtn: true
+				todayBtn: "linked"
 			}).on('hide', function () {
 				element.focus();
 			});
@@ -24,10 +29,19 @@
 				}
 			});
 
-			element.focusout(function () {
-				//element.datepicker('hide');
-			});
-		},
-		restrict: "A"
+			element.datepicker('setDate', $scope.ngModel);
+
+			if ($scope.minDate) {
+				$scope.$watch('minDate', function (value) {
+					element.datepicker('setStartDate', new Date(value));
+				});
+			}
+
+			if ($scope.maxDate) {
+				$scope.$watch('maxDate', function (value) {
+					element.datepicker('setEndDate', new Date(value));
+				})
+			}
+		}
 	};
-});
+})

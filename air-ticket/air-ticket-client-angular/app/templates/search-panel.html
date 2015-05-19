@@ -1,13 +1,13 @@
 ﻿<div class="search">
 	<h2 class="search__header">{{::'searchParams' | translate}}</h2>
 
-	<form class="search__form" ng-init="init()">
+	<form class="search__form" name="searchForm" ng-init="init()">
 		<div class="search__route">
 			<div class="search__from">
 				<label class="search__label" for="arrivalSelected">{{::'from' | translate}}</label>
 				<select id="departureSelected" class="form-control" ui-select2="select2options" ng-model="search.fromLocationCode" data-placeholder="{{::'selectOrigin' | translate}}">
 					<option value=""></option>
-					<option ng-repeat="locationCode in locationCodes" value="{{locationCode}}">{{locationCode}}</option>
+					<option ng-repeat="locationCode in locationCodes | filter: '!'+search.toLocationCode" value="{{locationCode}}">{{locationCode}}</option>
 				</select>
 			</div>
 
@@ -15,7 +15,7 @@
 				<label class="search__label" for="arrivalSelected">{{::'to' | translate}}</label>
 				<select id="arrivalSelected" class="form-control" ui-select2="select2options" ng-model="search.toLocationCode" data-placeholder="{{::'selectDestination' | translate}}">
 					<option value=""></option>
-					<option ng-repeat="locationCode in locationCodes" value="{{locationCode}}">{{locationCode}}</option>
+					<option ng-repeat="locationCode in locationCodes | filter: '!'+search.fromLocationCode" value="{{locationCode}}">{{locationCode}}</option>
 				</select>
 			</div>
 		</div>
@@ -39,7 +39,8 @@
 					<input class="datepicker form-control" type="text"
 						   ng-model="search.forwardRouteDepartureDate"
 						   placeholder="{{::'departure' | translate}}"
-						   datepicker />
+						   datepicker
+						   max-date="search.backRouteDepartureDate" />
 				</div>
 			</div>
 
@@ -49,37 +50,47 @@
 					<input class="datepicker form-control" type="text"
 						   ng-model="search.backRouteDepartureDate"
 						   placeholder="{{::'comeback' | translate}}"
-						   datepicker />
+						   datepicker
+						   min-date="search.forwardRouteDepartureDate" />
 				</div>
 			</div>
 		</div>
 
-		<div class="search__passengers">
+		<div class="search__passengers" ng-model="search.passengers" passengers-required>
 			<div class="search__adults">
 				<div>
 					<label>{{::'adults' | translate}}</label>
-					<input class="form-control" type="number" min="0" max="100" ng-model="search.adults" />
+					<input class="form-control" name="adults" pattern="\d*" type="number" min="0" max="100" ng-model="search.passengers.adults" required />
+					<div ng-messages="searchForm.adults.$error" class="search__errors" ng-messages-include="app/templates/validate-messages.html">
+					</div>
 				</div>
 			</div>
 
 			<div class="search__children">
 				<div>
 					<label>{{::'children' | translate}}</label>
-					<input class="form-control" type="number" min="0" max="100" ng-model="search.children" />
+					<input class="form-control" type="number" min="0" max="100" pattern="\d*" name="children" ng-model="search.passengers.children" required />
+					<div ng-messages="searchForm.children.$error" class="search__errors" ng-messages-include="app/templates/validate-messages.html">
+					</div>
 				</div>
 			</div>
 
 			<div class="search__infants">
 				<div>
 					<label>{{::'babies' | translate}}</label>
-					<input class="form-control" type="number" min="0" max="100" ng-model="search.infants" />
+					<input class="form-control" type="number" min="0" max="100" pattern="\d*" name="infants" ng-model="search.passengers.infants" required />
+					<div ng-messages="searchForm.infants.$error" class="search__errors" ng-messages-include="app/templates/validate-messages.html">
+					</div>
 				</div>
 			</div>
+		</div>
+		<div ng-messages="searchForm.$error" style="" class="search__customErrors">
+			<span ng-message="passengersRequired">Passengers are required.</span>
 		</div>
 
 		<div class="search__controls">
 			<div class="search__search-button-wrap">
-				<button ng-click="searchTrips()">{{::'search' | translate}}</button>
+				<button type="button" ng-click="searchTrips()" ng-disabled="searchForm.$invalid">{{::'search' | translate}}</button>
 			</div>
 		</div>
 	</form>

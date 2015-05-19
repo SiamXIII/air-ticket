@@ -46,9 +46,9 @@ angular.module('airTicketApp')
 							getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
 						1))
 				: null,
-				$scope.search.adults,
-				$scope.search.children,
-				$scope.search.infants,
+				$scope.search.passengers.adults,
+				$scope.search.passengers.children,
+				$scope.search.passengers.infants,
 				1528199921900);
 
 			return tripQuery;
@@ -63,9 +63,11 @@ angular.module('airTicketApp')
 			forwardRouteDepartureDate: '05/11/2015',
 			backRouteDepartureDate: '05/12/2015',
 			twoWay: 'true',
-			adults: 1,
-			children: 0,
-			infants: 0
+			passengers: {
+				adults: 1,
+				children: 0,
+				infants: 0
+			}
 		};
 
 		$scope.searchTrips = function () {
