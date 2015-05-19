@@ -1,3 +1,3 @@
 ﻿angular.module('airTicketApp')
-	.controller('ticketsCtrl', function($scope) {
+	.controller('ticketsCtrl', function () {
 	});

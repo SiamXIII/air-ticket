@@ -10,7 +10,8 @@
 		}
 
 		function isRoutePassFilter(route, routeFilter) {
-			var result = routeFilter.departureMorning && route.departureTimeHoursLocal >= 6 && route.departureTimeHoursLocal < 12 ||
+			var result =
+				routeFilter.departureMorning && route.departureTimeHoursLocal >= 6 && route.departureTimeHoursLocal < 12 ||
 				routeFilter.departureDay && route.departureTimeHoursLocal >= 12 && route.departureTimeHoursLocal < 18 ||
 				routeFilter.departureDay && route.departureTimeHoursLocal >= 18 && route.departureTimeHoursLocal < 24;
 

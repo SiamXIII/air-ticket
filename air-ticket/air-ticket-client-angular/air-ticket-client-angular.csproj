@@ -26,12 +26,14 @@
     <Content Include="app\directives\air-ticket\air-ticket-view-model-mappers.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
     <Content Include="app\directives\calendar\calendar.js" />
+    <Content Include="app\directives\language-switch\language-switch.js" />
     <Content Include="app\directives\ticket-card\detailed-route\detailed-route.js" />
     <Content Include="app\directives\ticket-card\route\route.js" />
     <Content Include="app\localization\translation.js" />
     <Content Include="app\templates\air-ticket.html" />
     <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
     <Content Include="app\templates\detailed-route.html" />
+    <Content Include="app\templates\language-switch.html" />
     <Content Include="app\templates\ticket-card.html" />
     <Content Include="app\templates\filter-panel.html" />
     <Content Include="app\directives\filter-panel\filter-panel.js" />
