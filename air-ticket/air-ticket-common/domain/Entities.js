@@ -172,7 +172,7 @@ var AirTicket_Domain_Entities;
 			for (var i = 0; i < this.getFlightsCount() - 1 ; i++) {
 				var flight = this.getFlight(i);
 
-				var transferDurationAfterFlight = this.getTransferDurationAfterFlight(this.getFlight(i).getCode());
+				var transferDurationAfterFlight = this.getTransferDurationAfterFlight(flight.getCode());
 
 				if (max < transferDurationAfterFlight) {
 					max = transferDurationAfterFlight;
