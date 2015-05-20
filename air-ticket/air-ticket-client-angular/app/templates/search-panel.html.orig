@@ -1,0 +1,91 @@
+﻿<div class="search">
+	<h2 class="search__header">{{::'searchParams' | translate}}</h2>
+
+	<form class="search__form" ng-init="init()">
+		<div class="search__route">
+			<div class="search__from">
+				<label class="search__label" for="arrivalSelected">{{::'from' | translate}}</label>
+				<select id="departureSelected" class="form-control" ui-select2="select2options" ng-model="search.fromLocationCode" data-placeholder="{{::'selectOrigin' | translate}}">
+					<option value=""></option>
+					<option ng-repeat="locationCode in locationCodes" value="{{locationCode}}">{{locationCode}}</option>
+				</select>
+			</div>
+
+			<div class="search__to">
+				<label class="search__label" for="arrivalSelected">{{::'to' | translate}}</label>
+				<select id="arrivalSelected" class="form-control" ui-select2="select2options" ng-model="search.toLocationCode" data-placeholder="{{::'selectDestination' | translate}}">
+					<option value=""></option>
+					<option ng-repeat="locationCode in locationCodes" value="{{locationCode}}">{{locationCode}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="search__direction">
+			<div class="search__directions"><label class="search__label">{{::'directions' | translate}}</label>
+				<div class="search__one-way">
+					<label><input type="radio" name="ways" ng-model="search.twoWay" value="">{{::'oneWay' | translate}}</label>
+				</div>
+				<div class="search__two-way">
+					<label><input type="radio" name="ways" ng-model="search.twoWay" value="true">{{::'twoWay' | translate}}</label>
+				</div></div>
+		</div>
+
+		<div class="search__dates">
+			<div class="search__from">
+				<div>
+					<label>{{::'departureDate' | translate}}</label>
+					<input class="datepicker form-control" type="text"
+						   ng-model="search.forwardRouteDepartureDate"
+						   placeholder="{{::'departure' | translate}}"
+						   datepicker />
+				</div>
+			</div>
+
+			<div class="search__to" ng-show="search.twoWay">
+				<div>
+					<label>{{::'comebackDate' | translate}}</label>
+					<input class="datepicker form-control" type="text"
+						   ng-model="search.backRouteDepartureDate"
+						   placeholder="{{::'comeback' | translate}}"
+						   datepicker />
+				</div>
+			</div>
+		</div>
+
+		<div class="search__passengers">
+			<div class="search__adults">
+				<div>
+					<label>{{::'adults' | translate}}</label>
+					<input class="form-control" type="number" min="0" max="100" ng-model="people.adults" />
+				</div>
+			</div>
+
+			<div class="search__children">
+				<div>
+					<label>{{::'children' | translate}}</label>
+					<input class="form-control" type="number" min="0" max="100" ng-model="people.children" />
+				</div>
+			</div>
+
+			<div class="search__infants">
+				<div>
+					<label>{{::'babies' | translate}}</label>
+					<input class="form-control" type="number" min="0" max="100" ng-model="people.newborns" />
+				</div>
+			</div>
+		</div>
+
+<<<<<<< HEAD
+		<div class="form-group">
+			<div>
+				<label>{{::'babies' | translate}}</label>
+				<input class="form-control" type="number" min="0" max="100" ng-model="people.infants"/>
+=======
+		<div class="search__controls">
+			<div class="search__search-button-wrap">
+				<button ng-click="searchTrips()">{{::'search' | translate}}</button>
+>>>>>>> c20b784b7939ebab34dc3ae9b994dfab57186b5c
+			</div>
+		</div>
+	</form>
+</div>
