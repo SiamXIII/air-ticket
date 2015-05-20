@@ -34,7 +34,13 @@
 		'comeback': 'Return',
 		'selectOrigin': 'Select origin',
 		'selectDestination': 'Select destination',
-		'transferTime':'Transfer time'
+		'transferTime': 'Transfer time',
+		'required': 'Field is required.',
+		'minZero': 'This number must be more then 0.',
+		'maxHundred': 'This number must be less then 100.',
+		'number': 'Not valid number.',
+		'patternInt': 'Not integer number.',
+		'passengersRequired': 'Passengers are required.'
 	});
 
 	$translateProvider.translations('ru', {
@@ -71,9 +77,15 @@
 		'comeback': 'Возвращение',
 		'selectOrigin': 'Пункт отправления',
 		'selectDestination': 'Пункт назначения',
-		'transferTime': 'Время пересадки'
+		'transferTime': 'Время пересадки',
+		'required': 'Поле обязательно для заполнения.',
+		'minZero': 'Это число должно быть больше 0.',
+		'maxHundred': 'Это число должно быть меньше 100.',
+		'number': 'Не правильное число.',
+		'patternInt': 'Не целое число.',
+		'passengersRequired': 'Отсутсвуют пассажиры.'
 	});
 
 	$translateProvider.preferredLanguage('en');
-	
+
 });
