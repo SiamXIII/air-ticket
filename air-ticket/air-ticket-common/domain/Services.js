@@ -120,7 +120,7 @@ var AirTicket_Domain_Services;
 			} else {
 				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function (flight) {
 					var filter = route.getFlightsCount() < 5 &&
-						flight.getDepartureTime() > route.getArrivalTime();
+						flight.getDepartureTime() > flight.getArrivalTime();
 					return filter;
 				});
 			}
