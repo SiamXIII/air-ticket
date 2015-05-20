@@ -1,0 +1,25 @@
+﻿<div class="trip__summary" ng-click="toggleDetails()">
+	<span>
+		<span>
+			<span>{{route.from.code}}:</span>
+			<span>{{route.departureTime | localized: route.from.timeZoneOffset}}</span>
+		</span>
+		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+		<span>
+			<span>{{route.to.code}}:</span>
+			<span>{{route.arrivalTime | localized: route.to.timeZoneOffset}}</span>
+		</span>
+	</span>
+
+	<span class="trip__duration">
+		<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+		<span>{{route.duration | duration}}</span>
+	</span>
+
+	<span class="trip__price">
+		<span>{{route.price | currency}}</span>
+	</span>
+</div>
+<div class="trip__details" ng-show="detailed">
+	<table detailed-route="route"></table>
+</div>

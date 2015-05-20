@@ -1,0 +1,80 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.search {
+    @extend .panel;
+    @extend .panel-default;
+
+    &__header {
+        @extend .panel-heading;
+        font-size: $font-size-base;
+        margin: 0;
+    }
+
+    &__form {
+    }
+
+    &__route, &__direction, &__dates, &__passengers, &__controls {
+        @extend .row;
+        margin: $padding-large-vertical * 2 0;
+    }
+
+    &__label {
+        display: block;
+    }
+
+    &__from,
+    &__to {
+        @extend .col-lg-6;
+        @extend .col-md-6;
+        @extend .col-sm-6;
+        @extend .col-xs-6;
+    }
+
+    &__directions {
+        @extend .col-md-12;
+    }
+
+    &__one-way,
+    &__two-way {
+        @extend .checkbox;
+        display: inline-block;
+        margin: 0;
+    }
+
+    &__two-way {
+        margin-left: $padding-base-horizontal;
+    }
+
+    &__adults,
+    &__children,
+    &__infants {
+        @extend .col-lg-4;
+        @extend .col-md-4;
+        @extend .col-sm-4;
+        @extend .col-xs-4;
+    }
+
+    &__search-button-wrap {
+        @extend .col-md-12;
+    }
+
+    label {
+        padding: 0;
+    }
+
+    input.ng-invalid {
+        border-color: #a03a3a;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(23, 254, 13, 0.08), 0 0 8px rgba(226, 31, 46, 0.60);
+    }
+
+    &__errors {
+        font-size: smaller;
+        color: red;
+    }
+
+    &__customErrors {
+        @extend .search__errors;
+        text-align: center;
+    }
+}

@@ -1,0 +1,35 @@
+﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+
+.trip {
+    @extend .panel;
+    @extend .panel-default;
+
+    &__summary {
+        @extend .panel-heading;
+        @extend .clearfix;
+        
+        cursor: pointer;
+    }
+
+    &__details {
+        @extend .panel-body;
+    }
+
+    &__price {
+        float: right;
+        color: $brand-success;
+    }
+
+    &__duration {
+        margin-left: $padding-base-horizontal;
+    }
+
+    &__route {
+        @extend .panel;
+        @extend .panel-default;
+    }
+
+    &__flight-headers {
+        @extend .alert-info;
+    }
+}

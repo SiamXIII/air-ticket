@@ -1,113 +1,61 @@
 var flightsDataAccess = require('./data-access/data-access.js').Flights;
+var locationsDataAccess = require('./data-access/data-access.js').Locations;
+var Entities = require('./domain/Entities.js');
 
 var instance = {
-	getAllTickets : function (callback) {
-		flightsDataAccess.find({}, function (err, data) {
-			callback(data);
-		});
-	},
-	getTickets : function (ticketQuery) {
-		return [
-			{
-				id: 1
-			},
-			{
-				id: 2
-			},
-			{
-				id: 3
-			}
-		];
-	},
-	getPlaces: function (callback) {
-		var places = {};
-		var sent = false;
-		
-		flightsDataAccess.find().distinct('from', function (err, data) {
-			places.departure = data.sort();
+	getAllLocations: function (callback) {
+		locationsDataAccess.find()
+			.lean(true)
+			.exec(function (err, data) {
+			var locations = [];
 			
-			if (!sent && places.arrival) {
-				callback(places);
-				sent = true;
-			}
-		});
-		
-		flightsDataAccess.find().distinct('to', function (err, data) {
-			places.arrival = data.sort();
-			
-			if (!sent && places.departure) {
-				callback(places);
-				sent = true;
-			}
-		});
-	},
-	searchTrips: function (query, callback) {
-		var params = JSON.parse(query.params);
-		if (!params.twoway) {
-			var trip = buildFindQuery(JSON.parse(query.search));
-			flightsDataAccess.find(trip, function (err, data) {
-				callback(data);
-			}).populate('innerFlightsId');
-		}
-		else {
-			var trips = {};
-			var forwardTrips;
-			var comebackTrips;
-			var sent = false;
-			
-			flightsDataAccess.find(buildFindQuery(JSON.parse(query.search)), function (err, data) {
-				forwardTrips = data;
-				if (!sent && comebackTrips) {
-					callback(createTwoWayTrips(forwardTrips, comebackTrips));
-					sent = true;
-				}
-			}).populate('innerFlightsId').lean(true);
-			
-			
-			flightsDataAccess.find(buildComebackFindQuery(JSON.parse(query.search)), function (err, data) {
-				comebackTrips = data;
-				if (!sent && forwardTrips) {
-					callback(createTwoWayTrips(forwardTrips, comebackTrips));
-					sent = true;
-				}
-			}).populate('innerFlightsId').lean(true);
-		}
-	}
-};
-
-function createTwoWayTrips(forwardTrips, backTrips) {
-	var trips = [];
-	
-	forwardTrips.forEach(function (forwardTrip) {
-		backTrips.forEach(function (backTrip) {
-			trips.push({
-				forwardTrip: forwardTrip, 
-				comebackTrip: backTrip
+			data.forEach(function (location) {
+				locations.push(new Entities.Location(location.code, location.fullName, location.timeZoneOffset * 60));
 			});
+			
+			callback(locations);
 		});
-	});
+	},
 	
-	return trips;
-}
+	getAllCities: function (callback) {
+		instance.getAllLocations(function (data) {
+			var allCities = data.map(function (location) { return location.getCityCode() })
+				.sort()
+				.filter(function (city, index, arr) {
+				return index === 0 ||
+						city !== arr[index - 1];
+			});
+			
+			callback(allCities);
+		});
+	},
+	
+	getAllFlights: function (callback) {
+		flightsDataAccess.find()
+			.populate('_from')
+			.populate('_to')
+			.lean(true)
+			.exec(function(err, data) {
+				var flights = [];
 
-function buildFindQuery(query) {
-	var searchDate = new Date(query.departureDate);
-	var nextDay = new Date();
-	nextDay.setDate(searchDate.getDate() + 1);
+			data.forEach(function(flight) {
+				flights.push(new Entities.Flight(
+					new Entities.Location(flight._from.code, flight._from.fullName, flight._from.timeZoneOffset * 60),
+					new Entities.Location(flight._to.code, flight._to.fullName, flight._to.timeZoneOffset * 60),
+					flight.departureTime, flight.arrivalTime, flight.flightCode, flight.vendor, flight.price));
+			});
+
+				callback(flights);
+			});
+	},
 	
-	return {
-		from: query.from,
-		to: query.to,
-		departureDate: { "$gte": searchDate, "$lt": nextDay }
+	getAllCities: function (callback) {
+		locationsDataAccess.find()
+			.distinct('city')
+			.exec(function(err, data) {
+				callback(data);
+			});
 	}
-}
-
-function buildComebackFindQuery(query) {
-	return buildFindQuery({
-		from: query.to,
-		to: query.from,
-		departureDate: query.comebackDate
-	});
 }
 
 module.exports = function () {

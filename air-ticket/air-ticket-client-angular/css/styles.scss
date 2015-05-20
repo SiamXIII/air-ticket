@@ -1,8 +1,9 @@
 ﻿@import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "button";
-@import "body";
-@import "ticketing";
-@import "search-settings";
-@import "filter";
-@import "ticket-list";
-@import "ticket";
+@import "common/body";
+@import "common/table";
+@import "blocks/button";
+@import "blocks/search";
+@import "blocks/filter";
+@import "blocks/ticket-list";
+@import "blocks/trip";
+@import "blocks/booking";

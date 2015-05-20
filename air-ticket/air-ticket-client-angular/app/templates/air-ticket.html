@@ -1,12 +1,10 @@
 ﻿
-<div class="ticketing" ng-init="init()">
-	<div class="ticket-list-settings">
-		<search-panel></search-panel>
-		<filter-panel></filter-panel>
+<div ng-init="trips=[]; filteredTrips=[];">
+	<div class="booking__search">
+		<search-panel trips="trips"></search-panel>
+		<filter-panel trips="trips" filtered-trips="filteredTrips"></filter-panel>
 	</div>
-	<ticket-list ng-if="flights"
-				 flights="flights"
-				 filter="filter"
-				 direction="{{resultsDirection}}">
-	</ticket-list>
-</div>	
+	<div class="booking__trips">
+		<ticket-list trips="filteredTrips"></ticket-list>
+	</div>
+</div>

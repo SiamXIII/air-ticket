@@ -1,0 +1,24 @@
+﻿.filter {
+    @extend .panel;
+    @extend .panel-default;
+
+    &__header {
+        @extend .panel-heading;
+    }
+
+    &__form {
+        @extend .panel-body;
+    }
+
+    &__departure {
+        @extend .col-lg-12;
+        @extend .col-md-12;
+        @extend .col-sm-6;
+        @extend .col-xs-12;
+    }
+
+    &__condition {
+        display: block;
+        font-weight: normal;
+    }
+}

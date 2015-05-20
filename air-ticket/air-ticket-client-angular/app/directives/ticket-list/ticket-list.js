@@ -6,9 +6,7 @@
 		templateUrl: templatesPath + 'ticket-list.html',
 		controller: 'ticketListCtrl',
 		scope: {
-			flights: '=',
-			direction: '@',
-			filter: "="
+			trips: "="
 		}
 	}
 });

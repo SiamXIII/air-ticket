@@ -9,23 +9,41 @@
 
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+
 	<script src="bower_components/select2/select2.js"></script>
 	<script src="bower_components/angular-ui-select2/src/select2.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="bower_components/moment/min/moment.min.js"></script>
+	<script src="bower_components/moment-timezone/builds/moment-timezone-with-data.js"></script>
+	<script src="bower_components/moment-timezone/builds/moment-timezone.min.js"></script>
 	<script src="bower_components/angular-moment/angular-moment.js"></script>
-	<script src="bower_components/angular-native-picker/build/angular-datepicker.js"></script>
-	<script src="bower_components/underscore/underscore-min.js"></script>
-	<script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="bower_components/underscore/underscore.js"></script>
+	<script src="bower_components/angular-underscore/angular-underscore.min.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+
+	<script src="domain/Utils.js"></script>
+	<script src="domain/Entities.js"></script>
+	<script src="domain/Entities_DtoConverters.js"></script>
+	<script src="domain/Queries.js"></script>
+	<script src="domain/Queries_DtoConverters.js"></script>
 
 	<script src="app/app.js"></script>
+	<script src="app/config.js"></script>
 	<script src="app/services/ticket-service.js"></script>
 
 	<script src="app/directives/air-ticket/air-ticket-controller.js"></script>
+	<script src="app/directives/air-ticket/air-ticket-filters.js"></script>
+	<script src="app/directives/air-ticket/air-ticket-view-model-mappers.js"></script>
 	<script src="app/directives/air-ticket/air-ticket.js"></script>
 
 	<script src="app/directives/search-panel/search-panel-controller.js"></script>
 	<script src="app/directives/search-panel/search-panel.js"></script>
+	<script src="app/directives/calendar/calendar.js"></script>
+	<script src="app/directives/validation/passengers-required.js"></script>
+	<script src="app/directives/validation/not-repeat.js"></script>
 
 	<script src="app/directives/filter-panel/filter-panel-controller.js"></script>
 	<script src="app/directives/filter-panel/filter-panel.js"></script>
@@ -35,16 +53,19 @@
 	<script src="app/directives/ticket-list/ticket-list-controller.js"></script>
 	<script src="app/directives/ticket-list/ticket-list.js"></script>
 
+	<script src="app/directives/ticket-card/route/route.js"></script>
+	<script src="app/directives/ticket-card/detailed-route/detailed-route.js"></script>
 
-	<link href="bower_components/angular-native-picker/build/themes/default.css" rel="stylesheet" />
-	<link href="bower_components/angular-native-picker/build/themes/default.date.css" rel="stylesheet" />
+	<script src="app/directives/language-switch/language-switch.js"></script>
+
+	<link href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
 
 	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 	<link href="bower_components/select2/select2.css" rel="stylesheet" />
 
-	<!--Bootstrap-->
-	<!--<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
+	<script src="app/localization/translation.js"></script>
+
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
 	<link href="3rd_components/select2-bootstrap.css" rel="stylesheet" />
 
@@ -52,15 +73,17 @@
 </head>
 
 <body ng-app="airTicketApp">
-	<div class="page-wrapper">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Air Ticket</a>
-				</div>
+
+<div>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Air Ticket</a>
 			</div>
-		</nav>
-		<air-ticket></air-ticket>
-	</div>
+			<div language-switch></div>
+		</div>
+	</nav>
+	<div class="booking" air-ticket></div>
+</div>
 </body>
 </html>

@@ -1,30 +1,30 @@
 ﻿<div class="filter" ng-init="init()">
-	<h2>Фильтрация</h2>
+	<div class="filter__header">{{::'filter' | translate}}</div>
 
-	<form>
-		<div class="checkbox">
-			<h4>Время отправления</h4>
-			<label>
-				<input type="checkbox" ng-model="filter.forwardTrip.departureMorning" /> Morning 6.00 - 12.00
+	<form class="filter__form">
+		<div class="filter__departure">
+			<h4>{{::'departureTime' | translate}}</h4>
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.forwardRoute.departureMorning" /> {{::'morning' | translate}} 6.00 - 12.00
 			</label>
-			<label>
-				<input type="checkbox" ng-model="filter.forwardTrip.departureDay" /> Morning 12.00 - 18.00
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.forwardRoute.departureDay" /> {{::'day' | translate}} 12.00 - 18.00
 			</label>
-			<label>
-				<input type="checkbox" ng-model="filter.forwardTrip.departureEvening" />Morning 18.00 - 00.00
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.forwardRoute.departureEvening" />{{::'evening' | translate}} 18.00 - 00.00
 			</label>
 		</div>
 
-		<div class="checkbox">
-			<h4>Время возвращения</h4>
-			<label>
-				<input type="checkbox" ng-model="filter.comebackTrip.departureMorning"/>Morning 6.00 - 12.00
+		<div class="filter__departure">
+			<h4>{{::'comebackTime' | translate}}</h4>
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.comebackRoute.departureMorning" />{{::'morning' | translate}} 6.00 - 12.00
 			</label>
-			<label>
-				<input type="checkbox" ng-model="filter.comebackTrip.departureDay"/> Morning 12.00 - 18.00
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.comebackRoute.departureDay" /> {{::'day' | translate}} 12.00 - 18.00
 			</label>
-			<label>
-				<input type="checkbox" ng-model="filter.comebackTrip.departureEvening"/>Morning 18.00 - 00.00
+			<label class="filter__condition">
+				<input type="checkbox" ng-model="filter.comebackRoute.departureEvening" />{{::'evening' | translate}} 18.00 - 00.00
 			</label>
 		</div>
 

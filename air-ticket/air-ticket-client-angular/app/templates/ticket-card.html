@@ -1,107 +1,13 @@
-﻿<div class="ticket">
-	<h3>
-		{{flight[0].from}} - {{flight[0].to}} <span ng-if="flight[1]"> - {{flight[1].to}}</span>
-		/
-		{{flight[0].departureDate | date: 'yyyy-MM-dd HH:mm'}}
-	</h3>
-
-	<div class="ticket-body">
-		<div class="short-info">
-			<div class="route" ng-repeat="route in flight">
-				<span class="route-places">
-					<span class="from">
-						<span class="code">{{route.fromCode}}:</span>
-						<span class="time">{{route.departureDate | date: 'HH:mm'}}</span>
-					</span>
-					<span class="to-icon" aria-hidden="true"></span>
-					<span class="to">
-						<span class="code">{{route.toCode}}:</span>
-						<span class="time">{{route.arrivalDate | date: 'HH:mm'}}</span>
-					</span>
-				</span>
-
-				<span class="time">
-					<span class="time-icon" aria-hidden="true"></span>
-					{{getFlightTime(route.departureDate, route.arrivalDate).hours}} hours
-					<span ng-if="getFlightTime(trip.departureDate, trip.arrivalDate).minutes != 0">
-						{{getFlightTime(route.departureDate, route.arrivalDate).minutes}}  minutes
-					</span>
-				</span>
-			</div>
+﻿<div class="trip">
+	<div class=" trip__summary" ng-click="toggleDetails()">
+		<span>{{trip.from.code}} - {{trip.to.code}}</span>
+		<span class="trip__price">{{trip.price | currency}}</span>
+	</div>
+	<div class="trip__details" ng-if="detailed">
+		<div>
+			<div class="trip__route" route="trip.forwardRoute"></div>
+			<div class="trip__route" route="trip.backRoute" ng-if="trip.backRoute"></div>
 		</div>
-
-		<div class="actions">
-			<button class="btn btn-default">Заказать</button>
-			<button ng-click="toggleDetails()">
-				<span ng-if="!detailed">Подробнее</span>
-				<span ng-if="detailed">Скрыть</span>
-			</button>
-		</div>
-
-		<div class="details" ng-show="detailed">
-			<table class="to-flights">
-				<tr class="direction">
-					<th colspan="4">Туда</th>
-				</tr>
-				<tr class="headers">
-					<th>Отправление из</th>
-					<th>Прибытие в</th>
-					<th>Авиакомпания</th>
-					<th>Номер рейса</th>
-				</tr>
-				<tr class="trip" ng-repeat="f in flight">
-					<td class="from">
-						<span class="time">{{f.departureDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.from}}</span>
-						<span class="place-code">{{f.fromCode}}</span>
-						<span class="place-full">{{f.fromFull}}</span>
-					</td>
-					<td class="to">
-						<span class="time">{{f.arrivalDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.to}}</span>
-						<span class="place-code">{{f.toCode}}</span>
-						<span class="place-full">{{f.toFull}}</span>
-					</td>
-					<td class="vendor">
-						{{f.vendor}}
-					</td>
-					<td class="flight-id">
-						{{f['flight-id']}}
-					</td>
-				</tr>
-			</table>
-
-			<table class="back-flights">
-				<tr class="direction">
-					<th colspan="4">Обратно</th>
-				</tr>
-				<tr class="headers">
-					<th>Отправление из</th>
-					<th>Прибытие в</th>
-					<th>Авиакомпания</th>
-					<th>Номер рейса</th>
-				</tr>
-				<tr class="trip" ng-repeat="f in flight">
-					<td class="from">
-						<span class="time">{{f.departureDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.from}}</span>
-						<span class="place-code">{{f.fromCode}}</span>
-						<span class="place-full">{{f.fromFull}}</span>
-					</td>
-					<td class="to">
-						<span class="time">{{f.arrivalDate | date: 'HH:mm'}}</span>
-						<span class="place-name">{{f.to}}</span>
-						<span class="place-code">{{f.toCode}}</span>
-						<span class="place-full">{{f.toFull}}</span>
-					</td>
-					<td class="vendor">
-						{{f.vendor}}
-					</td>
-					<td class="flight-id">
-						{{f['flight-id']}}
-					</td>
-				</tr>
-			</table>
-		</div>
+		<button>{{::'order' | translate}}</button>
 	</div>
 </div>

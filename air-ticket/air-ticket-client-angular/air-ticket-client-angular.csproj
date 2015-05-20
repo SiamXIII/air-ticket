@@ -20,10 +20,22 @@
   <ItemGroup>
     <Content Include="3rd_components\select2-bootstrap.css" />
     <Content Include="app\app.js" />
+    <Content Include="app\config.js" />
     <Content Include="app\directives\air-ticket\air-ticket-controller.js" />
+    <Content Include="app\directives\air-ticket\air-ticket-filters.js" />
+    <Content Include="app\directives\air-ticket\air-ticket-view-model-mappers.js" />
     <Content Include="app\directives\air-ticket\air-ticket.js" />
+    <Content Include="app\directives\calendar\calendar.js" />
+    <Content Include="app\directives\language-switch\language-switch.js" />
+    <Content Include="app\directives\ticket-card\detailed-route\detailed-route.js" />
+    <Content Include="app\directives\ticket-card\route\route.js" />
+    <Content Include="app\directives\validation\not-repeat.js" />
+    <Content Include="app\directives\validation\passengers-required.js" />
+    <Content Include="app\localization\translation.js" />
     <Content Include="app\templates\air-ticket.html" />
     <Content Include="app\directives\filter-panel\filter-panel-controller.js" />
+    <Content Include="app\templates\detailed-route.html" />
+    <Content Include="app\templates\language-switch.html" />
     <Content Include="app\templates\ticket-card.html" />
     <Content Include="app\templates\filter-panel.html" />
     <Content Include="app\directives\filter-panel\filter-panel.js" />
@@ -33,8 +45,10 @@
     <Content Include="app\directives\ticket-card\ticket-card-controller.js" />
     <Content Include="app\directives\ticket-card\ticket-card.js" />
     <Content Include="app\directives\ticket-list\ticket-list-controller.js" />
+    <Content Include="app\templates\route.html" />
     <Content Include="app\templates\ticket-list.html" />
     <Content Include="app\directives\ticket-list\ticket-list.js" />
+    <Content Include="app\templates\validate-messages.html" />
     <Content Include="css\styles.css">
       <DependentUpon>styles.scss</DependentUpon>
     </Content>
@@ -50,12 +64,14 @@
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="css\styles.scss" />
-    <Content Include="css\_body.scss" />
-    <Content Include="css\_ticketing.scss" />
-    <Content Include="css\_search-settings.scss" />
-    <Content Include="css\_button.scss" />
-    <Content Include="css\_ticket-list.scss" />
-    <Content Include="css\_ticket.scss" />
+    <Content Include="css\common\_body.scss" />
+    <Content Include="css\blocks\_booking.scss" />
+    <Content Include="css\blocks\_search.scss" />
+    <Content Include="css\blocks\_button.scss" />
+    <Content Include="css\blocks\_ticket-list.scss" />
+    <Content Include="css\blocks\_trip.scss" />
+    <Content Include="css\blocks\_filter.scss" />
+    <Content Include="css\common\_table.scss" />
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>

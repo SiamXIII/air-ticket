@@ -1,13 +1,15 @@
 ﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.sass" />
 
-.ticketing {
+.booking {
     @extend .row;
 
-    .ticket-list-settings {
+    &__search {
+        @extend .col-lg-3;
         @extend .col-md-4;
     }
 
-    .ticket-list {
+    &__trips {
+        @extend .col-lg-9;
         @extend .col-md-8;
     }
 }
