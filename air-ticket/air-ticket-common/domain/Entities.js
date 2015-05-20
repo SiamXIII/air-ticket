@@ -46,7 +46,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		Route.prototype.getDistance = function () {
-			throw new Error("Not implement.");
+			return 100 * 1000;
 		}
 
 		return Route;
@@ -99,7 +99,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		Flight.prototype.getArrivalTime = function () {
-			return new Date(this.getDepartureTime.getMilliseconds() + this.getDistance() / 100);
+			return new Date(this.getDepartureTime().valueOf() + this.getDistance() / 100);
 		}
 
 		Flight.prototype.getDuration = function () {

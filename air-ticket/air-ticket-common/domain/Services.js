@@ -11,7 +11,7 @@ var AirTicket_Domain_Services;
 
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
-			this._locations = {};
+			this._locations = [];
 
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
@@ -73,7 +73,7 @@ var AirTicket_Domain_Services;
 
 			}
 
-			return resultChains;
+			return resultChains.map(function(chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
 
 		};
 
@@ -100,16 +100,42 @@ var AirTicket_Domain_Services;
 					this._flightsByLocationCode[fromLocationCode][toLocationCode] = [];
 				}
 				this._flightsByLocationCode[fromLocationCode][toLocationCode].push(flight);
+			}
 		}
-				}
 
 		FlightMap.prototype.buildFlightChanes = function (flightChainQuery) {
+			var allCombos = [];
 			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
-			var flightsForChanes = [];
 			for (var routeChangeIndex = 0; routeChangeIndex < routeChains.length; routeChangeIndex++) {
 				var routeChain = routeChains[routeChangeIndex];
+				var chainCombo = [];
+				for (var routeIndex = 0; routeIndex < routeChain.getRoutesCount() ; routeIndex++) {
+					var route = routeChain.getRoute(routeIndex);
+					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
+					if (routeIndex === 0) {
+						for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
+							var flight = flights[flightIndex];
+							chainCombo.push([flight]);
+						}
+					} else {
+						var newChainCombo = [];
+						for (var chainComboIndex = 0; chainComboIndex < chainCombo.length; chainComboIndex++) {
+							for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
+								var flight = flights[flightIndex];
+								var combo = chainCombo[chainComboIndex].slice();
+								combo.push(flight);
+								newChainCombo.push(combo);
+							}
+						}
+						chainCombo = newChainCombo;
+					}
 				}
+				allCombos = allCombos.concat(chainCombo);
 			}
+
+			var result = allCombos.map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
+			return result;
+		}
 
 		return FlightMap;
 
@@ -173,21 +199,14 @@ var AirTicket_Domain_Services;
 			var locations = routeMap.getLocations();
 			var flights = [];
 
-			for (var index = 0; i < routes.length; index++) {
+			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(), "SOMECODE", "Aeroflot", 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(new Date() + Math.random() * 1000 * 60 * 60 * 12), "SOMECODE", "Aeroflot", 100));
 				}
 			}
 
-			for (var i = 0; i < locations.length; i++) {
-				var location1 = locations[i];
-				for (var j = 0; j < locations.length; j++) {
-					var location2 = locations[j];
-
-
-		}
-			}
+			return flights;
 		}
 
 		return FlightGenerator;
