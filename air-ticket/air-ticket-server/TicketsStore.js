@@ -38,11 +38,12 @@ var instance = {
 			.exec(function (err, data) {
             var flights = [];
             
+            ////TODO: Location coordinates.
             data.forEach(function (flight) {
                 flights.push(new Entities.Flight(
                     new Entities.Route(
-                        new Entities.Location(flight._from.code, flight._from.fullName, flight._from.timeZoneOffset * 60),
-                         new Entities.Location(flight._to.code, flight._to.fullName, flight._to.timeZoneOffset * 60)),
+                        new Entities.Location(flight._from.code, flight._from.fullName, flight._from.timeZoneOffset * 60, 0, 0),
+                         new Entities.Location(flight._to.code, flight._to.fullName, flight._to.timeZoneOffset * 60, 0, 0)),
 					flight.departureTime, flight.flightCode, flight.vendor, flight.price));
             });
             
