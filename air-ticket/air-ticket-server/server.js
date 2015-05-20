@@ -12,13 +12,13 @@ var allLocations;
 var flightMap;
 var tripsService;
 
-flightsStore.getAllLocations(function(data) {
+flightsStore.getAllLocations(function (data) {
     allLocations = data;
 });
 
 flightsStore.getAllFlights(function (data) {
     flightMap = new AirTicket_Domain_Services.FlightMap(data);
-	tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
+    tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 });
 
 var app = express();
@@ -32,39 +32,39 @@ app.use("*", function (incomingMessage, serverResponse, next) {
     serverResponse.setHeader('Access-Control-Allow-Origin', "*");
     serverResponse.setHeader('Access-Control-Allow-Headers', "Content-Type");
     serverResponse.setHeader('Access-Control-Allow-Methods', "GET,PUT,POST,DELETE");
-	next();
+    next();
 });
 
-app.get('/api/locations', function(incomingMessage, serverResponse) {
-	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-	serverResponse.json(
-		allLocations.map(function(location) {
-			return locationDtoConverter.convertToDto(location);
-		}));
-	serverResponse.end();
+app.get('/api/locations', function (incomingMessage, serverResponse) {
+    var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+    serverResponse.json(
+        allLocations.map(function (location) {
+            return locationDtoConverter.convertToDto(location);
+        }));
+    serverResponse.end();
 });
 
-app.post('/api/trips', function(incomingMessage, serverResponse) {
-	var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
-
-	var body = "";
-
-	incomingMessage.on("data", function(data) {
-		body += data;
-	});
-
-	incomingMessage.on("end", function() {
+app.post('/api/trips', function (incomingMessage, serverResponse) {
+    var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
+    
+    var body = "";
+    
+    incomingMessage.on("data", function (data) {
+        body += data;
+    });
+    
+    incomingMessage.on("end", function () {
         var tripQueryDto = JSON.parse(body);
-
-		var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
-
-		serverResponse.json(tripsService.getTrips(tripQuery)
-			.map(function(trip) {
-				return tripDtoConverter.convertToDto(trip);
-			}));
-
-		serverResponse.end();
-	});
+        
+        var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
+        
+        serverResponse.json(tripsService.getTrips(tripQuery)
+			.map(function (trip) {
+            return tripDtoConverter.convertToDto(trip);
+        }));
+        
+        serverResponse.end();
+    });
 });
 
 var server = app.listen(3000, function () {
@@ -72,3 +72,22 @@ var server = app.listen(3000, function () {
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+var routes = [
+	new AirTicket_Domain_Entities.Route(
+		new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300),
+		new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300)),
+	new AirTicket_Domain_Entities.Route(
+		new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300),
+		new AirTicket_Domain_Entities.Location("Praga", "Praga", 300)),
+	new AirTicket_Domain_Entities.Route(
+		new AirTicket_Domain_Entities.Location("Praga", "Praga", 300),
+		new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300))
+];
+
+var rm = new AirTicket_Domain_Services.RouteMap(routes);
+
+var chains = rm.buildRouteChains("Mogilew", "Minsk");
+
+var a = 10;

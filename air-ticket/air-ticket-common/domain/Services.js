@@ -7,6 +7,65 @@ if (!AirTicket_Domain_Entities) {
 var AirTicket_Domain_Services;
 
 (function (AirTicket_Domain_Services) {
+	var RouteMap = (function () {
+
+		function RouteMap(routes) {
+			this._routesByLocationCode = {};
+
+			for (var i = 0; i < routes.length; i++) {
+				var route = routes[i];
+				var fromLocationCode = route.getFromLocation().getCode();
+				if (!this._routesByLocationCode[fromLocationCode]) {
+					this._routesByLocationCode[fromLocationCode] = [];
+				}
+				this._routesByLocationCode[fromLocationCode].push(route);
+				this._routesByLocationCode[fromLocationCode][route.getToLocation().getCode()] = route;
+			}
+		}
+
+		RouteMap.prototype.buildRouteChains = function (from, to) {
+			var resultChains = [];
+
+			var stack = [{ location: from, routeIndex: 0 }];
+
+			while (stack.length > 0) {
+
+				var topItem = stack[stack.length - 1];
+
+				var canAdd = stack.length < 5 &&
+					this._routesByLocationCode[topItem.location].length > topItem.routeIndex;
+
+				if (canAdd) {
+					var addedL = this._routesByLocationCode[topItem.location][topItem.routeIndex].getToLocation().getCode();
+
+					stack[stack.length - 1].routeIndex++;
+					stack.push({ location: addedL, routeIndex: 0});
+					continue;
+				}
+
+				var goodChain = topItem.location === to;
+
+				if (goodChain) {
+					var chain = [];
+					for (var i = 1; i < stack.length; i++) {
+						chain.push(this._routesByLocationCode[stack[i - 1].location][stack[i].location]);
+					}
+
+					resultChains.push(chain);
+				}
+
+				stack.pop();
+
+			}
+
+			return resultChains;
+
+		};
+
+		return RouteMap;
+
+	})();
+	AirTicket_Domain_Services.RouteMap = RouteMap;
 
 	var FlightMap = (function () {
 		function FlightMap(flights) {
@@ -128,20 +187,20 @@ var AirTicket_Domain_Services;
 
 			var forwardRoutes = this._flightMap.getRoutes(tripQuery.GetForwardRouteQuery());
 
-			forwardRoutes.filter(function (route) {
+			forwardRoutes.filter(function(route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 				return result;
-			})
+			});
 
 			if (tripQuery.GetBackRouteQuery()) {
 				var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
 
-				backRoutes.filter(function (route) {
+				backRoutes.filter(function(route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 					return result;
-				})
+				});
 
 				var trips = [];
 
@@ -166,6 +225,17 @@ var AirTicket_Domain_Services;
 		return TripsService;
 	})();
 	AirTicket_Domain_Services.TripsService = TripsService;
+
+	var Schedule = (function () {
+		function Schedule(routeMap) {
+			this._routeMap = routeMap;
+
+
+		}
+
+		return Schedule;
+	})();
+	AirTicket_Domain_Services.Schedule = Schedule;
 
 })(AirTicket_Domain_Services || (AirTicket_Domain_Services = {}));
 

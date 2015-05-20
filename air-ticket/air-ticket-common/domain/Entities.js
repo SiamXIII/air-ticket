@@ -31,6 +31,45 @@ var AirTicket_Domain_Entities;
 	})();
 	AirTicket_Domain_Entities.Location = Location;
 
+	var Route = (function () {
+		function Route(from, to) {
+			this._from = from;
+			this._to = to;
+		}
+
+		Route.prototype.getFromLocation = function () {
+			return this._from;
+		}
+
+		Route.prototype.getToLocation = function () {
+			return this._to;
+		}
+
+		Route.prototype.getDistance = function () {
+			throw new Error("Not implement.");
+		}
+
+		return Route;
+	})();
+	AirTicket_Domain_Entities.Route = Route;
+
+	var RouteChain = (function () {
+		function RouteChain(routes) {
+			this._routes = routes;
+		}
+
+		RouteChain.prototype.getRoutesCount = function () {
+			return this._routes.length;
+		}
+
+		RouteChain.prototype.getRoute = function (routeIndex) {
+			return this._routes[routeIndex];
+		}
+
+		return RouteChain;
+	})();
+	AirTicket_Domain_Entities.RouteChain = RouteChain;
+
 	var Flight = (function () {
 		function Flight(from, to, departureTime, arrivalTime, code, vendorCode, price) {
 			this._from = from;
