@@ -48,24 +48,24 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.FlightsDtoConverter = FlightsDtoConverter;
 
-	var RouteDtoConverter = (function () {
-		function RouteDtoConverter() {
+	var FlightChainDtoConverter = (function () {
+		function FlightChainDtoConverter() {
 		}
-		RouteDtoConverter.prototype.convertToDto = function (obj) {
+		FlightChainDtoConverter.prototype.convertToDto = function (obj) {
 			return obj;
 		};
-		RouteDtoConverter.prototype.convertFromDto = function (dto) {
+		FlightChainDtoConverter.prototype.convertFromDto = function (dto) {
 			var flightsJsonSerializer = new FlightsDtoConverter();
 			var flights = [];
 			for (var i = 0; i < dto._flights.length; i++) {
 				flights.push(flightsJsonSerializer.convertFromDto(dto._flights[i]));
 			}
-			var route = new AirTicket_Domain_Entities.Route(flights);
+			var route = new AirTicket_Domain_Entities.FlightChain(flights);
 			return route;
 		};
-		return RouteDtoConverter;
+		return FlightChainDtoConverter;
 	})();
-	AirTicket_Domain_Entities_DtoConverters.RouteDtoConverter = RouteDtoConverter;
+	AirTicket_Domain_Entities_DtoConverters.FlightChainDtoConverter = FlightChainDtoConverter;
 
 	var TripDtoConverter = (function () {
 		function TripDtoConverter() {
@@ -76,11 +76,11 @@ var AirTicket_Domain_Entities_DtoConverters;
 		};
 
 		TripDtoConverter.prototype.convertFromDto = function (dto) {
-			var routeDtoConverter = new RouteDtoConverter();
+			var flightChainDtoConverter = new FlightChainDtoConverter();
 			var trip = new AirTicket_Domain_Entities.Trip(
-			    routeDtoConverter.convertFromDto(dto._forwardRoute),
-			    dto._backRoute
-					? routeDtoConverter.convertFromDto(dto._backRoute)
+			    flightChainDtoConverter.convertFromDto(dto._forwardFlightChain),
+			    dto._backFlightChain
+					? flightChainDtoConverter.convertFromDto(dto._backFlightChain)
 					: null,
 				dto._adults,
 				dto._children,

@@ -57,8 +57,8 @@
 			var result = {
 				from: mapLocationToViewModel(trip.getFromLocation()),
 				to: mapLocationToViewModel(trip.getToLocation()),
-				forwardRoute: mapRouteToViewModel(trip.getForwardRoute()),
-				backRoute: trip.getBackRoute() ? mapRouteToViewModel(trip.getBackRoute()) : null,
+				forwardRoute: mapRouteToViewModel(trip.getForwardFlightChain()),
+				backRoute: trip.getBackFlightChain() ? mapRouteToViewModel(trip.getBackFlightChain()) : null,
 				price: trip.getPrice(),
 				adults: trip.getAdults(),
 				children: trip.getChildren(),

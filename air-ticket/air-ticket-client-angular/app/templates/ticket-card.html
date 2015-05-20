@@ -5,8 +5,8 @@
 	</div>
 	<div class="trip__details" ng-if="detailed">
 		<div>
-			<div class="trip__route" route="trip.forwardRoute"></div>
-			<div class="trip__route" route="trip.backRoute" ng-if="trip.backRoute"></div>
+			<div class="trip__route" route="trip.forwardFlightChain"></div>
+			<div class="trip__route" route="trip.backFlightChain" ng-if="trip.backFlightChain"></div>
 		</div>
 		<button>{{::'order' | translate}}</button>
 	</div>

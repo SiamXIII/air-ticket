@@ -89,14 +89,14 @@ var AirTicket_Domain_Services;
 				flightsArray.push(route.getFlight(i));
 			}
 			flightsArray.push(additionalFlight);
-			return new AirTicket_Domain_Entities.Route(flightsArray);
+			return new AirTicket_Domain_Entities.FlightChain(flightsArray);
 		};
 
 		FlightMap.prototype.getRoutes = function (routeQuery) {
 			var routeStack = new Array();
 			var startFlights = this.getNextFlights(routeQuery);
 			while (startFlights.length > 0) {
-				routeStack.push(new AirTicket_Domain_Entities.Route([startFlights.shift()]));
+				routeStack.push(new AirTicket_Domain_Entities.FlightChain([startFlights.shift()]));
 			}
 			var resultRoutes = [];
 			while (routeStack.length > 0) {

@@ -85,7 +85,7 @@ var AirTicket_Domain_Entities;
 	})();
 	AirTicket_Domain_Entities.Flight = Flight;
 
-	var Route = (function () {
+	var FlightChain = (function () {
 
 		function checkFlights(flights) {
 			for (var i = 1; i < flights.length; i++) {
@@ -98,50 +98,50 @@ var AirTicket_Domain_Entities;
 			}
 		}
 
-		function Route(flights) {
+		function FlightChain(flights) {
 			checkFlights(flights);
 			this._flights = flights;
 		}
 
-		Route.prototype.getFlightsCount = function () {
+		FlightChain.prototype.getFlightsCount = function () {
 			return this._flights.length;
 		}
 
-		Route.prototype.getFlight = function (flightIndex) {
+		FlightChain.prototype.getFlight = function (flightIndex) {
 			return this._flights[flightIndex];
 		};
 
-		Route.prototype.getFromLocation = function () {
+		FlightChain.prototype.getFromLocation = function () {
 			return this._flights[0].getFromLocation();
 		}
 
-		Route.prototype.getToLocation = function () {
+		FlightChain.prototype.getToLocation = function () {
 			var lastFlightIndex = this._flights.length - 1;
 			return this._flights[lastFlightIndex].getToLocation();
 		}
 
-		Route.prototype.getDepartureTime = function () {
+		FlightChain.prototype.getDepartureTime = function () {
 			return this.getFlight(0).getDepartureTime();
 		}
 
 
-		Route.prototype.getArrivalTime = function () {
+		FlightChain.prototype.getArrivalTime = function () {
 			return this.getFlight(this.getFlightsCount() - 1).getArrivalTime();
 		}
 
 
-		Route.prototype.getDuration = function () {
+		FlightChain.prototype.getDuration = function () {
 			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
-		Route.prototype.getAdultPrice = function () {
+		FlightChain.prototype.getAdultPrice = function () {
 			var price = this._flights.reduce(function (price, flight) {
 				return price + flight.getAdultPrice();
 			}, 0);
 			return price;
 		}
 
-		Route.prototype.getTransferDurationAfterFlight = function (flightCode) {
+		FlightChain.prototype.getTransferDurationAfterFlight = function (flightCode) {
 			var index;
 			var flight;
 
@@ -166,7 +166,7 @@ var AirTicket_Domain_Entities;
 			}
 		}
 
-		Route.prototype.getMaxTransferDuration = function () {
+		FlightChain.prototype.getMaxTransferDuration = function () {
 			var max = 0;
 
 			for (var i = 0; i < this.getFlightsCount() - 1 ; i++) {
@@ -181,39 +181,39 @@ var AirTicket_Domain_Entities;
 			return max;
 		};
 
-		return Route;
+		return FlightChain;
 	})();
-	AirTicket_Domain_Entities.Route = Route;
+	AirTicket_Domain_Entities.FlightChain = FlightChain;
 
 	var Trip = (function () {
-		function Trip(forwardRoute, backRoute, adults, children, infants) {
-			this._forwardRoute = forwardRoute;
-			this._backRoute = backRoute;
+		function Trip(forwardFlightChain, backFlightChain, adults, children, infants) {
+			this._forwardFlightChain = forwardFlightChain;
+			this._backFlightChain = backFlightChain;
 			this._adults = adults;
 			this._children = children;
 			this._infants = infants;
 		}
 
 		Trip.prototype.getFromLocation = function () {
-			return this._forwardRoute.getFromLocation();
+			return this._forwardFlightChain.getFromLocation();
 		}
 
 		Trip.prototype.getToLocation = function () {
-			return this._forwardRoute.getToLocation();
+			return this._forwardFlightChain.getToLocation();
 		}
 
-		Trip.prototype.getForwardRoute = function () {
-			return this._forwardRoute;
+		Trip.prototype.getForwardFlightChain = function () {
+			return this._forwardFlightChain;
 		}
 
-		Trip.prototype.getBackRoute = function () {
-			return this._backRoute;
+		Trip.prototype.getBackFlightChain = function () {
+			return this._backFlightChain;
 		}
 
 		Trip.prototype.getPrice = function () {
-			return (this._backRoute
-				? (this._forwardRoute.getAdultPrice() + this._backRoute.getAdultPrice())
-				: this._forwardRoute.getAdultPrice()) * (this._adults + 0.9 * this._children + 0.8 * this._infants);
+			return (this._backFlightChain
+				? (this._forwardFlightChain.getAdultPrice() + this._backFlightChain.getAdultPrice())
+				: this._forwardFlightChain.getAdultPrice()) * (this._adults + 0.9 * this._children + 0.8 * this._infants);
 		}
 
 		Trip.prototype.getAdults = function () {

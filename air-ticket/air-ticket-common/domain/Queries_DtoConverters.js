@@ -29,7 +29,7 @@ var AirTicket_Domain_Queries_DtoConverters;
 		RouteQueryDtoConverter.prototype.convertFromDto = function (dto) {
 			var locationQueryDtoConverter = new LocationQueryDtoConverter();
 
-			var routeQuery = new AirTicket_Domain_Queries.RouteQuery(
+			var routeQuery = new AirTicket_Domain_Queries.FlightChainQuery(
 			    locationQueryDtoConverter.convertFromDto(dto._fromLocationQuery),
 			    locationQueryDtoConverter.convertFromDto(dto._toLocationQuery),
 			    new Date(dto._minDepartureTime),
@@ -52,9 +52,9 @@ var AirTicket_Domain_Queries_DtoConverters;
 		TripQueryDtoConverter.prototype.convertFromDto = function (dto) {
 			var routeQuqeryDtoConverter = new RouteQueryDtoConverter();
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
-			    routeQuqeryDtoConverter.convertFromDto(dto._forwardRouteQuery),
-			    dto._backRouteQuery
-			    ? routeQuqeryDtoConverter.convertFromDto(dto._backRouteQuery)
+			    routeQuqeryDtoConverter.convertFromDto(dto._forwarFlightChainQuery),
+			    dto._backFlightChainQuery
+			    ? routeQuqeryDtoConverter.convertFromDto(dto._backFlightChainQuery)
 			    : null,
 				dto._adults,
 				dto._children,

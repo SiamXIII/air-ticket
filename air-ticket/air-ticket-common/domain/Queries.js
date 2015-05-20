@@ -20,39 +20,39 @@ var AirTicket_Domain_Queries;
 	})();
 	AirTicket_Domain_Queries.LocationQuery = LocationQuery;
 
-	var RouteQuery = (function () {
+	var FlightChainQuery = (function () {
 
-		function RouteQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
+		function FlightChainQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
 			this._fromLocationQuery = fromLocationQuery;
 			this._toLocationQuery = toLocationQuery;
 			this._minDepartureTime = minDepartureTime;
 			this._maxDepartureTime = maxDepartureTime;
 		}
 
-		RouteQuery.prototype.getFromQuery = function () {
+		FlightChainQuery.prototype.getFromQuery = function () {
 			return this._fromLocationQuery;
 		}
 
-		RouteQuery.prototype.getToQuery = function () {
+		FlightChainQuery.prototype.getToQuery = function () {
 			return this._toLocationQuery;
 		}
 
-		RouteQuery.prototype.getMinDepartureTime = function () {
+		FlightChainQuery.prototype.getMinDepartureTime = function () {
 			return this._minDepartureTime;
 		}
 
-		RouteQuery.prototype.getMaxDepartureTime = function () {
+		FlightChainQuery.prototype.getMaxDepartureTime = function () {
 			return this._maxDepartureTime;
 		}
 
-		return RouteQuery;
+		return FlightChainQuery;
 	})();
-	AirTicket_Domain_Queries.RouteQuery = RouteQuery;
+	AirTicket_Domain_Queries.FlightChainQuery = FlightChainQuery;
 
 	var TripQuery = (function () {
-		function TripQuery(forwardRouteQuery, backRouteQuery, adults, children, infants, maxTransferDuration) {
-			this._forwardRouteQuery = forwardRouteQuery;
-			this._backRouteQuery = backRouteQuery;
+		function TripQuery(forwardFlightChainQuery, backFlightChainRouteQuery, adults, children, infants, maxTransferDuration) {
+			this._forwarFlightChainQuery = forwardFlightChainQuery;
+			this._backFlightChainQuery = backFlightChainRouteQuery;
 			this._adults = adults;
 			this._children = children;
 			this._infants = infants;
@@ -60,11 +60,11 @@ var AirTicket_Domain_Queries;
 		}
 
 		TripQuery.prototype.GetForwardRouteQuery = function () {
-			return this._forwardRouteQuery;
+			return this._forwarFlightChainQuery;
 		}
 
 		TripQuery.prototype.GetBackRouteQuery = function () {
-			return this._backRouteQuery;
+			return this._backFlightChainQuery;
 		}
 
 		TripQuery.prototype.getAdults = function () {

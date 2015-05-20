@@ -22,7 +22,7 @@ angular.module('airTicketApp')
 
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
-				new AirTicket_Domain_Queries.RouteQuery(
+				new AirTicket_Domain_Queries.FlightChainQuery(
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
@@ -34,7 +34,7 @@ angular.module('airTicketApp')
 							getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
 						1)),
 				$scope.search.twoWay
-				? new AirTicket_Domain_Queries.RouteQuery(
+				? new AirTicket_Domain_Queries.FlightChainQuery(
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
