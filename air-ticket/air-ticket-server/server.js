@@ -17,7 +17,7 @@ flightsStore.getAllLocations(function (data) {
 });
 
 flightsStore.getAllFlights(function (data) {
-    flightMap = new AirTicket_Domain_Services.FlightMap(data);
+    flightMap = new AirTicket_Domain_Services.FlightMap(data, rm);
     tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 });
 

@@ -8,10 +8,12 @@ var AirTicket_Domain_Entities;
 (function (AirTicket_Domain_Entities) {
 
 	var Location = (function () {
-		function Location(code, fullName, timeZoneOffset) {
+		function Location(code, fullName, timeZoneOffset, latitude, longitude) {
 			this._code = code;
 			this._fullName = fullName;
 			this._timeZoneOffset = timeZoneOffset;
+			this._latitude = latitude;
+			this._longitude = longitude;
 		}
 
 		Location.prototype.getCode = function () {
@@ -25,6 +27,14 @@ var AirTicket_Domain_Entities;
 		Location.prototype.getTimeZoneOffset = function () {
 			var timeZoneOffset = this._timeZoneOffset;
 			return timeZoneOffset;
+		}
+
+		Location.prototype.getLatitudeInRadian = function () {
+			return (this._latitude * Math.PI) / 180;
+		}
+
+		Location.prototype.getLongitudeInRadian = function () {
+			return (this._longitude * Math.PI) / 180;
 		}
 
 		return Location;
@@ -46,7 +56,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		Route.prototype.getDistance = function () {
-			return 100 * 1000;
+			var distance = Math.abs(Math.acos(Math.sin(this._from.getLatitudeInRadian()) * Math.sin(this._to.getLatitudeInRadian()) + Math.cos(this._from.getLatitudeInRadian()) * Math.cos(this._to.getLatitudeInRadian()) * Math.cos(this._from.getLongitudeInRadian() - this._to.getLongitudeInRadian())));
 		}
 
 		return Route;
