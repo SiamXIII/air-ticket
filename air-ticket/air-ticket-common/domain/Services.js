@@ -74,8 +74,8 @@ var AirTicket_Domain_Services;
 
 			for (var i = 0; i < this._flights.length; i++) {
 				var flight = this._flights[i];
-				var fromLocationCode = flight.getFromLocation().getCode();
-				var toLocationCode = flight.getToLocation().getCode();
+				var fromLocationCode = flight.getRoute().getFromLocation().getCode();
+				var toLocationCode = flight.getRoute().getToLocation().getCode();
 
 				if (!this._flightsByLocationCode[fromLocationCode]) {
 					this._flightsByLocationCode[fromLocationCode] = { from: [], to: [] };
