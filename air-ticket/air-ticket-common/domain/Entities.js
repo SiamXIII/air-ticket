@@ -87,8 +87,16 @@ var AirTicket_Domain_Entities;
 			this._price = price;
 		}
 
-		Flight.prototype.getRoute = function () {
-			return this._route;
+		Flight.prototype.getDistance = function () {
+			return this._route.getDistance();
+		}
+
+		Flight.prototype.getToLocation = function () {
+			return this._route.getToLocation();
+		}
+
+		Flight.prototype.getFromLocation = function () {
+			return this._route.getFromLocation();
 		}
 
 		Flight.prototype.getDepartureTime = function () {
@@ -146,12 +154,12 @@ var AirTicket_Domain_Entities;
 		};
 
 		FlightChain.prototype.getFromLocation = function () {
-			return this._flights[0].getRoute().getFromLocation();
+			return this._flights[0].getFromLocation();
 		}
 
 		FlightChain.prototype.getToLocation = function () {
 			var lastFlightIndex = this._flights.length - 1;
-			return this._flights[lastFlightIndex].getRoute().getToLocation();
+			return this._flights[lastFlightIndex].getToLocation();
 		}
 
 		FlightChain.prototype.getDepartureTime = function () {
