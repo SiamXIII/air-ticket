@@ -71,15 +71,10 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.RouteChain = RouteChain;
 
 	var Flight = (function () {
-		function Flight(route, departureTime, arrivalTime, code, vendorCode, price) {
+		function Flight(route, departureTime, code, vendorCode, price) {
 			this._route = route;
 
-			if (departureTime >= arrivalTime) {
-				throw new Error("Departure time must be less than arrival time.");
-			}
-
 			this._departureTime = departureTime;
-			this._arrivalTime = arrivalTime;
 
 			this._code = code;
 			this._vendorCode = vendorCode;
@@ -104,7 +99,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		Flight.prototype.getArrivalTime = function () {
-			return this._arrivalTime;
+			return new Date(this.getDepartureTime.getMilliseconds() + this.getDistance() / 100);
 		}
 
 		Flight.prototype.getDuration = function () {
