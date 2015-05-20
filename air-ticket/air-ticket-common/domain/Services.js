@@ -25,12 +25,12 @@ var AirTicket_Domain_Services;
 
 				if (this._locations.indexOf(fromLocationCode) !== -1) {
 					this._locations.push(fromLocationCode);
-				}
+			}
 
 				if (this._locations.indexOf(toLocationCode) !== -1) {
 					this._locations.push(toLocationCode);
-				}
-				
+		}
+
 			}
 		}
 
@@ -100,16 +100,16 @@ var AirTicket_Domain_Services;
 					this._flightsByLocationCode[fromLocationCode][toLocationCode] = [];
 				}
 				this._flightsByLocationCode[fromLocationCode][toLocationCode].push(flight);
-			}
 		}
+				}
 
 		FlightMap.prototype.buildFlightChanes = function (flightChainQuery) {
 			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
 			var flightsForChanes = [];
 			for (var routeChangeIndex = 0; routeChangeIndex < routeChains.length; routeChangeIndex++) {
 				var routeChain = routeChains[routeChangeIndex];
+				}
 			}
-		}
 
 		return FlightMap;
 
@@ -184,9 +184,9 @@ var AirTicket_Domain_Services;
 				var location1 = locations[i];
 				for (var j = 0; j < locations.length; j++) {
 					var location2 = locations[j];
-					
 
-				}
+
+		}
 			}
 		}
 
