@@ -11,17 +11,32 @@ var AirTicket_Domain_Services;
 
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
+			this._locations = {};
 
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
 				var fromLocationCode = route.getFromLocation().getCode();
+				var toLocationCode = route.getToLocation().getCode();
 				if (!this._routesByLocationCode[fromLocationCode]) {
 					this._routesByLocationCode[fromLocationCode] = [];
 				}
 				this._routesByLocationCode[fromLocationCode].push(route);
-				this._routesByLocationCode[fromLocationCode][route.getToLocation().getCode()] = route;
+				this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
+
+				if (this._locations.indexOf(fromLocationCode) !== -1) {
+					this._locations.push(fromLocationCode);
+				}
+
+				if (this._locations.indexOf(toLocationCode) !== -1) {
+					this._locations.push(toLocationCode);
+				}
+				
 			}
 		}
+
+		RouteMap.prototype.getLocations = function() {
+			return this._locations;
+		};
 
 		RouteMap.prototype.buildRouteChains = function (from, to) {
 			var resultChains = [];
@@ -68,110 +83,33 @@ var AirTicket_Domain_Services;
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
 	var FlightMap = (function () {
-		function FlightMap(flights) {
-			this._flights = flights;
+		function FlightMap(flights, routeMap) {
+			this._routeMap = routeMap;
 			this._flightsByLocationCode = {};
+			this._locations = {};
 
-			for (var i = 0; i < this._flights.length; i++) {
-				var flight = this._flights[i];
+			for (var i = 0; i < flights.length; i++) {
+				var flight = flights[i];
 				var fromLocationCode = flight.getFromLocation().getCode();
 				var toLocationCode = flight.getToLocation().getCode();
-
 				if (!this._flightsByLocationCode[fromLocationCode]) {
-					this._flightsByLocationCode[fromLocationCode] = { from: [], to: [] };
+					this._flightsByLocationCode[fromLocationCode] = [];
 				}
-
-				if (!this._flightsByLocationCode[toLocationCode]) {
-					this._flightsByLocationCode[toLocationCode] = { from: [], to: [] };
+				this._flightsByLocationCode[fromLocationCode].push(flight);
+				if (!this._flightsByLocationCode[fromLocationCode][toLocationCode]) {
+					this._flightsByLocationCode[fromLocationCode][toLocationCode] = [];
 				}
-
-				this._flightsByLocationCode[fromLocationCode].from.push(flight);
-				this._flightsByLocationCode[toLocationCode].to.push(flight);
+				this._flightsByLocationCode[fromLocationCode][toLocationCode].push(flight);
 			}
-
 		}
 
-		FlightMap.prototype.getFlightsFromLocation = function (locationCode) {
-			var flights = this._flightsByLocationCode[locationCode]
-				? this._flightsByLocationCode[locationCode].from
-				: [];
-			
-			return flights;
-		};
-
-		FlightMap.prototype.getNextFlights = function (routeQuery, route) {
-
-			var nextFlights;
-
-			if (!route) {
-				nextFlights = this.getFlightsFromLocation(routeQuery.getFromQuery().getCode());
-
-				if (routeQuery.getMinDepartureTime()) {
-					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTime() >= routeQuery.getMinDepartureTime();
-					});
-				}
-
-				if (routeQuery.getMaxDepartureTime()) {
-					nextFlights = nextFlights.filter(function (flight) {
-						return flight.getDepartureTime() < routeQuery.getMaxDepartureTime();
-					});
-				}
-			} else {
-				nextFlights = this.getFlightsFromLocation(route.getToLocation().getCode()).filter(function (flight) {
-					var filter = route.getFlightsCount() < 5 &&
-						flight.getDepartureTime() > route.getArrivalTime();
-					return filter;
-				});
+		FlightMap.prototype.buildFlightChanes = function (flightChainQuery) {
+			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
+			var flightsForChanes = [];
+			for (var routeChangeIndex = 0; routeChangeIndex < routeChains.length; routeChangeIndex++) {
+				var routeChain = routeChains[routeChangeIndex];
 			}
-
-			return nextFlights;
-		};
-
-		FlightMap.prototype.checkForTargetReached = function (routeQuery, route) {
-			var targetReached;
-
-			if (routeQuery.getFromQuery().getCode() && routeQuery.getToQuery().getCode()) {
-				targetReached =
-					route.getFromLocation().getCode() === routeQuery.getFromQuery().getCode() &&
-					route.getToLocation().getCode() === routeQuery.getToQuery().getCode();
-			} else {
-				throw new Error('Bad request.');
-			}
-
-			return targetReached;
-		};
-
-		FlightMap.prototype.createNewRoute = function (route, additionalFlight) {
-			var flightsArray = [];
-			for (var i = 0; i < route.getFlightsCount() ; i++) {
-				flightsArray.push(route.getFlight(i));
-			}
-			flightsArray.push(additionalFlight);
-			return new AirTicket_Domain_Entities.FlightChain(flightsArray);
-		};
-
-		FlightMap.prototype.getRoutes = function (routeQuery) {
-			var routeStack = new Array();
-			var startFlights = this.getNextFlights(routeQuery);
-			while (startFlights.length > 0) {
-				routeStack.push(new AirTicket_Domain_Entities.FlightChain([startFlights.shift()]));
-			}
-			var resultRoutes = [];
-			while (routeStack.length > 0) {
-				var route = routeStack.pop();
-
-				if (this.checkForTargetReached(routeQuery, route)) {
-					resultRoutes.push(route);
-				} else {
-					var nextFlights = this.getNextFlights(routeQuery, route);
-					while (nextFlights.length > 0) {
-						routeStack.push(this.createNewRoute(route, nextFlights.shift()));
-					}
-				}
-			}
-			return resultRoutes;
-		};
+		}
 
 		return FlightMap;
 
@@ -226,16 +164,35 @@ var AirTicket_Domain_Services;
 	})();
 	AirTicket_Domain_Services.TripsService = TripsService;
 
-	var Schedule = (function () {
-		function Schedule(routeMap) {
-			this._routeMap = routeMap;
-
-
+	var FlightGenerator = (function () {
+		function FlightGenerator() {
 		}
 
-		return Schedule;
+		FlightGenerator.prototype.generate = function(load, routes) {
+			var routeMap = new AirTicket_Domain_Services.RouteMap(routes);
+			var locations = routeMap.getLocations();
+			var flights = [];
+
+			for (var index = 0; i < routes.length; index++) {
+				var route = routes[index];
+				for (var i = 0; i < load; i++) {
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(), "SOMECODE", "Aeroflot", 100));
+				}
+			}
+
+			for (var i = 0; i < locations.length; i++) {
+				var location1 = locations[i];
+				for (var j = 0; j < locations.length; j++) {
+					var location2 = locations[j];
+					
+
+				}
+			}
+		}
+
+		return FlightGenerator;
 	})();
-	AirTicket_Domain_Services.Schedule = Schedule;
+	AirTicket_Domain_Services.FlightGenerator = FlightGenerator;
 
 })(AirTicket_Domain_Services || (AirTicket_Domain_Services = {}));
 
