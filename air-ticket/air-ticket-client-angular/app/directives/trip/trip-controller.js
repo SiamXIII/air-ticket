@@ -1,5 +1,5 @@
 ﻿angular.module('airTicketApp')
-.controller('ticketCardCtrl', function ($scope) {
+.controller('tripCtrl', function ($scope) {
 	$scope.detailed = false;
 
 	$scope.toggleDetails = function (route) {

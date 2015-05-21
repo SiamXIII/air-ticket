@@ -1,11 +1,10 @@
 ﻿angular.module('airTicketApp')
-.directive('route', function (templatesPath) {
+.directive('flightChain', function (templatesPath) {
 	return {
 		restrict: 'A',
-		require: '^ticket-list',
-		templateUrl: templatesPath + 'route.html',
+		templateUrl: templatesPath + 'flight-chain.html',
 		scope: {
-			route: "=",
+			chain: "=",
 		},
 		controller: function ($scope) {
 			$scope.detailed = false;
