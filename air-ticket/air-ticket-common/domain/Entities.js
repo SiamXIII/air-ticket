@@ -55,10 +55,12 @@ var AirTicket_Domain_Entities;
 			return this._to;
 		}
 
-		Route.prototype.getDistance = function () {
-			var distance = Math.abs(Math.acos(Math.sin(this._from.getLatitudeInRadian()) * Math.sin(this._to.getLatitudeInRadian()) + Math.cos(this._from.getLatitudeInRadian()) * Math.cos(this._to.getLatitudeInRadian()) * Math.cos(this._from.getLongitudeInRadian() - this._to.getLongitudeInRadian())));
+		Route.prototype.getDistanceInKm = function () {
+			var radious = 6371;
 
-			return distance * 1000;
+			var distance = Math.abs(Math.acos(Math.sin(this._from.getLatitudeInRadian()) * Math.sin(this._to.getLatitudeInRadian()) + Math.cos(this._from.getLatitudeInRadian()) * Math.cos(this._to.getLatitudeInRadian()) * Math.cos(this._from.getLongitudeInRadian() - this._to.getLongitudeInRadian()))) * radious;
+
+			return distance;
 		}
 
 		return Route;
@@ -94,8 +96,8 @@ var AirTicket_Domain_Entities;
 			this._price = price;
 		}
 
-		Flight.prototype.getDistance = function () {
-			return this._route.getDistance();
+		Flight.prototype.getDistanceInKm = function () {
+			return this._route.getDistanceInKm();
 		}
 
 		Flight.prototype.getToLocation = function () {
@@ -111,7 +113,7 @@ var AirTicket_Domain_Entities;
 		}
 
 		Flight.prototype.getArrivalTime = function () {
-			var arrivalTime = new Date(Math.round(this.getDepartureTime().valueOf() + (this.getDistance() / 250) * 60 * 60 * 1000));
+			var arrivalTime = new Date(Math.round(this.getDepartureTime().valueOf() + (this.getDistanceInKm() / 1080) * 60 * 60 * 1000));
 			return arrivalTime;
 		}
 

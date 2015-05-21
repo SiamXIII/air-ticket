@@ -20,9 +20,9 @@ flightsStore.getAllLocations(function (data) {
 });
 
 flightsStore.getAllFlights(function (data) {
-	var minsk = new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300, 53.9, 27.56666670000004);
-	var mogilew = new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300, 42.1438409, 24.749561500000027);
-	var praga = new AirTicket_Domain_Entities.Location("Praga", "Praga", 300, 48.856614, 2.3522219000000177);
+	var minsk = new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300, 53.864472, 27.539683);
+	var mogilew = new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300, 53.9549, 30.0951);
+	var praga = new AirTicket_Domain_Entities.Location("Praga", "Praga", 300, 50.0880400, 2.3522219000000177);
 
     var minskMog = new AirTicket_Domain_Entities.Route(minsk, mogilew);
     
