@@ -34,7 +34,7 @@
 
 				flightViewModels.push(mapFlightToViewModel(flight));
 
-				if (i != flightCount - 1) {
+				if (i !== flightCount - 1) {
 					flightViewModels[i].transferDurationAfterFlight = flightChain.getTransferDurationAfterFlight(flight.getCode());
 				}
 			}
@@ -57,8 +57,8 @@
 			var result = {
 				from: mapLocationToViewModel(trip.getFromLocation()),
 				to: mapLocationToViewModel(trip.getToLocation()),
-				forwardRoute: mapFlightChainToViewModel(trip.getForwardFlightChain()),
-				backRoute: trip.getBackFlightChain() ? mapFlightChainToViewModel(trip.getBackFlightChain()) : null,
+				forwardFlightChain: mapFlightChainToViewModel(trip.getForwardFlightChain()),
+				backFlightChain: trip.getBackFlightChain() ? mapFlightChainToViewModel(trip.getBackFlightChain()) : null,
 				price: trip.getPrice(),
 				adults: trip.getAdults(),
 				children: trip.getChildren(),

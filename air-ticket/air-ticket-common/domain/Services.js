@@ -202,7 +202,7 @@ var AirTicket_Domain_Services;
 			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(new Date() + Math.random() * 1000 * 60 * 60 * 12), "SOMECODE", "Aeroflot", 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(new Date() + Math.random() * 1000 * 60 * 60 * 12), "SOMECODE", "Aeroflot", 100 + Math.random() * 100));
 				}
 			}
 

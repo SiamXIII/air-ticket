@@ -111,7 +111,8 @@ var AirTicket_Domain_Entities;
 		}
 
 		Flight.prototype.getArrivalTime = function () {
-			return new Date(this.getDepartureTime().valueOf() + this.getDistance() / 100);
+			var arrivalTime = new Date(Math.round(this.getDepartureTime().valueOf() + this.getDistance() * 100));
+			return arrivalTime;
 		}
 
 		Flight.prototype.getDuration = function () {
