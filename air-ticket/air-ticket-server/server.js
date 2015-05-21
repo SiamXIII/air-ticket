@@ -8,69 +8,56 @@ var AirTicket_Domain_Queries_DtoConverters = require("./domain/Queries_DtoConver
 
 var flightsStore = require("./ticketsStore")();
 
-var airportsTxt = [];
-var routesTxt = [];
-
 var LineByLineReader = require('line-by-line');
 
-var airReader = new LineByLineReader('filesData/airports.dat');
-var routeReader = new LineByLineReader('filesData/routes.dat');
-
-airReader.on('line', function (line) {
-	airportsTxt.push(line);
-});
-
-routeReader.on('line', function (line) {
-	routesTxt.push(line);
-});
-
-var allLocations;
+var allLocations = [];
+var routes = [];
 var flightMap;
 var tripsService;
 
-flightsStore.getAllLocations(function (data) {
-	//allLocations = data;
-	allLocations = [];
-	
-	for (var i = 0; i < airportsTxt.length; i++) {
-		var location = airportsTxt[i].replace(/"/g, '').split(',');
-		
-		allLocations.push(new AirTicket_Domain_Entities.Location(location[0], location[1], location[9], location[6], location[7]));
-	}
+var airReader = new LineByLineReader('filesData/airports.dat');
+
+airReader.on('line', function (line) {
+    var location = line.replace(/"/g, '').split(',');
+	var loc = new AirTicket_Domain_Entities.Location(location[0], location[1], location[9], location[6], location[7]);
+    allLocations.push(loc);
+	allLocations[location[0]] = loc;
 });
 
-flightsStore.getAllFlights(function (data) {
-	var routes = [];
-	
-	for (var i = 0; i < routesTxt.length; i++) {
-		var route = routesTxt[i].replace(/"/g, '').split(',');
-		
-		var from;
-		var to;
-		
-		for (var j = 0; j < allLocations.length; j++) {
-			if (allLocations[j].getCode() == route[3]) {
-				from = allLocations[j];
-			}
-			if (allLocations[j].getCode() == route[5]) {
-				to = allLocations[j];
-			}
-		}
-		
+airReader.on('end', function() {
+	var routeReader = new LineByLineReader('filesData/routes.dat');
+	routeReader.on('line', function(line) {
+		var route = line.replace(/"/g, '').split(',');
+
+		var from = allLocations[route[3]];
+		var to = allLocations[route[5]];
+
 		if (from && to) {
 			routes.push(new AirTicket_Domain_Entities.Route(from, to));
 		}
-	}
-	
-	var rm = new AirTicket_Domain_Services.RouteMap(routes);
-	
-	var fg = new AirTicket_Domain_Services.FlightGenerator();
-	var flights = fg.generate(3, routes);
-	var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
-	
-	flightMap = fm;
-	
-	tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
+    });
+
+	routeReader.on('end', function(line) {
+        var rm = new AirTicket_Domain_Services.RouteMap(routes);
+        
+        var fg = new AirTicket_Domain_Services.FlightGenerator();
+        var flights = fg.generate(3, routes);
+        var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
+        
+        flightMap = fm;
+        
+        tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
+	});
+});
+
+
+
+flightsStore.getAllLocations(function (data) {
+	//allLocations = data;
+});
+
+flightsStore.getAllFlights(function (data) {
+
 });
 
 var app = express();
