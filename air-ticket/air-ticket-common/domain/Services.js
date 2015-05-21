@@ -133,7 +133,19 @@ var AirTicket_Domain_Services;
 				allCombos = allCombos.concat(chainCombo);
 			}
 
-			var result = allCombos.map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
+			// TODO refactor it
+			var result = allCombos
+			.filter(function (combo) {
+				var result = false;
+				try {
+					var chain = new AirTicket_Domain_Entities.FlightChain(combo);
+					result = true;
+				} catch (error) {
+				}
+
+				return result;
+			}).map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
+
 			return result;
 		}
 
@@ -202,7 +214,7 @@ var AirTicket_Domain_Services;
 			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(new Date() + Math.random() * 1000 * 60 * 60 * 12), "SOMECODE", "Aeroflot", 100 + Math.random() * 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 12)), "SOMECODE", "Aeroflot", 100 + Math.random() * 100));
 				}
 			}
 

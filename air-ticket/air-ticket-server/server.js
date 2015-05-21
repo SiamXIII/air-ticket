@@ -40,7 +40,6 @@ flightsStore.getAllFlights(function (data) {
 
 	flightMap = fm;
 
-    //flightMap = new AirTicket_Domain_Services.FlightMap(data, rm);
     tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 
     
