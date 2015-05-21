@@ -57,6 +57,8 @@ var AirTicket_Domain_Entities;
 
 		Route.prototype.getDistance = function () {
 			var distance = Math.abs(Math.acos(Math.sin(this._from.getLatitudeInRadian()) * Math.sin(this._to.getLatitudeInRadian()) + Math.cos(this._from.getLatitudeInRadian()) * Math.cos(this._to.getLatitudeInRadian()) * Math.cos(this._from.getLongitudeInRadian() - this._to.getLongitudeInRadian())));
+
+			return distance;
 		}
 
 		return Route;
@@ -109,7 +111,8 @@ var AirTicket_Domain_Entities;
 		}
 
 		Flight.prototype.getArrivalTime = function () {
-			return new Date(this.getDepartureTime().valueOf() + this.getDistance() / 100);
+			var arrivalTime = new Date(Math.round(this.getDepartureTime().valueOf() + this.getDistance() * 100));
+			return arrivalTime;
 		}
 
 		Flight.prototype.getDuration = function () {
