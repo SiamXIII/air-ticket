@@ -44,10 +44,10 @@
     <Content Include="app\directives\search-panel\search-panel.js" />
     <Content Include="app\directives\ticket-card\ticket-card-controller.js" />
     <Content Include="app\directives\ticket-card\ticket-card.js" />
-    <Content Include="app\directives\ticket-list\trip-list-controller.js" />
+    <Content Include="app\directives\trip-list\trip-list-controller.js" />
     <Content Include="app\templates\route.html" />
     <Content Include="app\templates\trip-list.html" />
-    <Content Include="app\directives\ticket-list\trip-list.js" />
+    <Content Include="app\directives\trip-list\trip-list.js" />
     <Content Include="app\templates\validate-messages.html" />
     <Content Include="css\styles.css">
       <DependentUpon>styles.scss</DependentUpon>
