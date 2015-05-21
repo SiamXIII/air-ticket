@@ -198,7 +198,7 @@ var AirTicket_Domain_Entities;
 			var flight;
 
 			for (var i = 0; i < this.getFlightsCount() ; i++) {
-				if (this._flights[i].getCode() == flightCode) {
+				if (this._flights[i].getCode() === flightCode) {
 					index = i;
 					flight = this._flights[i];
 
@@ -210,7 +210,7 @@ var AirTicket_Domain_Entities;
 				throw new Error('Flight is not found.');
 			}
 
-			if (index == this._flights.length - 1) {
+			if (index === this._flights.length - 1) {
 				throw new Error('This is last flight.');
 			}
 			else {

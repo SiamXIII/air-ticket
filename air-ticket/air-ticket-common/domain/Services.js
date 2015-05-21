@@ -25,48 +25,51 @@ var AirTicket_Domain_Services;
 
 				if (this._locations.indexOf(fromLocationCode) !== -1) {
 					this._locations.push(fromLocationCode);
-			}
+				}
 
 				if (this._locations.indexOf(toLocationCode) !== -1) {
 					this._locations.push(toLocationCode);
-		}
+				}
 
 			}
 		}
 
-		RouteMap.prototype.getLocations = function() {
+		RouteMap.prototype.getLocations = function () {
 			return this._locations;
+		};
+
+		RouteMap.prototype.getRoute = function (fromLocationCode, toLocationCode) {
+			var route = this._routesByLocationCode[fromLocationCode][toLocationCode];
+			return route;
 		};
 
 		RouteMap.prototype.buildRouteChains = function (from, to) {
 			var resultChains = [];
 
-			var stack = [{ location: from, routeIndex: 0 }];
+			var stack = [{ locationCode: from, nextLocationIndex: 0 }];
 
 			while (stack.length > 0) {
 
 				var topItem = stack[stack.length - 1];
 
-				var canAdd = false;
-				if (this._routesByLocationCode[topItem.location]) {
-					var canAdd = stack.length < 5 &&
-					this._routesByLocationCode[topItem.location].length > topItem.routeIndex;
-				}
+				var canPushNextStackItem = stack.length < 5 &&
+					this._routesByLocationCode[topItem.locationCode] &&
+					this._routesByLocationCode[topItem.locationCode].length > topItem.nextLocationIndex;
 
-				if (canAdd) {
-					var addedL = this._routesByLocationCode[topItem.location][topItem.routeIndex].getToLocation().getCode();
+				if (canPushNextStackItem) {
+					var addedLocationCode = this._routesByLocationCode[topItem.locationCode][topItem.nextLocationIndex].getToLocation().getCode();
 
-					stack[stack.length - 1].routeIndex++;
-					stack.push({ location: addedL, routeIndex: 0});
+					stack[stack.length - 1].nextLocationIndex++;
+					stack.push({ locationCode: addedLocationCode, nextLocationIndex: 0 });
 					continue;
 				}
 
-				var goodChain = topItem.location === to;
+				var goodChain = topItem.locationCode === to;
 
 				if (goodChain) {
 					var chain = [];
 					for (var i = 1; i < stack.length; i++) {
-						chain.push(this._routesByLocationCode[stack[i - 1].location][stack[i].location]);
+						chain.push(this.getRoute(stack[i - 1].locationCode, stack[i].locationCode));
 					}
 
 					resultChains.push(chain);
@@ -76,7 +79,6 @@ var AirTicket_Domain_Services;
 			}
 
 			return resultChains.map(function(chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
-
 		};
 
 		return RouteMap;
@@ -165,7 +167,7 @@ var AirTicket_Domain_Services;
 
 			var forwardRoutes = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
 
-			forwardRoutes.filter(function(route) {
+			forwardRoutes.filter(function (route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 				return result;
@@ -174,7 +176,7 @@ var AirTicket_Domain_Services;
 			if (tripQuery.GetBackRouteQuery()) {
 				var backRoutes = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
 
-				backRoutes.filter(function(route) {
+				backRoutes.filter(function (route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 					return result;
@@ -208,7 +210,7 @@ var AirTicket_Domain_Services;
 		function FlightGenerator() {
 		}
 
-		FlightGenerator.prototype.generate = function(load, routes) {
+		FlightGenerator.prototype.generate = function (load, routes) {
 			var routeMap = new AirTicket_Domain_Services.RouteMap(routes);
 			var locations = routeMap.getLocations();
 			var flights = [];
