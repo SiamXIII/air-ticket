@@ -59,7 +59,7 @@ var AirTicket_Domain_Queries_DtoConverters;
 				dto._adults,
 				dto._children,
 				dto._infants,
-				dto._maxTransplantTime);
+				dto._maxTransferDuration);
 			return tripQuery;
 		};
 

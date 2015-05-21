@@ -47,8 +47,11 @@ var AirTicket_Domain_Services;
 
 				var topItem = stack[stack.length - 1];
 
-				var canAdd = stack.length < 5 &&
+				var canAdd = false;
+				if (this._routesByLocationCode[topItem.location]) {
+					var canAdd = stack.length < 5 &&
 					this._routesByLocationCode[topItem.location].length > topItem.routeIndex;
+				}
 
 				if (canAdd) {
 					var addedL = this._routesByLocationCode[topItem.location][topItem.routeIndex].getToLocation().getCode();
@@ -70,7 +73,6 @@ var AirTicket_Domain_Services;
 				}
 
 				stack.pop();
-
 			}
 
 			return resultChains.map(function(chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
