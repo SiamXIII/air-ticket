@@ -76,8 +76,8 @@ var AirTicket_Domain_Entities_DtoConverters;
 		RouteDtoConverter.prototype.convertFromDto = function (dto) {
 			var locationDtoConverter = new LocationDtoConverter();
 
-			var route = new AirTicket_Domain_Entities_DtoConverters.RouteDtoConverter(dto.__from,
-				dto._to);
+			var route = new AirTicket_Domain_Entities.Route(locationDtoConverter.convertFromDto(dto._from),
+				locationDtoConverter.convertFromDto(dto._to));
 
 			return route;
 		};

@@ -25,29 +25,29 @@
 			return result;
 		}
 
-		function mapRouteToViewModel(route) {
+		function mapFlightChainToViewModel(flightChain) {
 			var flightViewModels = [];
-			var flightCount = route.getFlightsCount();
+			var flightCount = flightChain.getFlightsCount();
 
 			for (var i = 0; i < flightCount; i++) {
-				var flight = route.getFlight(i);
+				var flight = flightChain.getFlight(i);
 
 				flightViewModels.push(mapFlightToViewModel(flight));
 
 				if (i != flightCount - 1) {
-					flightViewModels[i].transferDurationAfterFlight = route.getTransferDurationAfterFlight(flight.getCode());
+					flightViewModels[i].transferDurationAfterFlight = flightChain.getTransferDurationAfterFlight(flight.getCode());
 				}
 			}
 
 			var result = {
-				from: mapLocationToViewModel(route.getFromLocation()),
-				to: mapLocationToViewModel(route.getToLocation()),
-				departureTime: route.getDepartureTime(),
-				arrivalTime: route.getArrivalTime(),
-				duration: route.getDuration(),
+				from: mapLocationToViewModel(flightChain.getFromLocation()),
+				to: mapLocationToViewModel(flightChain.getToLocation()),
+				departureTime: flightChain.getDepartureTime(),
+				arrivalTime: flightChain.getArrivalTime(),
+				duration: flightChain.getDuration(),
 				flights: flightViewModels,
-				price: route.getAdultPrice(),
-				departureTimeHoursLocal: AirTicket_Utils.DateTimeUtils.getHours(route.getDepartureTime(), route.getFromLocation().getTimeZoneOffset()),
+				price: flightChain.getAdultPrice(),
+				departureTimeHoursLocal: AirTicket_Utils.DateTimeUtils.getHours(flightChain.getDepartureTime(), flightChain.getFromLocation().getTimeZoneOffset()),
 			};
 
 			return result;
@@ -57,8 +57,8 @@
 			var result = {
 				from: mapLocationToViewModel(trip.getFromLocation()),
 				to: mapLocationToViewModel(trip.getToLocation()),
-				forwardRoute: mapRouteToViewModel(trip.getForwardFlightChain()),
-				backRoute: trip.getBackFlightChain() ? mapRouteToViewModel(trip.getBackFlightChain()) : null,
+				forwardRoute: mapFlightChainToViewModel(trip.getForwardFlightChain()),
+				backRoute: trip.getBackFlightChain() ? mapFlightChainToViewModel(trip.getBackFlightChain()) : null,
 				price: trip.getPrice(),
 				adults: trip.getAdults(),
 				children: trip.getChildren(),

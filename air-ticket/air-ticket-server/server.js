@@ -13,12 +13,39 @@ var flightMap;
 var tripsService;
 
 flightsStore.getAllLocations(function (data) {
-    allLocations = data;
+    //allLocations = data;
+    allLocations = [new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300), 
+        new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300), 
+        new AirTicket_Domain_Entities.Location("Praga", "Praga", 300)];
 });
 
 flightsStore.getAllFlights(function (data) {
-    flightMap = new AirTicket_Domain_Services.FlightMap(data, rm);
+    var minskMog = new AirTicket_Domain_Entities.Route(
+        new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300),
+	new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300));
+    
+    var mogPr = new AirTicket_Domain_Entities.Route(
+        new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300),
+	new AirTicket_Domain_Entities.Location("Praga", "Praga", 300));
+    
+    var prMinsk = new AirTicket_Domain_Entities.Route(
+        new AirTicket_Domain_Entities.Location("Praga", "Praga", 300),
+	new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300));
+    
+    var routes = [minskMog, mogPr, prMinsk];
+    
+    var rm = new AirTicket_Domain_Services.RouteMap(routes);
+    
+    var fg = new AirTicket_Domain_Services.FlightGenerator();
+    var flights = fg.generate(3, routes);
+    var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
+
+	flightMap = fm;
+
+    //flightMap = new AirTicket_Domain_Services.FlightMap(data, rm);
     tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
+
+    
 });
 
 var app = express();
@@ -74,27 +101,10 @@ var server = app.listen(3000, function () {
 });
 
 
-var minskMog = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300),
-	new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300));
 
-var mogPr = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300),
-	new AirTicket_Domain_Entities.Location("Praga", "Praga", 300));
 
-var prMinsk = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Praga", "Praga", 300),
-	new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300));
 
-var routes = [minskMog, mogPr, prMinsk];
+//var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(
+//	new AirTicket_Domain_Queries.LocationQuery("Minsk"), new AirTicket_Domain_Queries.LocationQuery("Praga"), null, null));
 
-var rm = new AirTicket_Domain_Services.RouteMap(routes);
-
-var fg = new AirTicket_Domain_Services.FlightGenerator();
-var flights = fg.generate(3, routes);
-var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
-
-var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(
-	new AirTicket_Domain_Queries.LocationQuery("Minsk"), new AirTicket_Domain_Queries.LocationQuery("Praga"), null, null));
-
-var a = 10;
+//var a = 10;

@@ -149,7 +149,7 @@ var AirTicket_Domain_Services;
 
 		TripsService.prototype.getTrips = function (tripQuery) {
 
-			var forwardRoutes = this._flightMap.getRoutes(tripQuery.GetForwardRouteQuery());
+			var forwardRoutes = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
 
 			forwardRoutes.filter(function(route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
@@ -158,7 +158,7 @@ var AirTicket_Domain_Services;
 			});
 
 			if (tripQuery.GetBackRouteQuery()) {
-				var backRoutes = this._flightMap.getRoutes(tripQuery.GetBackRouteQuery());
+				var backRoutes = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
 
 				backRoutes.filter(function(route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
