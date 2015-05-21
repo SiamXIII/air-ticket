@@ -52,7 +52,7 @@ var AirTicket_Domain_Services;
 
 				var topItem = stack[stack.length - 1];
 
-				var canPushNextStackItem = stack.length < 5 &&
+				var canPushNextStackItem = stack.length < 3 &&
 					this._routesByLocationCode[topItem.locationCode] &&
 					this._routesByLocationCode[topItem.locationCode].length > topItem.nextLocationIndex;
 

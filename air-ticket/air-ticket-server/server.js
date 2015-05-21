@@ -41,7 +41,7 @@ airReader.on('end', function () {
 		var rm = new AirTicket_Domain_Services.RouteMap(routes);
 		
 		var fg = new AirTicket_Domain_Services.FlightGenerator();
-		var flights = fg.generate(3, routes);
+		var flights = fg.generate(1, routes);
 		var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
 		
 		flightMap = fm;
