@@ -75,16 +75,16 @@ var server = app.listen(3000, function () {
 
 
 var minskMog = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300),
-	new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300));
+    new AirTicket_Domain_Entities.Location("MSQ", "Minsk", 300, 51.4775, -0.461389),
+	new AirTicket_Domain_Entities.Location("MCA", "Mogilew", 300, -89.808056, 56));
 
 var mogPr = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Mogilew", "Mogilew", 300),
-	new AirTicket_Domain_Entities.Location("Praga", "Praga", 300));
+    new AirTicket_Domain_Entities.Location("MCA", "Mogilew", 300, 51.4775, -0.461389),
+	new AirTicket_Domain_Entities.Location("DMD", "Praga", 300, -89.808056, 56));
 
 var prMinsk = new AirTicket_Domain_Entities.Route(
-	new AirTicket_Domain_Entities.Location("Praga", "Praga", 300),
-	new AirTicket_Domain_Entities.Location("Minsk", "Minsk", 300));
+    new AirTicket_Domain_Entities.Location("DMD", "Praga", 300, 51.4775, -0.461389),
+	new AirTicket_Domain_Entities.Location("MSQ", "Minsk", 300, -89.808056, 56));
 
 var routes = [minskMog, mogPr, prMinsk];
 
@@ -95,6 +95,6 @@ var flights = fg.generate(3, routes);
 var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
 
 var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(
-	new AirTicket_Domain_Queries.LocationQuery("Minsk"), new AirTicket_Domain_Queries.LocationQuery("Praga"), null, null));
+    new AirTicket_Domain_Queries.LocationQuery("MSQ"), new AirTicket_Domain_Queries.LocationQuery("MCA"), null, null));
 
 var a = 10;
