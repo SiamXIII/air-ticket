@@ -19,7 +19,7 @@ var airReader = new LineByLineReader('filesData/airports.dat');
 
 airReader.on('line', function (line) {
     var location = line.replace(/"/g, '').split(',');
-	var loc = new AirTicket_Domain_Entities.Location(location[0], location[1], location[9], location[6], location[7]);
+	var loc = new AirTicket_Domain_Entities.Location("CODE" + location[0], location[1], location[9], location[6], location[7]);
     allLocations.push(loc);
 	allLocations[location[0]] = loc;
 });
@@ -29,8 +29,8 @@ airReader.on('end', function() {
 	routeReader.on('line', function(line) {
 		var route = line.replace(/"/g, '').split(',');
 
-		var from = allLocations[route[3]];
-		var to = allLocations[route[5]];
+		var from = allLocations["CODE"+route[3]];
+		var to = allLocations["CODE"+route[5]];
 
 		if (from && to) {
 			routes.push(new AirTicket_Domain_Entities.Route(from, to));
