@@ -50,8 +50,9 @@
 
 	<script src="app/directives/ticket-card/ticket-card.js"></script>
 	<script src="app/directives/ticket-card/ticket-card-controller.js"></script>
-	<script src="app/directives/ticket-list/ticket-list-controller.js"></script>
-	<script src="app/directives/ticket-list/ticket-list.js"></script>
+
+	<script src="app/directives/ticket-list/trip-list-controller.js"></script>
+	<script src="app/directives/ticket-list/trip-list.js"></script>
 
 	<script src="app/directives/ticket-card/route/route.js"></script>
 	<script src="app/directives/ticket-card/detailed-route/detailed-route.js"></script>
@@ -74,16 +75,16 @@
 
 <body ng-app="airTicketApp">
 
-<div>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Air Ticket</a>
+	<div>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Air Ticket</a>
+				</div>
+				<div language-switch></div>
 			</div>
-			<div language-switch></div>
-		</div>
-	</nav>
-	<div class="booking" air-ticket></div>
-</div>
+		</nav>
+		<div class="booking" air-ticket></div>
+	</div>
 </body>
 </html>
