@@ -22,27 +22,27 @@ angular.module('airTicketApp')
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.getCode()),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.getCode()),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
-						getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
+						$scope.search.fromLocation),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.forwardRouteDepartureDate),
-							getLocation($scope.search.fromLocationCode).getTimeZoneOffset()),
+							$scope.search.fromLocation.getTimeZoneOffset()),
 						1)),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocationCode),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocationCode),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.getCode()),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.getCode()),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
-						getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
+						$scope.search.toLocation.getTimeZoneOffset()),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.backRouteDepartureDate),
-							getLocation($scope.search.toLocationCode).getTimeZoneOffset()),
+							$scope.search.toLocation.getTimeZoneOffset()),
 						1))
 				: null,
 				$scope.search.passengers.adults,
@@ -56,8 +56,8 @@ angular.module('airTicketApp')
 		$scope.locationCodes = {};
 
 		$scope.search = {
-			fromLocationCode: 'CODE2965',
-			toLocationCode: 'CODE2989',
+			fromLocation: {},
+			toLocation: {},
 			forwardRouteDepartureDate: '05/22/2015',
 			backRouteDepartureDate: '05/22/2015',
 			twoWay: false,
@@ -98,8 +98,15 @@ angular.module('airTicketApp')
 				cache: true,
 				results: function (data) {
 
-					data = data.map(function (d) {
-						return { id: d._code, text: d._code };
+					allLocations = data;
+
+					data = data.map(function (dto) {
+						var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+						var location = locationDtoConverter.convertFromDto(dto);
+						location.text = location.getCode();
+						location.id = location.getCode();
+
+						return location;
 					});
 
 					return {
