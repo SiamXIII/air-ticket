@@ -75,12 +75,26 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
-    
+	var message = incomingMessage.query.q;
+	
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-	serverResponse.json(
-		allLocations.map(function (location) {
-			return locationDtoConverter.convertToDto(location);
-		}));
+	serverResponse.json(function () {
+		if (message) {
+			var locations = allLocations.map(function (location) {
+				return locationDtoConverter.convertToDto(location);
+			}).filter(function (location) {
+				if (location._code.indexOf(message) != -1) {
+					return location;
+				}
+			}).splice(0, 20);
+			
+			return locations;
+		} 
+		else {
+			return [];
+		}
+		
+	}());
 	serverResponse.end();
 });
 
