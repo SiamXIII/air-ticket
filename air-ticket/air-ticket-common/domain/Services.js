@@ -12,7 +12,7 @@ var AirTicket_Domain_Services;
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-
+			
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
 				var fromLocationCode = route.getFromLocation().getCode();
@@ -208,7 +208,7 @@ var AirTicket_Domain_Services;
 
 			var forwardRoutes = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
 
-			forwardRoutes.filter(function (route) {
+			forwardRoutes = forwardRoutes.filter(function (route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 				return result;
@@ -217,7 +217,7 @@ var AirTicket_Domain_Services;
 			if (tripQuery.GetBackRouteQuery()) {
 				var backRoutes = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
 
-				backRoutes.filter(function (route) {
+				backRoutes = backRoutes.filter(function (route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 					return result;
