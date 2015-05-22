@@ -52,13 +52,13 @@ airReader.on('end', function () {
 
 
 
-flightsStore.getAllLocations(function (data) {
-	//allLocations = data;
-});
+//flightsStore.getAllLocations(function (data) {
+//	//allLocations = data;
+//});
 
-flightsStore.getAllFlights(function (data) {
+//flightsStore.getAllFlights(function (data) {
 
-});
+//});
 
 var app = express();
 
