@@ -19,7 +19,6 @@ angular.module('airTicketApp')
 			throw new Error("Location is not found.");
 		}
 
-
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
@@ -54,7 +53,6 @@ angular.module('airTicketApp')
 			return tripQuery;
 		}
 
-
 		$scope.locationCodes = {};
 
 		$scope.search = {
@@ -79,9 +77,37 @@ angular.module('airTicketApp')
 		ticketService.getLocations(
 			function (data) {
 				allLocations = data;
+
 				$scope.locationCodes = allLocations.map(function (location) {
 					var locationCode = location.getCode();
 					return locationCode;
 				});
 			});
+
+		$scope.select2options = {
+			ajax: {
+				url: "http://localhost:3000/api/locations",
+				dataType: 'json',
+				delay: 250,
+				data: function (term, page) {
+					return {
+						q: term,
+						page_limit: 10
+					};
+				},
+				cache: true,
+				results: function (data, page) {
+
+					data = data.map(function (d) {
+						return { id: d._code, text: d._code };
+					});
+
+					return {
+						results: data
+					};
+				}
+			},
+			escapeMarkup: function (markup) { return markup; },
+			minimumInputLength: 5,
+		};
 	});

@@ -25,6 +25,7 @@ airReader.on('line', function (line) {
 });
 
 airReader.on('end', function () {
+	
 	var routeReader = new LineByLineReader('filesData/routes.dat');
 	routeReader.on('line', function (line) {
 		var route = line.replace(/"/g, '').split(',');
@@ -75,12 +76,18 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
+	var message = incomingMessage.query.q;
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-	serverResponse.json(
-		allLocations.map(function (location) {
-			return locationDtoConverter.convertToDto(location);
-		}));
-	serverResponse.end();
+	
+	serverResponse.json(allLocations.map(function (location) {
+		return locationDtoConverter.convertToDto(location);
+	}).filter(function (location) {
+		if (message && location._code.indexOf(message) != -1) {
+			return location;
+		}
+	}).splice(0, 20));
+	
+	serverResponse.end()
 });
 
 app.post('/api/trips', function (incomingMessage, serverResponse) {
