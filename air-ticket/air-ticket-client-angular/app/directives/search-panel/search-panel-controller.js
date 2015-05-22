@@ -56,11 +56,11 @@ angular.module('airTicketApp')
 		$scope.locationCodes = {};
 
 		$scope.search = {
-			fromLocationCode: 'MCA',
-			toLocationCode: 'JFK',
-			forwardRouteDepartureDate: '05/11/2015',
-			backRouteDepartureDate: '05/12/2015',
-			twoWay: 'true',
+			fromLocationCode: 'CODE2965',
+			toLocationCode: 'CODE2989',
+			forwardRouteDepartureDate: '05/22/2015',
+			backRouteDepartureDate: '05/22/2015',
+			twoWay: false,
 			passengers: {
 				adults: 1,
 				children: 0,

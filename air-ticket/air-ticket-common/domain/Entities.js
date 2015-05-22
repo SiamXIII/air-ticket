@@ -233,6 +233,19 @@ var AirTicket_Domain_Entities;
 			return max;
 		};
 
+		FlightChain.prototype.getHash = function () {
+			var hash = this.getDepartureTime().toString();
+			for (var i = 0; i < this.getFlightsCount(); i++) {
+				var flightCode = this.getFlight(i).getCode();
+				hash += flightCode;
+			}
+			return hash;
+		};
+
+		FlightChain.prototype.isEqual = function (flightChain) {
+			return this.getHash() === flightChain.getHash();
+		};
+
 		return FlightChain;
 	})();
 	AirTicket_Domain_Entities.FlightChain = FlightChain;

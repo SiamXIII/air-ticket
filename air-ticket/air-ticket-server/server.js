@@ -25,7 +25,6 @@ airReader.on('line', function (line) {
 });
 
 airReader.on('end', function () {
-	
 	var routeReader = new LineByLineReader('filesData/routes.dat');
 	routeReader.on('line', function (line) {
 		var route = line.replace(/"/g, '').split(',');
@@ -42,7 +41,7 @@ airReader.on('end', function () {
 		var rm = new AirTicket_Domain_Services.RouteMap(routes);
 		
 		var fg = new AirTicket_Domain_Services.FlightGenerator();
-		var flights = fg.generate(1, routes);
+		var flights = fg.generate(2, routes);
 		var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
 		
 		flightMap = fm;
@@ -53,13 +52,13 @@ airReader.on('end', function () {
 
 
 
-flightsStore.getAllLocations(function (data) {
-	//allLocations = data;
-});
+//flightsStore.getAllLocations(function (data) {
+//	//allLocations = data;
+//});
 
-flightsStore.getAllFlights(function (data) {
+//flightsStore.getAllFlights(function (data) {
 
-});
+//});
 
 var app = express();
 
@@ -76,18 +75,13 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
-	var message = incomingMessage.query.q;
+    
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-	
-	serverResponse.json(allLocations.map(function (location) {
-		return locationDtoConverter.convertToDto(location);
-	}).filter(function (location) {
-		if (message && location._code.indexOf(message) != -1) {
-			return location;
-		}
-	}).splice(0, 20));
-	
-	serverResponse.end()
+	serverResponse.json(
+		allLocations.map(function (location) {
+			return locationDtoConverter.convertToDto(location);
+		}));
+	serverResponse.end();
 });
 
 app.post('/api/trips', function (incomingMessage, serverResponse) {
@@ -118,9 +112,6 @@ var server = app.listen(3000, function () {
 	var port = server.address().port;
 	console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-
 
 
 //var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(
