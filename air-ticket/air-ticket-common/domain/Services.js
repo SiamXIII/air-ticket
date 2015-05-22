@@ -34,6 +34,8 @@ var AirTicket_Domain_Services;
 			}
 		}
 
+		RouteMap.maxRouteChainLength = 4;
+
 		RouteMap.prototype.getLocations = function () {
 			return this._locations;
 		};
@@ -52,7 +54,7 @@ var AirTicket_Domain_Services;
 
 				var topItem = stack[stack.length - 1];
 
-				var canPushNextStackItem = stack.length < 4 &&
+				var canPushNextStackItem = stack.length < RouteMap.maxRouteChainLength &&
 					this._routesByLocationCode[topItem.locationCode] &&
 					this._routesByLocationCode[topItem.locationCode].length > topItem.nextLocationIndex;
 
@@ -110,37 +112,37 @@ var AirTicket_Domain_Services;
 		FlightMap.prototype.buildFlightChanes = function (flightChainQuery) {
 			var allCombos = [];
 			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
-			for (var routeChangeIndex = 0; routeChangeIndex < routeChains.length; routeChangeIndex++) {
-				var routeChain = routeChains[routeChangeIndex];
-				var chainCombo = [];
+			for (var routeChainIndex = 0; routeChainIndex < routeChains.length; routeChainIndex++) {
+				var routeChain = routeChains[routeChainIndex];
+				var routeChainCombos = [];
 				for (var routeIndex = 0; routeIndex < routeChain.getRoutesCount() ; routeIndex++) {
 					var route = routeChain.getRoute(routeIndex);
 					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
 					if (routeIndex === 0) {
 						for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
 							var flight = flights[flightIndex];
-							chainCombo.push([flight]);
+							routeChainCombos.push([flight]);
 						}
 					} else {
-						var newChainCombo = [];
-						for (var chainComboIndex = 0; chainComboIndex < chainCombo.length; chainComboIndex++) {
+						var newRouteChainCombos = [];
+						for (var chainComboIndex = 0; chainComboIndex < routeChainCombos.length; chainComboIndex++) {
+							var combo = routeChainCombos[chainComboIndex];
 							for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
 								var flight = flights[flightIndex];
-								if (flight.getDepartureTime() > chainCombo[chainComboIndex][chainCombo[chainComboIndex].length - 1].getArrivalTime()) {
-									var combo = chainCombo[chainComboIndex].slice();
-									combo.push(flight);
-									newChainCombo.push(combo);
+								if (flight.getDepartureTime() > combo[combo.length - 1].getArrivalTime()) {
+									var newCombo = combo.slice();
+									newCombo.push(flight);
+									newRouteChainCombos.push(newCombo);
 								}
 							}
 						}
-						chainCombo = newChainCombo;
+						routeChainCombos = newRouteChainCombos;
 					}
 				}
-				allCombos = allCombos.concat(chainCombo);
+				allCombos = allCombos.concat(routeChainCombos);
 			}
 
 			var result = allCombos.map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
-
 			return result;
 		}
 

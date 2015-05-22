@@ -41,7 +41,7 @@ airReader.on('end', function () {
 		var rm = new AirTicket_Domain_Services.RouteMap(routes);
 		
 		var fg = new AirTicket_Domain_Services.FlightGenerator();
-		var flights = fg.generate(5, routes);
+		var flights = fg.generate(2, routes);
 		var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
 		
 		flightMap = fm;
@@ -75,6 +75,7 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
+    
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 	serverResponse.json(
 		allLocations.map(function (location) {
@@ -111,9 +112,6 @@ var server = app.listen(3000, function () {
 	var port = server.address().port;
 	console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-
 
 
 //var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(

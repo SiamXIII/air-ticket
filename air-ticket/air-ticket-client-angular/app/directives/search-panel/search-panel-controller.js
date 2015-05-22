@@ -62,7 +62,7 @@ angular.module('airTicketApp')
 			toLocationCode: 'CODE2989',
 			forwardRouteDepartureDate: '05/22/2015',
 			backRouteDepartureDate: '05/22/2015',
-			twoWay: null,
+			twoWay: false,
 			passengers: {
 				adults: 1,
 				children: 0,
