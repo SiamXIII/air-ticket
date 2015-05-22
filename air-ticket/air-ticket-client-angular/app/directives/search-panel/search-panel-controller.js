@@ -59,10 +59,10 @@ angular.module('airTicketApp')
 
 		$scope.search = {
 			fromLocationCode: 'CODE2965',
-			toLocationCode: 'CODE2990',
+			toLocationCode: 'CODE2989',
 			forwardRouteDepartureDate: '05/22/2015',
 			backRouteDepartureDate: '05/22/2015',
-			twoWay: 'false',
+			twoWay: null,
 			passengers: {
 				adults: 1,
 				children: 0,

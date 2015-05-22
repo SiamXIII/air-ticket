@@ -127,9 +127,11 @@ var AirTicket_Domain_Services;
 
 		function pushStartValuesToQueue(queue, graf, flightChainQuery) {
 			var flights = graf[flightChainQuery.getFromQuery().getCode()];
-			for (var i = 0; i < flights.length; i++) {
-				var chain = new AirTicket_Domain_Entities.FlightChain([flights[i]]);
-				queue.push(chain);
+			if (flights) {
+				for (var i = 0; i < flights.length; i++) {
+					var chain = new AirTicket_Domain_Entities.FlightChain([flights[i]]);
+					queue.push(chain);
+				}
 			}
 		}
 
@@ -178,7 +180,7 @@ var AirTicket_Domain_Services;
 						goodChains.cheapestChain = chain;
 					}
 				} else {
-					if (canBeFasters && canBeCheapest) {
+					if ((canBeFasters || canBeCheapest) && chain.getFlightsCount() < 3) {
 						pushNextChains(queue, chain, graf);
 					}
 				}
