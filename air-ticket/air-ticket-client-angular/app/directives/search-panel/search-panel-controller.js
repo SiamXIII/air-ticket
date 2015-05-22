@@ -74,29 +74,29 @@ angular.module('airTicketApp')
 			});
 		}
 
-		ticketService.getLocations(
-			function (data) {
-				allLocations = data;
+		//ticketService.getLocations(
+		//	function (data) {
+		//		allLocations = data;
 
-				$scope.locationCodes = allLocations.map(function (location) {
-					var locationCode = location.getCode();
-					return locationCode;
-				});
-			});
+		//		$scope.locationCodes = allLocations.map(function (location) {
+		//			var locationCode = location.getCode();
+		//			return locationCode;
+		//		});
+		//	});
 
 		$scope.select2options = {
 			ajax: {
 				url: "http://localhost:3000/api/locations",
 				dataType: 'json',
 				delay: 250,
-				data: function (term, page) {
+				data: function (term) {
 					return {
 						q: term,
 						page_limit: 10
 					};
 				},
 				cache: true,
-				results: function (data, page) {
+				results: function (data) {
 
 					data = data.map(function (d) {
 						return { id: d._code, text: d._code };
@@ -108,6 +108,6 @@ angular.module('airTicketApp')
 				}
 			},
 			escapeMarkup: function (markup) { return markup; },
-			minimumInputLength: 5,
+			minimumInputLength: 1,
 		};
 	});

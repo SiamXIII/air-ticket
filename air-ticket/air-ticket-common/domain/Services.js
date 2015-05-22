@@ -156,41 +156,38 @@ var AirTicket_Domain_Services;
 			this._flightMap = flightMap;
 		}
 
-		TripsService.prototype.getTrips = function (tripQuery) {
+		TripsService.prototype.getTrips = function(tripQuery) {
 
-			var forwardRoutes = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
+			var forwardFlightChains = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
 
-			forwardRoutes = forwardRoutes.filter(function (route) {
+			forwardFlightChains = forwardFlightChains.filter(function(route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 				return result;
 			});
 
+			var trips = [];
+
 			if (tripQuery.GetBackRouteQuery()) {
-				var backRoutes = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
+				var backFlightChains = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
 
-				backRoutes = backRoutes.filter(function (route) {
+				backFlightChains = backFlightChains.filter(function(route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
-
 					return result;
 				});
 
-				var trips = [];
-
-				for (var forwardRouteIndex = 0; forwardRouteIndex < forwardRoutes.length; forwardRouteIndex++) {
-					for (var backRouteIndex = 0; backRouteIndex < backRoutes.length; backRouteIndex++) {
-						var trip = new AirTicket_Domain_Entities.Trip(forwardRoutes[forwardRouteIndex], backRoutes[backRouteIndex], tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
+				for (var forwardChainIndex = 0; forwardChainIndex < forwardFlightChains.length; forwardChainIndex++) {
+					for (var backChainIndex = 0; backChainIndex < backFlightChains.length; backChainIndex++) {
+						var trip = new AirTicket_Domain_Entities.Trip(forwardFlightChains[forwardChainIndex], backFlightChains[backChainIndex], tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
 						trips.push(trip);
 					}
 				}
-
-				return trips;
+			} else {
+				trips = forwardFlightChains.map(function(route) {
+					var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
+					return trip;
+				});
 			}
-
-			var trips = forwardRoutes.map(function (route) {
-				var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
-				return trip;
-			});
 
 			return trips;
 		}
