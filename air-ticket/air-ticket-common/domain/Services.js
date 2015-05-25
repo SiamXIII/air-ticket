@@ -88,7 +88,55 @@ var AirTicket_Domain_Services;
 	})();
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
-	
+	function FlightMapIterator(flightsByLocationCode, flight, route, flightChainQuery) {
+		var fromLocationCode = flight.getToLocation().getCode();
+		var toLocationCode = route.getToLocation().getCode();
+
+		this.a = flightsByLocationCode[fromLocationCode][toLocationCode];
+		this.curr;
+		this.start;
+
+		var l = 0;
+		var r = this.a.length - 1;
+		var m;
+
+		while (l <= r) {
+			m = Math.round((l + r) / 2);
+			if (m === l && this.a[m].getDepartureTime() >= flight.getArrivalTime() ||
+				this.a[m].getDepartureTime() >= flight.getArrivalTime() && this.a[m - 1].getDepartureTime() < flight.getArrivalTime()) {
+				this.start = m;
+				break;
+			}
+
+			if (this.a[m].getDepartureTime() >= flight.getArrivalTime()) {
+				r = m - 1;
+			} else {
+				l = m + 1;
+			}
+		}
+
+		function beg() {
+			this.curr = this.start;
+		}
+
+		function next() {
+			return this.a[this.curr++];
+		}
+
+		function hasNext() {
+			return this.start &&
+				this.curr < this.a.length &&
+				this.a[this.curr].getDepartureTime() < flightChainQuery.getMaxDepartureTime();
+		}
+
+		this.beg = beg;
+		this.next = next;
+		this.hasNext = hasNext;
+
+		this.beg();
+
+		return this;
+	}
 
 	var FlightMap = (function () {
 		function FlightMap(flights, routeMap) {
