@@ -99,6 +99,9 @@ app.get('/api/locations', function (incomingMessage, serverResponse) {
 });
 
 app.post('/api/trips', function (incomingMessage, serverResponse) {
+
+	console.log("get trips request.");
+
 	var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 	
 	var body = "";
@@ -107,17 +110,29 @@ app.post('/api/trips', function (incomingMessage, serverResponse) {
 		body += data;
 	});
 	
-	incomingMessage.on("end", function () {
+    incomingMessage.on("end", function () {
+        
+        console.log("request.");
+
 		var tripQueryDto = JSON.parse(body);
 		
 		var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
-		
-		serverResponse.json(tripsService.getTrips(tripQuery)
+
+	    var date = new Date();
+        console.log("search start.");
+
+		var trips = tripsService.getTrips(tripQuery);
+        
+        console.log("search end." + (new Date() - date).toString());
+
+		serverResponse.json(trips
 			.map(function (trip) {
 			return tripDtoConverter.convertToDto(trip);
 		}));
 		
-		serverResponse.end();
+        serverResponse.end();
+
+        console.log("sended.");
 	});
 });
 
@@ -126,9 +141,3 @@ var server = app.listen(3000, function () {
 	var port = server.address().port;
 	console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-//var chanes = fm.buildFlightChanes(new AirTicket_Domain_Queries.FlightChainQuery(
-//	new AirTicket_Domain_Queries.LocationQuery("Minsk"), new AirTicket_Domain_Queries.LocationQuery("Praga"), null, null));
-
-//var a = 10;

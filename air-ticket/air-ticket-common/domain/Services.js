@@ -88,6 +88,8 @@ var AirTicket_Domain_Services;
 	})();
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
+	
+
 	var FlightMap = (function () {
 		function FlightMap(flights, routeMap) {
 			this._routeMap = routeMap;
@@ -115,29 +117,30 @@ var AirTicket_Domain_Services;
 			for (var routeChainIndex = 0; routeChainIndex < routeChains.length; routeChainIndex++) {
 				var routeChain = routeChains[routeChainIndex];
 				var routeChainCombos = [];
-				for (var routeIndex = 0; routeIndex < routeChain.getRoutesCount() ; routeIndex++) {
+				if (routeChain.getRoutesCount() > 0) {
+					var route = routeChain.getRoute(0);
+					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
+					for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
+						var flight = flights[flightIndex];
+						routeChainCombos.push([flight]);
+					}
+				}
+				for (var routeIndex = 1; routeIndex < routeChain.getRoutesCount() ; routeIndex++) {
 					var route = routeChain.getRoute(routeIndex);
 					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
-					if (routeIndex === 0) {
+					var newRouteChainCombos = [];
+					for (var chainComboIndex = 0; chainComboIndex < routeChainCombos.length; chainComboIndex++) {
+						var routeChainCombo = routeChainCombos[chainComboIndex];
 						for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
 							var flight = flights[flightIndex];
-							routeChainCombos.push([flight]);
-						}
-					} else {
-						var newRouteChainCombos = [];
-						for (var chainComboIndex = 0; chainComboIndex < routeChainCombos.length; chainComboIndex++) {
-							var combo = routeChainCombos[chainComboIndex];
-							for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
-								var flight = flights[flightIndex];
-								if (flight.getDepartureTime() > combo[combo.length - 1].getArrivalTime()) {
-									var newCombo = combo.slice();
-									newCombo.push(flight);
-									newRouteChainCombos.push(newCombo);
-								}
+							if (flight.getDepartureTime() > routeChainCombo[routeChainCombo.length - 1].getArrivalTime()) {
+								var newRouteChainCombo = routeChainCombo.slice();
+								newRouteChainCombo.push(flight);
+								newRouteChainCombos.push(newRouteChainCombo);
 							}
 						}
-						routeChainCombos = newRouteChainCombos;
 					}
+					routeChainCombos = newRouteChainCombos;
 				}
 				allCombos = allCombos.concat(routeChainCombos);
 			}
