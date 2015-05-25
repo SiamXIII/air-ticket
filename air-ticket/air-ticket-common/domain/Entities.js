@@ -80,6 +80,15 @@ var AirTicket_Domain_Entities;
 			return this._routes[routeIndex];
 		}
 
+		RouteChain.prototype.getDistanceInKm = function() {
+			var distance = 0;
+			for (var i = 0; i < this.getRoutesCount(); i++) {
+				distance += this.getRoute(i).getDistanceInKm();
+			}
+
+			return distance;
+		}
+
 		return RouteChain;
 	})();
 	AirTicket_Domain_Entities.RouteChain = RouteChain;

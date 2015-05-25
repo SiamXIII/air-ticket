@@ -20,9 +20,12 @@ var AirTicket_Domain_Services;
 				if (!this._routesByLocationCode[fromLocationCode]) {
 					this._routesByLocationCode[fromLocationCode] = [];
 				}
-				this._routesByLocationCode[fromLocationCode].push(route);
-				this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
 
+				if (!this._routesByLocationCode[fromLocationCode][toLocationCode]) {
+					this._routesByLocationCode[fromLocationCode].push(route);
+					this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
+				}
+				
 				if (this._locations.indexOf(fromLocationCode) !== -1) {
 					this._locations.push(fromLocationCode);
 				}
@@ -80,7 +83,8 @@ var AirTicket_Domain_Services;
 				stack.pop();
 			}
 
-			return resultChains.map(function(chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
+			var resultChains = resultChains.map(function (chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
+			return resultChains;
 		};
 
 		return RouteMap;
