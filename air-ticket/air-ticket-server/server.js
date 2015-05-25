@@ -56,7 +56,7 @@ app.get('/api/locations', function (incomingMessage, serverResponse) {
 			var locations = allLocations.map(function (location) {
 				return locationDtoConverter.convertToDto(location);
 			}).filter(function (location) {
-				if (location.getFullName().indexOf(message) != -1) {
+				if (location.getFullName().toLowerCase().indexOf(message.toLowerCase()) != -1) {
 					return location;
 				}
 			}).splice(0, 20);
