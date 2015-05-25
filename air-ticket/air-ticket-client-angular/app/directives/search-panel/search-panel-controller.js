@@ -103,7 +103,7 @@ angular.module('airTicketApp')
 					data = data.map(function (dto) {
 						var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 						var location = locationDtoConverter.convertFromDto(dto);
-						location.text = location.getCode();
+						location.text = location.getFullName();
 						location.id = location.getCode();
 
 						return location;
