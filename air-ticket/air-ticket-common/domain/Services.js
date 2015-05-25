@@ -179,12 +179,12 @@ var AirTicket_Domain_Services;
 				}
 				for (var routeIndex = 1; routeIndex < routeChain.getRoutesCount() ; routeIndex++) {
 					var route = routeChain.getRoute(routeIndex);
-					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
 					var newRouteChainCombos = [];
 					for (var chainComboIndex = 0; chainComboIndex < routeChainCombos.length; chainComboIndex++) {
 						var routeChainCombo = routeChainCombos[chainComboIndex];
-						for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
-							var flight = flights[flightIndex];
+						var it = new FlightMapIterator(this._flightsByLocationCode, routeChainCombo[routeChainCombo.length - 1], route, flightChainQuery);
+						while (it.hasNext()) {
+							var flight = it.next();
 							if (flight.getDepartureTime() > routeChainCombo[routeChainCombo.length - 1].getArrivalTime()) {
 								var newRouteChainCombo = routeChainCombo.slice();
 								newRouteChainCombo.push(flight);
