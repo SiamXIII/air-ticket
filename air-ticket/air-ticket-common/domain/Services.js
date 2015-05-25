@@ -93,7 +93,7 @@ var AirTicket_Domain_Services;
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
 	function FlightMapIterator(flightsByLocationCode, route, flightChainQuery, flight) {
-		var fromLocationCode = flight.getToLocation().getCode();
+		var fromLocationCode = route.getFromLocation().getCode();
 		var toLocationCode = route.getToLocation().getCode();
 
 		this.a = flightsByLocationCode[fromLocationCode][toLocationCode];
@@ -104,18 +104,36 @@ var AirTicket_Domain_Services;
 		var r = this.a.length - 1;
 		var m;
 
-		while (l <= r) {
-			m = Math.round((l + r) / 2);
-			if (m === l && this.a[m].getDepartureTime() >= flight.getArrivalTime() ||
-				this.a[m].getDepartureTime() >= flight.getArrivalTime() && this.a[m - 1].getDepartureTime() < flight.getArrivalTime()) {
-				this.start = m;
-				break;
-			}
+		if (flight) {
+			while (l <= r) {
+				m = Math.round((l + r) / 2);
+				if (m === l && this.a[m].getDepartureTime() >= flight.getArrivalTime() ||
+					this.a[m].getDepartureTime() >= flight.getArrivalTime() && this.a[m - 1].getDepartureTime() < flight.getArrivalTime()) {
+					this.start = m;
+					break;
+				}
 
-			if (this.a[m].getDepartureTime() >= flight.getArrivalTime()) {
-				r = m - 1;
-			} else {
-				l = m + 1;
+				if (this.a[m].getDepartureTime() >= flight.getArrivalTime()) {
+					r = m - 1;
+				} else {
+					l = m + 1;
+				}
+			}
+		} else {
+			while (l <= r) {
+				m = Math.round((l + r) / 2);
+				if (m === l && this.a[m].getDepartureTime() >= flightChainQuery.getMinDepartureTime() ||
+					this.a[m].getDepartureTime() >= flightChainQuery.getMinDepartureTime() &&
+					this.a[m - 1].getDepartureTime() < flightChainQuery.getMinDepartureTime()) {
+					this.start = m;
+					break;
+				}
+
+				if (this.a[m].getDepartureTime() >= flightChainQuery.getMinDepartureTime()) {
+					r = m - 1;
+				} else {
+					l = m + 1;
+				}
 			}
 		}
 
@@ -172,9 +190,12 @@ var AirTicket_Domain_Services;
 				var routeChainCombos = [];
 				if (routeChain.getRoutesCount() > 0) {
 					var route = routeChain.getRoute(0);
-					var flights = this._flightsByLocationCode[route.getFromLocation().getCode()][route.getToLocation().getCode()];
-					for (var flightIndex = 0; flightIndex < flights.length; flightIndex++) {
-						var flight = flights[flightIndex];
+					var it = new FlightMapIterator(
+							this._flightsByLocationCode,
+							route,
+							flightChainQuery);
+					while (it.hasNext()) {
+						var flight = it.next();
 						routeChainCombos.push([flight]);
 					}
 				}
@@ -266,7 +287,7 @@ var AirTicket_Domain_Services;
 			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 12)), "SOMECODE"+Math.random(), "Aeroflot", route.getDistanceInKm() + Math.random() * 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 2)), "SOMECODE"+Math.random(), "Aeroflot", route.getDistanceInKm() + Math.random() * 100));
 				}
 			}
 

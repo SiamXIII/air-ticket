@@ -26,7 +26,7 @@ angular.module('airTicketApp')
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.getCode()),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
-						$scope.search.fromLocation),
+						$scope.search.fromLocation.getTimeZoneOffset()),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.forwardRouteDepartureDate),
