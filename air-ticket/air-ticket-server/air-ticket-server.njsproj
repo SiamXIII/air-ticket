@@ -35,8 +35,11 @@
   <ItemGroup>
     <Compile Include="config\config.js" />
     <Compile Include="data-access\data-access.js" />
+    <Compile Include="data-access\models\airline.js" />
+    <Compile Include="data-access\models\airport.js" />
     <Compile Include="data-access\models\flight.js" />
     <Compile Include="data-access\models\location.js" />
+    <Compile Include="data-access\models\route.js" />
     <Compile Include="server.js" />
     <Compile Include="ticketsStore.js" />
     <Content Include="config\config.json" />
