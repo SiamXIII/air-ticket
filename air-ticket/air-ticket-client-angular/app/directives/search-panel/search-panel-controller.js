@@ -7,18 +7,6 @@ angular.module('airTicketApp')
 			return allLocations;
 		}
 
-		function getLocation(locationCode) {
-			var allLocations = getAllLocations();
-			for (var i = 0; i < allLocations.length; i++) {
-				var location = allLocations[i];
-				if (location.getCode() === locationCode) {
-					return location;
-				}
-			}
-
-			throw new Error("Location is not found.");
-		}
-
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
@@ -26,11 +14,11 @@ angular.module('airTicketApp')
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.id),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
-						getLocation($scope.search.fromLocation.id).getTimeZoneOffset()),
+						$scope.search.fromLocation.timeZoneOffset),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.forwardRouteDepartureDate),
-							getLocation($scope.search.fromLocation.id).getTimeZoneOffset()),
+							$scope.search.fromLocation.timeZoneOffset),
 						1)),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.FlightChainQuery(
@@ -38,11 +26,11 @@ angular.module('airTicketApp')
 					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.id),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
-						getLocation($scope.search.toLocation.id).getTimeZoneOffset()),
+						$scope.search.toLocation.timeZoneOffset),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.backRouteDepartureDate),
-							getLocation($scope.search.toLocation.id).getTimeZoneOffset()),
+							$scope.search.toLocation.timeZoneOffset),
 						1))
 				: null,
 				$scope.search.passengers.adults,
@@ -53,7 +41,7 @@ angular.module('airTicketApp')
 			return tripQuery;
 		}
 
-		$scope.locationCodes = {};
+		$scope.locations = [];
 
 		$scope.search = {
 			fromLocation: {},
@@ -78,39 +66,16 @@ angular.module('airTicketApp')
 			function (data) {
 				allLocations = data;
 
-				$scope.locationCodes = allLocations.map(function (location) {
+				$scope.locations = allLocations.map(function (location) {
 					var locationCode = location.getCode();
 
-					$scope.select2options.data.push({
+					var locationValue = {
 						id: locationCode,
-						text: $filter('translate')(locationCode)
-					});
+						text: $filter('translate')(locationCode),
+						timeZoneOffset: location.getTimeZoneOffset()
+					};
 
-					return locationCode;
+					return locationValue;
 				});
 			});
-
-		$scope.select2options = {
-			data: [],
-			formatLoadMore: 'Loading more...',
-			query: function (q) {
-				var pageSize = 20;
-				var results;
-
-				if (q.term && q.term !== "") {
-					results = _.filter(this.data, function (e) {
-						return e.text.indexOf(q.term) >= 0;
-					});
-				}
-				else {
-					return;
-				}
-
-				q.callback({
-					results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
-					more: results.length >= q.page * pageSize
-				});
-			},
-			minimumInputLength: 2
-		};
 	});
