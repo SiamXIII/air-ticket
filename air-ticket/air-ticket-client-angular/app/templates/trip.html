@@ -1,6 +1,6 @@
 ﻿<div class="trip">
 	<div class=" trip__summary" ng-click="toggleDetails()">
-		<span>{{trip.from.code}} - {{trip.to.code}}</span>
+		<span>{{trip.from.fullName}} - {{trip.to.fullName}}</span>
 		<span class="trip__price">{{trip.price | currency}}</span>
 	</div>
 	<div class="trip__details" ng-if="detailed">

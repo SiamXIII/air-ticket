@@ -12,7 +12,7 @@ var AirTicket_Domain_Services;
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-			
+
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
 				var fromLocationCode = route.getFromLocation().getCode();
@@ -47,7 +47,7 @@ var AirTicket_Domain_Services;
 
 		RouteMap.prototype.buildRouteChains = function (from, to) {
 			var resultChains = [];
-			 
+
 			var stack = [{ locationCode: from, nextLocationIndex: 0 }];
 
 			while (stack.length > 0) {
@@ -80,7 +80,7 @@ var AirTicket_Domain_Services;
 				stack.pop();
 			}
 
-			return resultChains.map(function(chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
+			return resultChains.map(function (chain) { return new AirTicket_Domain_Entities.RouteChain(chain) });
 		};
 
 		return RouteMap;
@@ -88,7 +88,7 @@ var AirTicket_Domain_Services;
 	})();
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
-	
+
 
 	var FlightMap = (function () {
 		function FlightMap(flights, routeMap) {
@@ -159,11 +159,11 @@ var AirTicket_Domain_Services;
 			this._flightMap = flightMap;
 		}
 
-		TripsService.prototype.getTrips = function(tripQuery) {
+		TripsService.prototype.getTrips = function (tripQuery) {
 
 			var forwardFlightChains = this._flightMap.buildFlightChanes(tripQuery.GetForwardRouteQuery());
 
-			forwardFlightChains = forwardFlightChains.filter(function(route) {
+			forwardFlightChains = forwardFlightChains.filter(function (route) {
 				var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 
 				return result;
@@ -174,7 +174,7 @@ var AirTicket_Domain_Services;
 			if (tripQuery.GetBackRouteQuery()) {
 				var backFlightChains = this._flightMap.buildFlightChanes(tripQuery.GetBackRouteQuery());
 
-				backFlightChains = backFlightChains.filter(function(route) {
+				backFlightChains = backFlightChains.filter(function (route) {
 					var result = route.getMaxTransferDuration() < tripQuery.getMaxTransferDuration();
 					return result;
 				});
@@ -186,7 +186,7 @@ var AirTicket_Domain_Services;
 					}
 				}
 			} else {
-				trips = forwardFlightChains.map(function(route) {
+				trips = forwardFlightChains.map(function (route) {
 					var trip = new AirTicket_Domain_Entities.Trip(route, undefined, tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
 					return trip;
 				});
@@ -211,7 +211,7 @@ var AirTicket_Domain_Services;
 			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 12)), "SOMECODE"+Math.random(), "Aeroflot", route.getDistanceInKm() + Math.random() * 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 12)), route.getFlightId(), route.getVendor(), route.getDistanceInKm() + Math.random() * 100));
 				}
 			}
 

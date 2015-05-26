@@ -68,8 +68,13 @@ var instance = {
 				data.forEach(function (route) {
 					routes.push(
 						new Entities.Route(
-							new Entities.Location(route.sourceAirport.iata, route.sourceAirport.name, route.sourceAirport.timezone * 60, route.sourceAirport.latitude, route.sourceAirport.longtitude),
-							new Entities.Location(route.destinationAirport.iata, route.destinationAirport.name, route.destinationAirport.timezone * 60, route.destinationAirport.latitude, route.destinationAirport.longtitude))
+							new Entities.Location(route.sourceAirport.iata, route.sourceAirport.name, 
+													route.sourceAirport.timezone * 60, route.sourceAirport.latitude, 
+													route.sourceAirport.longtitude),
+							new Entities.Location(route.destinationAirport.iata, route.destinationAirport.name, 
+													route.destinationAirport.timezone * 60, route.destinationAirport.latitude, 
+													route.destinationAirport.longtitude),
+							route.airline.name, route.airline.name + ' ' + route.airline.airlineId)
 					);
 				})
 				
