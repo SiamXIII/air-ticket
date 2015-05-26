@@ -146,7 +146,7 @@ var AirTicket_Domain_Services;
 		}
 
 		function hasNext() {
-			return this.start &&
+			return this.start !== "undefined" &&
 				this.curr < this.a.length &&
 				this.a[this.curr].getDepartureTime() < flightChainQuery.getMaxDepartureTime();
 		}
