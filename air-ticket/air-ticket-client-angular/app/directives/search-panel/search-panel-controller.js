@@ -22,27 +22,27 @@ angular.module('airTicketApp')
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.getCode()),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.getCode()),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.id),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.id),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
-						$scope.search.fromLocation.getTimeZoneOffset()),
+						getLocation($scope.search.fromLocation.id).getTimeZoneOffset()),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.forwardRouteDepartureDate),
-							$scope.search.fromLocation.getTimeZoneOffset()),
+							getLocation($scope.search.fromLocation.id).getTimeZoneOffset()),
 						1)),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.getCode()),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.getCode()),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.id),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.id),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
-						$scope.search.toLocation.getTimeZoneOffset()),
+						getLocation($scope.search.toLocation.id).getTimeZoneOffset()),
 					AirTicket_Utils.DateTimeUtils.addDays(
 						AirTicket_Utils.DateTimeUtils.setUtcOffset(
 							new Date($scope.search.backRouteDepartureDate),
-							$scope.search.toLocation.getTimeZoneOffset()),
+							getLocation($scope.search.toLocation.id).getTimeZoneOffset()),
 						1))
 				: null,
 				$scope.search.passengers.adults,
@@ -94,12 +94,18 @@ angular.module('airTicketApp')
 			data: [],
 			formatLoadMore: 'Loading more...',
 			query: function (q) {
-				var pageSize,
-					results;
-				pageSize = 20;
-				results = _.filter(this.data, function (e) {
-					return (q.term === "" || e.text.indexOf(q.term) >= 0);
-				});
+				var pageSize = 20;
+				var results;
+
+				if (q.term && q.term !== "") {
+					results = _.filter(this.data, function (e) {
+						return e.text.indexOf(q.term) >= 0;
+					});
+				}
+				else {
+					return;
+				}
+
 				q.callback({
 					results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
 					more: results.length >= q.page * pageSize
