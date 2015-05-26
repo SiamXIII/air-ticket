@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../../domain/Entities.js" />
 angular.module('airTicketApp')
-	.controller('searchPanelCtrl', function (ticketService, mapTripToViewModel, $scope) {
+	.controller('searchPanelCtrl', function (ticketService, mapTripToViewModel, $scope, $filter) {
 		var allLocations = [];
 
 		function getAllLocations() {
@@ -74,47 +74,37 @@ angular.module('airTicketApp')
 			});
 		}
 
-		//ticketService.getLocations(
-		//	function (data) {
-		//		allLocations = data;
+		ticketService.getLocations(
+			function (data) {
+				allLocations = data;
 
-		//		$scope.locationCodes = allLocations.map(function (location) {
-		//			var locationCode = location.getCode();
-		//			return locationCode;
-		//		});
-		//	});
+				$scope.locationCodes = allLocations.map(function (location) {
+					var locationCode = location.getCode();
 
-		$scope.select2options = {
-			ajax: {
-				url: "http://localhost:3000/api/locations",
-				dataType: 'json',
-				delay: 250,
-				data: function (term) {
-					return {
-						q: term,
-						page_limit: 10
-					};
-				},
-				cache: true,
-				results: function (data) {
-
-					allLocations = data;
-
-					data = data.map(function (dto) {
-						var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-						var location = locationDtoConverter.convertFromDto(dto);
-						location.text = location.getFullName();
-						location.id = location.getCode();
-
-						return location;
+					$scope.select2options.data.push({
+						id: locationCode,
+						text: $filter('translate')(locationCode)
 					});
 
-					return {
-						results: data
-					};
-				}
+					return locationCode;
+				});
+			});
+
+		$scope.select2options = {
+			data: [],
+			formatLoadMore: 'Loading more...',
+			query: function (q) {
+				var pageSize,
+					results;
+				pageSize = 20;
+				results = _.filter(this.data, function (e) {
+					return (q.term === "" || e.text.indexOf(q.term) >= 0);
+				});
+				q.callback({
+					results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
+					more: results.length >= q.page * pageSize
+				});
 			},
-			escapeMarkup: function (markup) { return markup; },
-			minimumInputLength: 1,
+			minimumInputLength: 2
 		};
 	});

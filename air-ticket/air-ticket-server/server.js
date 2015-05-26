@@ -17,10 +17,10 @@ var tripsService;
 var allLocations;
 
 (function init() {
-	flightsStore.getAllLocations(function (locations) { 
+	flightsStore.getAllLocations(function (locations) {
 		allLocations = locations;
 	});
-
+	
 	flightsStore.getAllRoutes(function (routes) {
 		var rm = new AirTicket_Domain_Services.RouteMap(routes);
 		var fg = new AirTicket_Domain_Services.FlightGenerator();
@@ -48,25 +48,13 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
-	var message = incomingMessage.query.q;
-	
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 	serverResponse.json(function () {
-		if (message) {
-			var locations = allLocations.map(function (location) {
-				return locationDtoConverter.convertToDto(location);
-			}).filter(function (location) {
-				if (location.getFullName().toLowerCase().indexOf(message.toLowerCase()) != -1) {
-					return location;
-				}
-			}).splice(0, 20);
-			
-			return locations;
-		} 
-		else {
-			return [];
-		}
+		var locations = allLocations.map(function (location) {
+			return locationDtoConverter.convertToDto(location);
+		});
 		
+		return locations;
 	}());
 	serverResponse.end();
 });
