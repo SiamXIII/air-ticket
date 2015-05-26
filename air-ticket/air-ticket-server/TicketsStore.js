@@ -54,11 +54,7 @@ var instance = {
 	//},
 	
 	getAllRoutes: function (callback) {
-		routesDataAccess.find({
-			'airline': { $exists: true },
-			'sourceAirport': { $exists: true },
-			'destinationAirport': { $exists: true }
-		})
+		routesDataAccess.find({})
 		.limit(100)
 		.lean(true)
 		.exec(function (err, data) {
@@ -68,13 +64,13 @@ var instance = {
 				data.forEach(function (route) {
 					routes.push(
 						new Entities.Route(
-							new Entities.Location(route.sourceAirport.iata, route.sourceAirport.name, 
-													route.sourceAirport.timezone * 60, route.sourceAirport.latitude, 
-													route.sourceAirport.longtitude),
-							new Entities.Location(route.destinationAirport.iata, route.destinationAirport.name, 
-													route.destinationAirport.timezone * 60, route.destinationAirport.latitude, 
-													route.destinationAirport.longtitude),
-							route.airline.name, route.airline.name + ' ' + route.airline.airlineId)
+							new Entities.Location(route.from.iata, route.from.name, 
+													route.from.timezone * 60, route.from.latitude, 
+													route.from.longtitude),
+							new Entities.Location(route.to.iata, route.to.name, 
+													route.to.timezone * 60, route.to.latitude, 
+													route.to.longtitude),
+							'mockVendor', 'mockCode')
 					);
 				})
 				
