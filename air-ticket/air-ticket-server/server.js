@@ -42,16 +42,19 @@ airReader.on('end', function () {
         
         var fg = new AirTicket_Domain_Services.FlightGenerator();
         var flights = [];
-        var startDate = new Date(2015, 5, 26);
+        var startDate = new Date(2015, 4, 26);
         var endDate = new Date(2015, 5, 30);
         for (var date = startDate; date < endDate; date.setDate(date.getDate() + 1)) {
             flights = flights.concat(fg.generate(2, routes, date, new Date(date.valueOf() + 1000 * 60 * 60 * 24)));
         }
+
         var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
         
         flightMap = fm;
         
         tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
+
+	    console.log("Started. flights count: " + flights.length);
     });
 });
 

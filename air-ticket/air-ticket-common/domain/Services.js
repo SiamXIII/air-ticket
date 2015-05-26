@@ -51,7 +51,7 @@ var AirTicket_Domain_Services;
 		RouteMap.prototype.buildRouteChains = function (from, to) {
 			var resultChains = [];
 
-			var startRoutes = this._routesByLocationCode[from] ? this._routesByLocationCode[from] : [];
+			var startRoutes = this._routesByLocationCode[from] ? this._routesByLocationCode[from].slice() : [];
 
 			while (startRoutes.length > 0) {
 				var startRoute = startRoutes.pop();
@@ -59,27 +59,24 @@ var AirTicket_Domain_Services;
 				var chain = [startRoute];
 				while (chain.length > 0) {
 					var lastRoute = chain[chain.length - 1];
-					var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
-
 					var goodChain = lastRoute.getToLocation().getCode() === to;
 
 					if (goodChain) {
 						resultChains.push(new AirTicket_Domain_Entities.RouteChain(chain.slice()));
-						chain.pop();
-					}
-
-					var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
+					} else {
+						var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
+						var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
 						routesFromLastRoute &&
 						routesFromLastRoute.length > lastRoute.nextIndex;
 
-					if (canAddRoute) {
-						var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
-						addedRoute.nextIndex = 0;
-						chain.push(addedRoute);
-						continue;
-					} else {
-						chain.pop();
+						if (canAddRoute) {
+							var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
+							addedRoute.nextIndex = 0;
+							chain.push(addedRoute);
+							continue;
+						}
 					}
+					delete chain.pop().nextIndex;
 				}
 			}
 
