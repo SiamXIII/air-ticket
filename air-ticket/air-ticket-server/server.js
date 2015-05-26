@@ -10,36 +10,19 @@ var flightsStore = require("./ticketsStore")();
 
 var LineByLineReader = require('line-by-line');
 
-var allLocations = [];
+
 var routes = [];
 var flightMap;
 var tripsService;
+var allLocations;
 
-var airReader = new LineByLineReader('filesData/airports.dat');
-
-airReader.on('line', function (line) {
-	var location = line.replace(/"/g, '').split(',');
-	var loc = new AirTicket_Domain_Entities.Location("CODE" + location[0], location[1], location[9], location[6], location[7]);
-	allLocations.push(loc);
-	allLocations["CODE" + location[0]] = loc;
-});
-
-airReader.on('end', function () {
-	var routeReader = new LineByLineReader('filesData/routes.dat');
-	routeReader.on('line', function (line) {
-		var route = line.replace(/"/g, '').split(',');
-		
-		var from = allLocations["CODE" + route[3]];
-		var to = allLocations["CODE" + route[5]];
-		
-		if (from && to) {
-			routes.push(new AirTicket_Domain_Entities.Route(from, to));
-		}
+(function init() {
+	flightsStore.getAllLocations(function (locations) {
+		allLocations = locations;
 	});
 	
-	routeReader.on('end', function (line) {
+	flightsStore.getAllRoutes(function (routes) {
 		var rm = new AirTicket_Domain_Services.RouteMap(routes);
-		
 		var fg = new AirTicket_Domain_Services.FlightGenerator();
 		var flights = fg.generate(2, routes);
 		var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
@@ -48,17 +31,7 @@ airReader.on('end', function () {
 		
 		tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
 	});
-});
-
-
-
-//flightsStore.getAllLocations(function (data) {
-//	//allLocations = data;
-//});
-
-//flightsStore.getAllFlights(function (data) {
-
-//});
+})();
 
 var app = express();
 
@@ -75,33 +48,21 @@ app.use("*", function (incomingMessage, serverResponse, next) {
 });
 
 app.get('/api/locations', function (incomingMessage, serverResponse) {
-	var message = incomingMessage.query.q;
-	
 	var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
 	serverResponse.json(function () {
-		if (message) {
-			var locations = allLocations.map(function (location) {
-				return locationDtoConverter.convertToDto(location);
-			}).filter(function (location) {
-				if (location._code.indexOf(message) != -1) {
-					return location;
-				}
-			}).splice(0, 20);
-			
-			return locations;
-		} 
-		else {
-			return [];
-		}
+		var locations = allLocations.map(function (location) {
+			return locationDtoConverter.convertToDto(location);
+		});
 		
+		return locations;
 	}());
 	serverResponse.end();
 });
 
 app.post('/api/trips', function (incomingMessage, serverResponse) {
-
+	
 	console.log("get trips request.");
-
+	
 	var tripDtoConverter = new AirTicket_Domain_Entities_DtoConverters.TripDtoConverter();
 	
 	var body = "";
@@ -110,29 +71,29 @@ app.post('/api/trips', function (incomingMessage, serverResponse) {
 		body += data;
 	});
 	
-    incomingMessage.on("end", function () {
-        
-        console.log("request.");
-
+	incomingMessage.on("end", function () {
+		
+		console.log("request.");
+		
 		var tripQueryDto = JSON.parse(body);
 		
 		var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
-
-	    var date = new Date();
-        console.log("search start.");
-
+		
+		var date = new Date();
+		console.log("search start.");
+		
 		var trips = tripsService.getTrips(tripQuery);
-        
-        console.log("search end." + (new Date() - date).toString());
-
+		
+		console.log("search end." + (new Date() - date).toString());
+		
 		serverResponse.json(trips
 			.map(function (trip) {
 			return tripDtoConverter.convertToDto(trip);
 		}));
 		
-        serverResponse.end();
-
-        console.log("sended.");
+		serverResponse.end();
+		
+		console.log("sended.");
 	});
 });
 
