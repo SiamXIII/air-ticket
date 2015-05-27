@@ -45,8 +45,6 @@ var AirTicket_Domain_Entities;
 		function Route(from, to, vendor, flightId) {
 			this._from = from;
 			this._to = to;
-			this._vendor = vendor;
-			this._flightId = flightId;
 		}
 
 		Route.prototype.getFromLocation = function () {
@@ -55,14 +53,6 @@ var AirTicket_Domain_Entities;
 
 		Route.prototype.getToLocation = function () {
 			return this._to;
-		}
-
-		Route.prototype.getVendor = function () {
-			return this._vendor;
-		}
-
-		Route.prototype.getFlightId = function () {
-			return this._flightId;
 		}
 
 		Route.prototype.getDistanceInKm = function () {

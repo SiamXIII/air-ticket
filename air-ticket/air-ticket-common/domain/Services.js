@@ -65,15 +65,15 @@ var AirTicket_Domain_Services;
 						resultChains.push(new AirTicket_Domain_Entities.RouteChain(chain.slice()));
 					} else {
 						var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
-						var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
+					var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
 						routesFromLastRoute &&
 						routesFromLastRoute.length > lastRoute.nextIndex;
 
-						if (canAddRoute) {
-							var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
-							addedRoute.nextIndex = 0;
-							chain.push(addedRoute);
-							continue;
+					if (canAddRoute) {
+						var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
+						addedRoute.nextIndex = 0;
+						chain.push(addedRoute);
+						continue;
 						}
 					}
 					delete chain.pop().nextIndex;
@@ -283,7 +283,7 @@ var AirTicket_Domain_Services;
 			for (var index = 0; index < routes.length; index++) {
 				var route = routes[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(startDate.valueOf() + Math.random() * (endDate - startDate))), route.getFlightId(), route.getVendor(), route.getDistanceInKm() + Math.random() * 100));
+					flights.push(new AirTicket_Domain_Entities.Flight(route, new Date(Math.floor(new Date().valueOf() + Math.random() * 1000 * 60 * 60 * 12)), 'mockId', 'mockVendor', route.getDistanceInKm() + Math.random() * 100));
 				}
 			}
 
