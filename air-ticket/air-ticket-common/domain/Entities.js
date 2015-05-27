@@ -42,7 +42,7 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.Location = Location;
 
 	var Route = (function () {
-		function Route(from, to, vendor, flightId) {
+		function Route(from, to) {
 			this._from = from;
 			this._to = to;
 		}
