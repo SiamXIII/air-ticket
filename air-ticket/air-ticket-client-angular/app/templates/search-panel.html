@@ -1,16 +1,16 @@
 ﻿<div class="search">
 	<h2 class="search__header">{{::'searchParams' | translate}}</h2>
 
-	<form class="search__form" name="searchForm" ng-init="init()">
+	<form name="searchForm">
 		<div class="search__route">
 			<div class="search__from">
 				<label class="search__label" for="arrivalSelected">{{::'from' | translate}}</label>
-				<input id="departureSelected" class="form-control" ui-select2 ng-model="search.fromLocation" data-placeholder="{{::'selectOrigin' | translate}}" dropdown-select2 filter="search.toLocation" data-dropdown="locations" />
+				<input class="form-control" ui-select2 ng-model="search.fromLocation" data-placeholder="{{::'selectOrigin' | translate}}" dropdown-select2 filter="search.toLocation" data-dropdown="locations" />
 			</div>
 
 			<div class="search__to">
 				<label class="search__label" for="arrivalSelected">{{::'to' | translate}}</label>
-				<input id="arrivalSelected" class="form-control" ui-select2 ng-model="search.toLocation" data-placeholder="{{::'selectDestination' | translate}}" dropdown-select2 filter="search.fromLocation" data-dropdown="locations" />
+				<input class="form-control" ui-select2 ng-model="search.toLocation" data-placeholder="{{::'selectDestination' | translate}}" dropdown-select2 filter="search.fromLocation" data-dropdown="locations" />
 			</div>
 		</div>
 
@@ -30,7 +30,7 @@
 			<div class="search__from">
 				<div>
 					<label>{{::'departureDate' | translate}}</label>
-					<input class="datepicker form-control" type="text"
+					<input class="form-control" type="text"
 						   ng-model="search.forwardRouteDepartureDate"
 						   placeholder="{{::'departure' | translate}}"
 						   datepicker
@@ -41,7 +41,7 @@
 			<div class="search__to" ng-show="search.twoWay">
 				<div>
 					<label>{{::'comebackDate' | translate}}</label>
-					<input class="datepicker form-control" type="text"
+					<input class="form-control" type="text"
 						   ng-model="search.backRouteDepartureDate"
 						   placeholder="{{::'comeback' | translate}}"
 						   datepicker
