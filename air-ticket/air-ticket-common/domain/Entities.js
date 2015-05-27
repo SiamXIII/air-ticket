@@ -94,7 +94,7 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.RouteChain = RouteChain;
 
 	var Flight = (function () {
-		function Flight(route, departureTime, code, vendorCode, price) {
+		function Flight(route, departureTime, code, vendorCode, price, airLineCode) {
 			this._route = route;
 
 			this._departureTime = departureTime;
@@ -103,6 +103,7 @@ var AirTicket_Domain_Entities;
 			this._vendorCode = vendorCode;
 
 			this._price = price;
+			this._airLineCode = airLineCode;
 		}
 
 		Flight.prototype.getDistanceInKm = function () {
@@ -140,6 +141,10 @@ var AirTicket_Domain_Entities;
 
 		Flight.prototype.getAdultPrice = function () {
 			return this._price;
+		}
+
+		Flight.prototype.getAirLineCode = function () {
+			return this._airLineCode;
 		}
 
 		return Flight;

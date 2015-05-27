@@ -37,7 +37,8 @@ var AirTicket_Domain_Entities_DtoConverters;
 				new Date(dto._departureTime),
 				dto._code,
 				dto._vendorCode,
-				dto._price);
+				dto._price,
+				dto._airLineCode);
 
 			return flight;
 		};

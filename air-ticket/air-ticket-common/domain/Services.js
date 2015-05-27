@@ -286,7 +286,10 @@ var AirTicket_Domain_Services;
 					flights.push(new AirTicket_Domain_Entities.Flight(
 						route,
 						new Date(Math.floor(startDate.valueOf() + Math.random()*(startDate - endDate))),
-						'mockId' + Math.random(), 'mockVendor', route.getDistanceInKm() + Math.random() * 100));
+						'mockId' + Math.random(),
+						'mockVendor',
+						route.getDistanceInKm() + Math.random() * 100,
+						"SomeAirLineITA"));
 				}
 			}
 
