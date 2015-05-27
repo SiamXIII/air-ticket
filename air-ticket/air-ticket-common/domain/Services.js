@@ -12,7 +12,8 @@ var AirTicket_Domain_Services;
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-			
+			this._chainsCache = {};
+
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
 				var fromLocationCode = route.getFromLocation().getCode();
@@ -26,15 +27,15 @@ var AirTicket_Domain_Services;
 				this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
 				}
 
-				if (this._locations.indexOf(fromLocationCode) !== -1) {
+				if (this._locations.indexOf(fromLocationCode) === -1) {
 					this._locations.push(fromLocationCode);
 				}
 
-				if (this._locations.indexOf(toLocationCode) !== -1) {
+				if (this._locations.indexOf(toLocationCode) === -1) {
 					this._locations.push(toLocationCode);
 				}
-
 			}
+
 		}
 
 		RouteMap.maxRouteChainLength = 3;
@@ -82,6 +83,21 @@ var AirTicket_Domain_Services;
 
 			return resultChains;
 		};
+
+		RouteMap.prototype.getRouteChains = function (from, to) {
+			if (this._chainsCache[from]) {
+				if (this._chainsCache[from][to]) {
+					return this._chainsCache[from][to];
+				} else {
+					this._chainsCache[from][to] = this.buildRouteChains(from, to);
+				}
+				return this._chainsCache[from][to];
+			} else {
+				this._chainsCache[from] = {};
+				this._chainsCache[from][to] = this.buildRouteChains(from, to);
+			}
+			return this.getRouteChains(from, to);
+		}
 
 		return RouteMap;
 
@@ -139,15 +155,16 @@ var AirTicket_Domain_Services;
 			var it = {
 				start: start,
 				curr: start,
+				a: a,
 				beg: function () {
 					this.curr = this.start;
 				},
 				next: function () {
-					return a[this.curr++];
+					return this.a[this.curr++];
 				},
 				hasNext: function () {
 					return this.curr !== "undefined" &&
-						this.curr < a.length;
+						this.curr < this.a.length;
 				}
 			};
 
@@ -156,7 +173,12 @@ var AirTicket_Domain_Services;
 
 		FlightMap.prototype.buildFlightChanes = function (flightChainQuery) {
 			var allCombos = [];
-			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
+
+			var date = new Date();
+			var routeChains = this._routeMap.getRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
+			console.log("route chains: " + (new Date() - date).toString() + "ms");
+
+			date = new Date();
 			for (var routeChainIndex = 0; routeChainIndex < routeChains.length; routeChainIndex++) {
 				var routeChain = routeChains[routeChainIndex];
 				var routeChainCombos = [];
@@ -199,6 +221,7 @@ var AirTicket_Domain_Services;
 			}
 
 			var result = allCombos.map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
+			console.log("flight chains: " + (new Date() - date).toString() + "ms");
 			return result;
 		}
 

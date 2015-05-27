@@ -53,8 +53,6 @@ airReader.on('end', function () {
         flightMap = fm;
         
         tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
-
-	    console.log("Started. flights count: " + flights.length);
     });
 });
 
@@ -91,19 +89,9 @@ app.post('/api/trips', function (incomingMessage, serverResponse) {
     });
     
     incomingMessage.on("end", function () {
-        console.log("request.");
-        
         var tripQueryDto = JSON.parse(body);
-        
         var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
-        
-        var date = new Date();
-        console.log("search start.");
-        
         var trips = tripsService.getTrips(tripQuery);
-        
-        console.log("search end." + (new Date() - date).toString());
-        
         serverResponse.json(trips
 			.map(function (trip) {
             return tripDtoConverter.convertToDto(trip);
