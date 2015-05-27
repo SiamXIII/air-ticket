@@ -1,43 +1,56 @@
 ﻿angular.module('airTicketApp')
-	.directive('dropdownSelect2', function () {
+	.directive('dropdownSelect2', function (templatesPath, $compile) {
 		return {
 			restrict: "A",
 			scope: {
 				filter: '=',
-				dropdown: '='
+				items: '='
 			},
-			link: function (scope, element, attrs) {
+			compile: function (element, attrs) {
 
-				scope.$watch('dropdown', function (value) {
-					element.select2({
-						data: value,
-						query: function (q) {
-							var pageSize = 20;
-							var results
+				element.attr("ui-select2", "options");
+				element.removeAttr("dropdown-select2");
 
-							if (q.term && q.term !== "") {
-								results = _.filter(this.data, function (e) {
+				return {
+					post: function(scope) {
+						$compile(element)(scope);
+					},
+					pre: function (scope, element, attrs) {
+						scope.options = {
+							data: ["123", "qaswd"],
+							query: function (q) {
+								var pageSize = 20;
+								var results;
 
-									if (scope.filter) {
-										return scope.filter.text != e.text && e.text.indexOf(q.term) >= 0;
-									}
-									else {
-										return e.text.indexOf(q.term) >= 0;
-									}
+								if (q.term && q.term !== "") {
+									results = _.filter(this.data, function (e) {
+
+										if (scope.filter) {
+											return scope.filter.text != e.text && e.text.indexOf(q.term) >= 0;
+										} else {
+											return e.text.indexOf(q.term) >= 0;
+										}
+									});
+								} else {
+									return;
+								}
+
+								q.callback({
+									results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
+									more: results.length >= q.page * pageSize
 								});
-							}
-							else {
-								return;
-							}
+							},
+							minimumInputLength: 2,
+						};
 
-							q.callback({
-								results: results.slice((q.page - 1) * pageSize, q.page * pageSize),
-								more: results.length >= q.page * pageSize
+						scope.$watch('items', function (value) {
+							scope.options.data.splice();
+							value.map(function (val) {
+								scope.options.data.push(val);
 							});
-						},
-						minimumInputLength: 2,
-					});
-				});
+						});
+					}
+				};
 			}
 		}
 	});

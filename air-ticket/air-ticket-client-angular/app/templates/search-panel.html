@@ -5,13 +5,13 @@
 		<div class="search__route">
 			<div class="search__from">
 				<label class="search__label" for="arrivalSelected">{{::'from' | translate}}</label>
-				<input class="form-control" ui-select2 ng-model="search.fromLocation" data-placeholder="{{::'selectOrigin' | translate}}" dropdown-select2 filter="search.toLocation" data-dropdown="locations" />
+				<input class="form-control" dropdown-select2 ng-model="search.fromLocation" items="locations" filter="search.toLocation" placeholder="{{::'selectOrigin' | translate}}" />
 			</div>
 
-			<div class="search__to">
+			<!--<div class="search__to">
 				<label class="search__label" for="arrivalSelected">{{::'to' | translate}}</label>
 				<input class="form-control" ui-select2 ng-model="search.toLocation" data-placeholder="{{::'selectDestination' | translate}}" dropdown-select2 filter="search.fromLocation" data-dropdown="locations" />
-			</div>
+			</div>-->
 		</div>
 
 		<div class="search__direction">
