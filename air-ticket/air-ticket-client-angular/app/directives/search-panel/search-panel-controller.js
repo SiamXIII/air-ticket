@@ -47,7 +47,7 @@ angular.module('airTicketApp')
 			fromLocation: {},
 			toLocation: {},
 			forwardRouteDepartureDate: '05/26/2015',
-			backRouteDepartureDate: '05/26/2015',
+			backRouteDepartureDate: undefined,
 			twoWay: false,
 			passengers: {
 				adults: 1,
