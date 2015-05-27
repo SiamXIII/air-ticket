@@ -1,4 +1,4 @@
 ﻿angular.module('airTicketApp')
 .constant('CONFIG', {
-	serverUrl: 'http://localhost:3000'
+	serverUrl: 'http://localhost:1337'
 });
