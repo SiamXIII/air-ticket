@@ -15,9 +15,9 @@
 					post: function(scope) {
 						$compile(element)(scope);
 					},
-					pre: function (scope, element, attrs) {
+					pre: function (scope) {
 						scope.options = {
-							data: ["123", "qaswd"],
+							data: scope.items,
 							query: function (q) {
 								var pageSize = 20;
 								var results;

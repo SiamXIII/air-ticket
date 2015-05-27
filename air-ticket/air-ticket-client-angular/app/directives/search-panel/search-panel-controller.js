@@ -3,15 +3,11 @@ angular.module('airTicketApp')
 	.controller('searchPanelCtrl', function (ticketService, mapTripToViewModel, $scope, $filter) {
 		var allLocations = [];
 
-		function getAllLocations() {
-			return allLocations;
-		}
-
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.id),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.id),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
 						$scope.search.fromLocation.timeZoneOffset),
@@ -22,8 +18,8 @@ angular.module('airTicketApp')
 						1)),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.id),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.id),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
 						$scope.search.toLocation.timeZoneOffset),
