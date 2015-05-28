@@ -49,7 +49,7 @@
 						};
 
 						scope.$watch('items', function (value) {
-							scope.options.data.splice();
+							scope.options.data.splice(0);
 							value.map(function (val) {
 								scope.options.data.push(val);
 							});
