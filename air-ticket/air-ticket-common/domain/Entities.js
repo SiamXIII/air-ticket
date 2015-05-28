@@ -10,27 +10,27 @@ var AirTicket_Domain_Entities;
 	var Location = (function () {
 		function Location(code, fullName, timeZoneOffset, latitude, longitude) {
 			if (!code) {
-				throw new Error('Code is invalid.')
+				throw new Error('Code is invalid.');
 			}
 			this._code = code;
 
 			if (!fullName) {
-				throw new Error('Full name is invalid.')
+				throw new Error('Full name is invalid.');
 			}
 			this._fullName = fullName;
 
-			if (isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840 || timeZoneOffset % 30 != 0) {
-				throw new Error('Time zone offset is invalid.')
+			if (isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840 || timeZoneOffset % 15 != 0) {
+				throw new Error('Time zone offset is invalid.');
 			}
 			this._timeZoneOffset = timeZoneOffset;
 
 			if (isNaN(latitude)) {
-				throw new Error('Latitude is invalid.')
+				throw new Error('Latitude is invalid.');
 			}
 			this._latitude = latitude;
 
 			if (isNaN(longitude)) {
-				throw new Error('Longitude is invalid.')
+				throw new Error('Longitude is invalid.');
 			}
 			this._longitude = longitude;
 		}
@@ -363,22 +363,25 @@ var AirTicket_Domain_Entities;
 			}
 			this._forwardFlightChain = forwardFlightChain;
 
-			if (!(backFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
-				throw new Error('Back flight chain is invalid.');
+			if(backFlightChain){
+				if (!(backFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
+					throw new Error('Back flight chain is invalid.');
+				}
+				this._backFlightChain = backFlightChain;
 			}
-			this._backFlightChain = backFlightChain;
+			
 
-			if (!isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
+			if (isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
 				throw new Error('Adults is invalid.');
 			}
 			this._adults = adults;
 
-			if (!isNaN(children) || children < 0 || children !== Math.floor(children)) {
+			if (isNaN(children) || children < 0 || children !== Math.floor(children)) {
 				throw new Error('Children is invalid.');
 			}
 			this._children = children;
 
-			if (!isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
+			if (isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
 				throw new Error('Infants is invalid.');
 			}
 			this._infants = infants;
