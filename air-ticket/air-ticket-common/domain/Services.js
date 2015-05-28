@@ -325,7 +325,6 @@ var AirTicket_Domain_Services;
 		}
 
 		FlightGenerator.prototype.generate = function (load, airlines, startDate, endDate) {
-			var routeMap = new AirTicket_Domain_Services.RouteMap(airlines);
 			var flights = [];
 
 			for (var index = 0; index < airlines.length; index++) {
