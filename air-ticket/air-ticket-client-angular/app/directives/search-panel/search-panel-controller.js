@@ -6,8 +6,8 @@ angular.module('airTicketApp')
 		function buildTripQuery() {
 			var tripQuery = new AirTicket_Domain_Queries.TripQuery(
 				new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.code),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.code),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.forwardRouteDepartureDate),
 						$scope.search.fromLocation.timeZoneOffset),
@@ -18,8 +18,8 @@ angular.module('airTicketApp')
 						1)),
 				$scope.search.twoWay
 				? new AirTicket_Domain_Queries.FlightChainQuery(
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation),
-					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.toLocation.code),
+					new AirTicket_Domain_Queries.LocationQuery($scope.search.fromLocation.code),
 					AirTicket_Utils.DateTimeUtils.setUtcOffset(
 						new Date($scope.search.backRouteDepartureDate),
 						$scope.search.toLocation.timeZoneOffset),
@@ -67,6 +67,7 @@ angular.module('airTicketApp')
 
 					var locationValue = {
 						id: locationCode,
+						code: locationCode,
 						text: $filter('translate')(locationCode),
 						timeZoneOffset: location.getTimeZoneOffset()
 					};

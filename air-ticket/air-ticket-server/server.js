@@ -44,7 +44,7 @@ airReader.on('end', function () {
         var fg = new AirTicket_Domain_Services.FlightGenerator();
         var flights = [];
         var startDate = new Date(2015, 4, 26);
-        var endDate = new Date(2015, 4, 30);
+        var endDate = new Date(2015, 4, 27);
         for (var date = startDate; date < endDate; date.setDate(date.getDate() + 1)) {
             flights = flights.concat(fg.generate(2, routes, date, new Date(date.valueOf() + 1000 * 60 * 60 * 24)));
         }

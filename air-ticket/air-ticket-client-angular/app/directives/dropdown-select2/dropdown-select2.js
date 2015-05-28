@@ -4,7 +4,8 @@
 			restrict: "A",
 			scope: {
 				filter: '=',
-				items: '='
+				items: '=',
+				model: "=ngModel"
 			},
 			compile: function (element, attrs) {
 
@@ -12,8 +13,12 @@
 				element.removeAttr("dropdown-select2");
 
 				return {
-					post: function(scope) {
-						$compile(element)(scope);
+					post: function(scope, element) {
+						element.on('select2-selected', function (eventData) {
+							if (eventData.choice) {
+								scope.model = eventData.choice;
+							}
+						});
 					},
 					pre: function (scope) {
 						scope.options = {
@@ -40,7 +45,7 @@
 									more: results.length >= q.page * pageSize
 								});
 							},
-							minimumInputLength: 2,
+							minimumInputLength: 2
 						};
 
 						scope.$watch('items', function (value) {
@@ -49,6 +54,8 @@
 								scope.options.data.push(val);
 							});
 						});
+
+						$compile(element)(scope);
 					}
 				};
 			}
