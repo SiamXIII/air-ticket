@@ -13,7 +13,7 @@
 				element.removeAttr("dropdown-select2");
 
 				return {
-					post: function(scope, element) {
+					post: function (scope, element) {
 						element.on('select2-selected', function (eventData) {
 							if (eventData.choice) {
 								scope.model = eventData.choice;
@@ -31,7 +31,7 @@
 									results = _.filter(this.data, function (e) {
 
 										if (scope.filter) {
-											return scope.filter.text != e.text && e.text.indexOf(q.term) >= 0;
+											return scope.filter.text != e.text && e.text.toUpperCase().indexOf(q.term.toUpperCase()) >= 0;
 										} else {
 											return e.text.indexOf(q.term) >= 0;
 										}

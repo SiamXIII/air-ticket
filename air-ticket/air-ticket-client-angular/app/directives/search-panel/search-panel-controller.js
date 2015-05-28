@@ -40,8 +40,8 @@ angular.module('airTicketApp')
 		$scope.locations = [];
 
 		$scope.search = {
-			fromLocation: {},
-			toLocation: {},
+			fromLocation: null,
+			toLocation: null,
 			forwardRouteDepartureDate: '05/26/2015',
 			backRouteDepartureDate: undefined,
 			twoWay: false,
