@@ -20,44 +20,48 @@ var AirTicket_Domain_Services;
 		}
 
 		function clear() {
-			var minPriorityIndex = 0;
+			var deletedItemKey;
+			var minPriority = Infinity;
 
-			for (var i = 0; i < cache.length; i++) {
-				if (cache[minPriorityIndex] > cache[i].priority) {
-					minPriorityIndex = i;
+			for (var prop in cache) {
+				if (cache[prop].priority < minPriority) {
+					minPriority = cache[prop].priority;
+					deletedItemKey = prop;
 				}
 			}
 
-			cache.splice(minPriorityIndex, 1);
+			delete cache[deletedItemKey];
 		}
 
-		ChainsCache.prototype.get = function (index) {
-			if (!cache[index]) {
-				throw new Error('Element by index is not founded.');
+		ChainsCache.prototype.get = function (from, to) {
+			if (cache[from + to]) {
+				cache[from + to].priority += 1;
 			}
 
-			cache[index].priority += 1;
-
-			return cache[index];
+			return cache[from + to];
 		}
 
-		ChainsCache.prototype.insert = function (element) {
-			if (this._size < cache.length) {
+		ChainsCache.prototype.insert = function (from, to, chains) {
+			if (this._size <= Object.keys(cache).length) {
 				clear();
 			}
 
-			element.priority = -Infinity;
+			var element = chains;
+			element.priority = 0;
 
-			cache.push(element);
+			cache[from + to] = element;
 		}
+
+		return ChainsCache;
 	})();
+	AirTicket_Domain_Services.ChainsCache = ChainsCache;
 
 	var RouteMap = (function () {
 
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-			this._chainsCache = {};
+			this._chainsCache = new AirTicket_Domain_Services.ChainsCache(2);
 
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
@@ -130,26 +134,22 @@ var AirTicket_Domain_Services;
 		};
 
 		RouteMap.prototype.getRouteChains = function (from, to) {
-			if (this._chainsCache[from]) {
-				if (this._chainsCache[from][to]) {
-					return this._chainsCache[from][to];
-				} else {
-					this._chainsCache[from][to] = this.buildRouteChains(from, to);
-				}
-				return this._chainsCache[from][to];
-			} else {
-				this._chainsCache[from] = {};
-				this._chainsCache[from][to] = this.buildRouteChains(from, to);
+			var chains = this._chainsCache.get(from, to);
+
+			if (!chains) {
+				chains = this.buildRouteChains(from, to);
+				this._chainsCache.insert(from, to, chains);
+				return this.getRouteChains(from, to);
 			}
-			return this.getRouteChains(from, to);
+			else {
+				return chains;
+			}
 		}
 
 		return RouteMap;
 
 	})();
 	AirTicket_Domain_Services.RouteMap = RouteMap;
-
-
 
 	var FlightMap = (function () {
 		function FlightMap(flights, routeMap) {
