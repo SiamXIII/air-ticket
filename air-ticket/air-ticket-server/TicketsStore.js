@@ -56,17 +56,14 @@ var instance = {
     //	});
     //},
     
-    getAllRoutes: function (callback) {
+    getAllAirLines: function (callback) {
         routesDataAccess.find({})
 		.limit(100)
 		.lean(true)
 		.exec(function (err, data) {
             if (!err) {
                 var airlinesResult = [];
-                
-                
                 data.forEach(function (route) {
-                    var airlines = route.airlines;
                     var routeDomain = new Entities.Route(
                         new Entities.Location(route.from.iata, route.from.name,
 							route.from.timezone * 60, route.from.latitude,
@@ -77,7 +74,6 @@ var instance = {
                     
                     route.airlines.forEach(function (airline) {
                         var airlineDomain = new Entities.Airline(airline.name + " " + airline.airlineId, airline.name, routeDomain);
-                        
                         airlinesResult.push(airlineDomain);
                     });
                 });
