@@ -31,7 +31,7 @@
 									results = _.filter(this.data, function (e) {
 
 										if (scope.filter && scope.filter.text) {
-											return scope.filter.text.toLowerCase() != e.text.toLowerCase() &&
+											return scope.filter.text != e.text &&
 												e.text.toLowerCase().indexOf(q.term.toLowerCase()) >= 0;
 										} else {
 											return e.text.toLowerCase().indexOf(q.term.toLowerCase()) >= 0;
