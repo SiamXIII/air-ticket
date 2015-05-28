@@ -289,7 +289,7 @@ var AirTicket_Domain_Services;
 				for (var i = 0; i < load; i++) {
 					flights.push(new AirTicket_Domain_Entities.Flight(
 						route,
-						new Date(Math.floor(startDate.valueOf() + Math.random()*(startDate - endDate))),
+						new Date(Math.floor(startDate.valueOf() + Math.random()*(endDate - startDate))),
 						'mockId' + Math.random(),
 						'mockVendor',
 						route.getDistanceInKm() + Math.random() * 100,
