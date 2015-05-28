@@ -23,9 +23,25 @@ var AirTicket_Domain_Queries;
 	var FlightChainQuery = (function () {
 
 		function FlightChainQuery(fromLocationQuery, toLocationQuery, minDepartureTime, maxDepartureTime) {
+
+			if (!fromLocationQuery || !(fromLocationQuery instanceof AirTicket_Domain_Queries.LocationQuery)) {
+				throw new Error('From location query is invalid.');
+			}
 			this._fromLocationQuery = fromLocationQuery;
+
+			if (!toLocationQuery || !(toLocationQuery instanceof AirTicket_Domain_Queries.LocationQuery)) {
+				throw new Error('To location query is invalid.');
+			}
 			this._toLocationQuery = toLocationQuery;
+
+			if (!minDepartureTime || !(minDepartureTime instanceof Date)) {
+				throw new Error('Min departure time is invalid.')
+			}
 			this._minDepartureTime = minDepartureTime;
+
+			if (!maxDepartureTime || !(maxDepartureTime instanceof Date)) {
+				throw new Error('Max departure time is invalid.')
+			}
 			this._maxDepartureTime = maxDepartureTime;
 		}
 
@@ -51,11 +67,39 @@ var AirTicket_Domain_Queries;
 
 	var TripQuery = (function () {
 		function TripQuery(forwardFlightChainQuery, backFlightChainRouteQuery, adults, children, infants, maxTransferDuration) {
+
+			if (!forwardFlightChainQuery || !(forwardFlightChainQuery instanceof AirTicket_Domain_Queries.FlightChainQuery)) {
+				throw new Error('Forward flight chain query is invalid.');
+			}
 			this._forwarFlightChainQuery = forwardFlightChainQuery;
+
+			if (!backFlightChainRouteQuery || !(backFlightChainRouteQuery instanceof AirTicket_Domain_Queries.FlightChainQuery)) {
+				throw new Error('Back flight chain query is invalid.');
+			}
 			this._backFlightChainQuery = backFlightChainRouteQuery;
+
+			if (!adults || !isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
+				throw new Error('Adults is invalid.');
+			}
 			this._adults = adults;
+
+			if (!children || !isNaN(children) || children < 0 || children !== Math.floor(children)) {
+				throw new Error('Children is invalid.');
+			}
 			this._children = children;
+
+			if (!infants || !isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
+				throw new Error('Infants is invalid.');
+			}
 			this._infants = infants;
+
+			if (adults + children + infants <= 0) {
+				throw new Error('People must be more then 0.');
+			}
+
+			if (!maxTransferDuration || isNaN(maxTransferDuration) || maxTransferDuration < 0) {
+				throw new Error('Max transfer duration is invalid.');
+			}
 			this._maxTransferDuration = maxTransferDuration;
 		}
 

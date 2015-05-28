@@ -9,10 +9,29 @@ var AirTicket_Domain_Entities;
 
 	var Location = (function () {
 		function Location(code, fullName, timeZoneOffset, latitude, longitude) {
+			if (!code) {
+				throw new Error('Code is invalid.')
+			}
 			this._code = code;
+
+			if (!fullName) {
+				throw new Error('Full name is invalid.')
+			}
 			this._fullName = fullName;
+
+			if (!timeZoneOffset || isNaN(timeZoneOffset) || timeZoneOffset < -12 || timeZoneOffset > 14) {
+				throw new Error('Time zone offset is invalid.')
+			}
 			this._timeZoneOffset = timeZoneOffset;
+
+			if (!latitude || isNaN(latitude)) {
+				throw new Error('Latitude is invalid.')
+			}
 			this._latitude = latitude;
+
+			if (!longitude || isNaN(longitude)) {
+				throw new Error('Longitude is invalid.')
+			}
 			this._longitude = longitude;
 		}
 
@@ -43,7 +62,15 @@ var AirTicket_Domain_Entities;
 
 	var Route = (function () {
 		function Route(from, to) {
+
+			if (!from || !(from instanceof AirTicket_Domain_Entities.Location)) {
+				throw new Error('From location is invalid.')
+			}
 			this._from = from;
+
+			if (!to || !(to instanceof AirTicket_Domain_Entities.Location)) {
+				throw new Error('To location is invalid.')
+			}
 			this._to = to;
 		}
 
@@ -69,6 +96,10 @@ var AirTicket_Domain_Entities;
 
 	var RouteChain = (function () {
 		function RouteChain(routes) {
+
+			if (!routes || !Array.isArray(routes)) {
+				throw new Error('Routes is invalid.')
+			}
 			this._routes = routes;
 		}
 
@@ -80,9 +111,9 @@ var AirTicket_Domain_Entities;
 			return this._routes[routeIndex];
 		}
 
-		RouteChain.prototype.getDistanceInKm = function() {
+		RouteChain.prototype.getDistanceInKm = function () {
 			var distance = 0;
-			for (var i = 0; i < this.getRoutesCount(); i++) {
+			for (var i = 0; i < this.getRoutesCount() ; i++) {
 				distance += this.getRoute(i).getDistanceInKm();
 			}
 
@@ -95,14 +126,35 @@ var AirTicket_Domain_Entities;
 
 	var Flight = (function () {
 		function Flight(route, departureTime, code, vendorCode, price, airLineCode) {
+
+			if (!route || !(route instanceof AirTicket_Domain_Entities.Route)) {
+				throw new Error('Route is invalid.');
+			}
 			this._route = route;
 
+			if (!departureTime || !(departureTime instanceof Date)) {
+				throw new Error('Departure time is invalid.')
+			}
 			this._departureTime = departureTime;
 
+			if (!code) {
+				throw new Error('Code is invalid.')
+			}
 			this._code = code;
+
+			if (!vendorCode) {
+				throw new Error('Vendor code is invalid.')
+			}
 			this._vendorCode = vendorCode;
 
+			if (!price || isNaN(price)) {
+				throw new Error('Price is invalid.')
+			}
 			this._price = price;
+
+			if (!airLineCode) {
+				throw new Error('AirLine code is invalid.')
+			}
 			this._airLineCode = airLineCode;
 		}
 
@@ -165,6 +217,9 @@ var AirTicket_Domain_Entities;
 		}
 
 		function FlightChain(flights) {
+			if (!flights || !Array.isArray(flights)) {
+				throw new Error('Flights is invalid.');
+			}
 			checkFlights(flights);
 			this._flights = flights;
 		}
@@ -266,11 +321,34 @@ var AirTicket_Domain_Entities;
 
 	var Trip = (function () {
 		function Trip(forwardFlightChain, backFlightChain, adults, children, infants) {
+			if (!forwardFlightChain || !(forwardFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
+				throw new Error('Forward flight chain is invalid.');
+			}
 			this._forwardFlightChain = forwardFlightChain;
+
+			if (!backFlightChain || !(backFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
+				throw new Error('Back flight chain is invalid.');
+			}
 			this._backFlightChain = backFlightChain;
+
+			if (!adults || !isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
+				throw new Error('Adults is invalid.');
+			}
 			this._adults = adults;
+
+			if (!children || !isNaN(children) || children < 0 || children !== Math.floor(children)) {
+				throw new Error('Children is invalid.');
+			}
 			this._children = children;
+
+			if (!infants || !isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
+				throw new Error('Infants is invalid.');
+			}
 			this._infants = infants;
+
+			if (adults + children + infants <= 0) {
+				throw new Error('People must be more then 0.');
+			}
 		}
 
 		Trip.prototype.getFromLocation = function () {
