@@ -30,10 +30,11 @@
 								if (q.term && q.term !== "") {
 									results = _.filter(this.data, function (e) {
 
-										if (scope.filter) {
-											return scope.filter.text != e.text && e.text.indexOf(q.term) >= 0;
+										if (scope.filter && scope.filter.text) {
+											return scope.filter.text.toLowerCase() != e.text.toLowerCase() &&
+												e.text.toLowerCase().indexOf(q.term.toLowerCase()) >= 0;
 										} else {
-											return e.text.indexOf(q.term) >= 0;
+											return e.text.toLowerCase().indexOf(q.term.toLowerCase()) >= 0;
 										}
 									});
 								} else {
