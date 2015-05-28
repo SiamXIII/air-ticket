@@ -7,12 +7,61 @@ if (!AirTicket_Domain_Entities) {
 var AirTicket_Domain_Services;
 
 (function (AirTicket_Domain_Services) {
+
+	var ChainsCache = (function () {
+		var cache = [];
+
+		function ChainsCache(size) {
+			if (isNaN(size) || size <= 0) {
+				throw new Error('Size is invalid.');
+			}
+
+			this._size = size;
+		}
+
+		function clear() {
+			var deletedItemKey;
+			var minPriority = Infinity;
+
+			for (var prop in cache) {
+				if (cache[prop].priority < minPriority) {
+					minPriority = cache[prop].priority;
+					deletedItemKey = prop;
+				}
+			}
+
+			delete cache[deletedItemKey];
+		}
+
+		ChainsCache.prototype.get = function (from, to) {
+			if (cache[from + to]) {
+				cache[from + to].priority += 1;
+			}
+
+			return cache[from + to];
+		}
+
+		ChainsCache.prototype.insert = function (from, to, chains) {
+			if (this._size <= Object.keys(cache).length) {
+				clear();
+			}
+
+			var element = chains;
+			element.priority = 0;
+
+			cache[from + to] = element;
+		}
+
+		return ChainsCache;
+	})();
+	AirTicket_Domain_Services.ChainsCache = ChainsCache;
+
 	var RouteMap = (function () {
 
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-			this._chainsCache = {};
+			this._chainsCache = new AirTicket_Domain_Services.ChainsCache(2);
 
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
@@ -23,8 +72,8 @@ var AirTicket_Domain_Services;
 				}
 
 				if (!this._routesByLocationCode[fromLocationCode][toLocationCode]) {
-				this._routesByLocationCode[fromLocationCode].push(route);
-				this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
+					this._routesByLocationCode[fromLocationCode].push(route);
+					this._routesByLocationCode[fromLocationCode][toLocationCode] = route;
 				}
 
 				if (this._locations.indexOf(fromLocationCode) === -1) {
@@ -66,15 +115,15 @@ var AirTicket_Domain_Services;
 						resultChains.push(new AirTicket_Domain_Entities.RouteChain(chain.slice()));
 					} else {
 						var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
-					var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
-						routesFromLastRoute &&
-						routesFromLastRoute.length > lastRoute.nextIndex;
+						var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
+							routesFromLastRoute &&
+							routesFromLastRoute.length > lastRoute.nextIndex;
 
-					if (canAddRoute) {
-						var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
-						addedRoute.nextIndex = 0;
-						chain.push(addedRoute);
-						continue;
+						if (canAddRoute) {
+							var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
+							addedRoute.nextIndex = 0;
+							chain.push(addedRoute);
+							continue;
 						}
 					}
 					delete chain.pop().nextIndex;
@@ -85,18 +134,16 @@ var AirTicket_Domain_Services;
 		};
 
 		RouteMap.prototype.getRouteChains = function (from, to) {
-			if (this._chainsCache[from]) {
-				if (this._chainsCache[from][to]) {
-					return this._chainsCache[from][to];
-				} else {
-					this._chainsCache[from][to] = this.buildRouteChains(from, to);
-				}
-				return this._chainsCache[from][to];
-			} else {
-				this._chainsCache[from] = {};
-				this._chainsCache[from][to] = this.buildRouteChains(from, to);
+			var chains = this._chainsCache.get(from, to);
+
+			if (!chains) {
+				chains = this.buildRouteChains(from, to);
+				this._chainsCache.insert(from, to, chains);
+				return this.getRouteChains(from, to);
 			}
-			return this.getRouteChains(from, to);
+			else {
+				return chains;
+			}
 		}
 
 		return RouteMap;
@@ -104,11 +151,9 @@ var AirTicket_Domain_Services;
 	})();
 	AirTicket_Domain_Services.RouteMap = RouteMap;
 
-	
-
 	var FlightMap = (function () {
 		function FlightMap(flights, routeMap) {
-			flights = flights.sort(function(a, b) {return a.getDepartureTime() - b.getDepartureTime()});
+			flights = flights.sort(function (a, b) { return a.getDepartureTime() - b.getDepartureTime() });
 			this._routeMap = routeMap;
 			this._flightsByLocationCode = {};
 			this._locations = {};
