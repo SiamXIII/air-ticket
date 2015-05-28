@@ -145,7 +145,7 @@ var AirTicket_Domain_Entities;
 		function RouteChain(routes) {
 
 			if (!Array.isArray(routes)) {
-				throw new Error('Routes is invalid.')
+				throw new Error('Routes is invalid.');
 			}
 			this._routes = routes;
 		}
@@ -175,17 +175,17 @@ var AirTicket_Domain_Entities;
 		function Flight(airline, departureTime, code, price) {
 
 			if (!(airline instanceof AirTicket_Domain_Entities.Airline)) {
-				throw new Error('AirLine is invalid.')
+				throw new Error('AirLine is invalid.');
 			}
 			this._airline = airline;
 
 			if (!(departureTime instanceof Date)) {
-				throw new Error('Departure time is invalid.')
+				throw new Error('Departure time is invalid.');
 			}
 			this._departureTime = departureTime;
 
 			if (!code) {
-				throw new Error('Code is invalid.')
+				throw new Error('Code is invalid.');
 			}
 			this._code = code;
 
