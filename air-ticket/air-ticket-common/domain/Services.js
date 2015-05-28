@@ -279,21 +279,19 @@ var AirTicket_Domain_Services;
 		function FlightGenerator() {
 		}
 
-		FlightGenerator.prototype.generate = function (load, routes, startDate, endDate) {
-			var routeMap = new AirTicket_Domain_Services.RouteMap(routes);
-			var locations = routeMap.getLocations();
+		FlightGenerator.prototype.generate = function (load, airlines, startDate, endDate) {
+			var routeMap = new AirTicket_Domain_Services.RouteMap(airlines);
 			var flights = [];
 
-			for (var index = 0; index < routes.length; index++) {
-				var route = routes[index];
+			for (var index = 0; index < airlines.length; index++) {
+				var airline = airlines[index];
 				for (var i = 0; i < load; i++) {
-					flights.push(new AirTicket_Domain_Entities.Flight(
-						route,
-						new Date(Math.floor(startDate.valueOf() + Math.random()*(endDate - startDate))),
-						'mockId' + Math.random(),
-						'mockVendor',
-						route.getDistanceInKm() + Math.random() * 100,
-						"SomeAirLineITA"));
+					var flight = new AirTicket_Domain_Entities.Flight(
+						airline,
+						new Date(Math.floor(startDate.valueOf() + Math.random() * (endDate - startDate))),
+						'flightId' + Math.random(),
+						airline.getDistanceInKm() + Math.random() * 100);
+					flights.push(flight);
 				}
 			}
 

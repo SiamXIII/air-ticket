@@ -16,31 +16,16 @@ var routes = [];
 var flightMap;
 var tripsService;
 
-var airReader = new LineByLineReader('filesData/airports.dat');
 
-airReader.on('line', function (line) {
-    var location = line.replace(/"/g, '').split(',');
-    var loc = new AirTicket_Domain_Entities.Location("CODE" + location[0], location[1], location[9], location[6], location[7]);
-    allLocations.push(loc);
-    allLocations["CODE" + location[0]] = loc;
-});
+var app = express();
 
-airReader.on('end', function () {
-    var routeReader = new LineByLineReader('filesData/routes.dat');
-    routeReader.on('line', function (line) {
-        var route = line.replace(/"/g, '').split(',');
-        
-        var from = allLocations["CODE" + route[3]];
-        var to = allLocations["CODE" + route[5]];
-        
-        if (from && to) {
-            routes.push(new AirTicket_Domain_Entities.Route(from, to));
-        }
+(function init() {
+    flightsStore.getAllLocations(function (locations) {
+        allLocations = locations;
     });
     
-    routeReader.on('end', function (line) {
+    flightsStore.getAllRoutes(function (routes) {
         var rm = new AirTicket_Domain_Services.RouteMap(routes);
-        
         var fg = new AirTicket_Domain_Services.FlightGenerator();
         var flights = [];
         var startDate = new Date(2015, 4, 26);
@@ -48,16 +33,13 @@ airReader.on('end', function () {
         for (var date = startDate; date < endDate; date.setDate(date.getDate() + 1)) {
             flights = flights.concat(fg.generate(2, routes, date, new Date(date.valueOf() + 1000 * 60 * 60 * 24)));
         }
-
         var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
         
         flightMap = fm;
         
         tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
     });
-});
-
-var app = express();
+})();
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
