@@ -13,7 +13,7 @@
 				element.removeAttr("dropdown-select2");
 
 				return {
-					post: function(scope, element) {
+					post: function (scope, element) {
 						element.on('select2-selected', function (eventData) {
 							if (eventData.choice) {
 								scope.model = eventData.choice;
