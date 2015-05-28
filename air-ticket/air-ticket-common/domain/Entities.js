@@ -111,12 +111,12 @@ var AirTicket_Domain_Entities;
 		function Route(from, to) {
 
 			if (!(from instanceof AirTicket_Domain_Entities.Location)) {
-				throw new Error('From location is invalid.')
+				throw new Error('From location is invalid.');
 			}
 			this._from = from;
 
 			if (!(to instanceof AirTicket_Domain_Entities.Location)) {
-				throw new Error('To location is invalid.')
+				throw new Error('To location is invalid.');
 			}
 			this._to = to;
 		}
