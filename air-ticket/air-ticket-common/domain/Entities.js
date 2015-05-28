@@ -62,8 +62,20 @@ var AirTicket_Domain_Entities;
 
 	var Airline = (function () {
 		function Airline(code, vendorCode, route) {
+
+			if (!code) {
+				throw new Error('Code is invalid.');
+			}
 			this._code = code;
+
+			if (!vendorCode) {
+				throw new Error('Vendor code is invalid.');
+			}
 			this._vendorCode = vendorCode;
+
+			if (!(route instanceof AirTicket_Domain_Entities.Route)) {
+				throw new Error('Route is invalid.');
+			}
 			this._route = route;
 		}
 
