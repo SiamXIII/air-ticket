@@ -78,17 +78,17 @@ var AirTicket_Domain_Queries;
 			}
 			this._backFlightChainQuery = backFlightChainRouteQuery;
 
-			if (!isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
+			if (isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
 				throw new Error('Adults is invalid.');
 			}
 			this._adults = adults;
 
-			if (!isNaN(children) || children < 0 || children !== Math.floor(children)) {
+			if (isNaN(children) || children < 0 || children !== Math.floor(children)) {
 				throw new Error('Children is invalid.');
 			}
 			this._children = children;
 
-			if (!isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
+			if (isNaN(infants) || infants < 0 || infants !== Math.floor(infants)) {
 				throw new Error('Infants is invalid.');
 			}
 			this._infants = infants;
