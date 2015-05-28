@@ -19,7 +19,7 @@ var AirTicket_Domain_Entities;
 			}
 			this._fullName = fullName;
 
-			if (!timeZoneOffset || isNaN(timeZoneOffset) || timeZoneOffset < -12 || timeZoneOffset > 14) {
+			if (!timeZoneOffset || isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840) {
 				throw new Error('Time zone offset is invalid.')
 			}
 			this._timeZoneOffset = timeZoneOffset;
