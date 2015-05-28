@@ -10,9 +10,12 @@ var instance = {
             var locations = [];
             
             data.forEach(function (location) {
-	            locations.push(new Entities.Location(location.iata,
+	            if (location.iata || location.icao) {
+                    var locationDomainObj = new Entities.Location(location.iata || location.icao,
 		            location.name + ', ' + location.city + ', ' + location.country,
-		            location.timezone * 60));
+		            location.timezone * 60, location.latitude, location.longtitude);
+                    locations.push(locationDomainObj);
+                }
             });
             
             callback(locations);

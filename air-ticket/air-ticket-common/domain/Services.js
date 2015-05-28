@@ -46,7 +46,7 @@ var AirTicket_Domain_Services;
 				clear();
 			}
 
-			element.priority = 0;
+			element.priority = -Infinity;
 
 			cache.push(element);
 		}

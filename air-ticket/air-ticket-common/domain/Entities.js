@@ -10,27 +10,27 @@ var AirTicket_Domain_Entities;
 	var Location = (function () {
 		function Location(code, fullName, timeZoneOffset, latitude, longitude) {
 			if (!code) {
-				throw new Error('Code is invalid.')
+				throw new Error('Code is invalid.');
 			}
 			this._code = code;
 
 			if (!fullName) {
-				throw new Error('Full name is invalid.')
+				throw new Error('Full name is invalid.');
 			}
 			this._fullName = fullName;
 
-			if (isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840 || timeZoneOffset % 30 != 0) {
-				throw new Error('Time zone offset is invalid.')
+			if (isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840 || timeZoneOffset % 15 != 0) {
+				throw new Error('Time zone offset is invalid.');
 			}
 			this._timeZoneOffset = timeZoneOffset;
 
 			if (isNaN(latitude)) {
-				throw new Error('Latitude is invalid.')
+				throw new Error('Latitude is invalid.');
 			}
 			this._latitude = latitude;
 
 			if (isNaN(longitude)) {
-				throw new Error('Longitude is invalid.')
+				throw new Error('Longitude is invalid.');
 			}
 			this._longitude = longitude;
 		}
@@ -111,12 +111,12 @@ var AirTicket_Domain_Entities;
 		function Route(from, to) {
 
 			if (!(from instanceof AirTicket_Domain_Entities.Location)) {
-				throw new Error('From location is invalid.')
+				throw new Error('From location is invalid.');
 			}
 			this._from = from;
 
 			if (!(to instanceof AirTicket_Domain_Entities.Location)) {
-				throw new Error('To location is invalid.')
+				throw new Error('To location is invalid.');
 			}
 			this._to = to;
 		}
@@ -145,7 +145,7 @@ var AirTicket_Domain_Entities;
 		function RouteChain(routes) {
 
 			if (!Array.isArray(routes)) {
-				throw new Error('Routes is invalid.')
+				throw new Error('Routes is invalid.');
 			}
 			this._routes = routes;
 		}
@@ -175,17 +175,17 @@ var AirTicket_Domain_Entities;
 		function Flight(airline, departureTime, code, price) {
 
 			if (!(airline instanceof AirTicket_Domain_Entities.Airline)) {
-				throw new Error('AirLine is invalid.')
+				throw new Error('AirLine is invalid.');
 			}
 			this._airline = airline;
 
 			if (!(departureTime instanceof Date)) {
-				throw new Error('Departure time is invalid.')
+				throw new Error('Departure time is invalid.');
 			}
 			this._departureTime = departureTime;
 
 			if (!code) {
-				throw new Error('Code is invalid.')
+				throw new Error('Code is invalid.');
 			}
 			this._code = code;
 
@@ -363,10 +363,13 @@ var AirTicket_Domain_Entities;
 			}
 			this._forwardFlightChain = forwardFlightChain;
 
-			if (!(backFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
-				throw new Error('Back flight chain is invalid.');
+			if(backFlightChain){
+				if (!(backFlightChain instanceof AirTicket_Domain_Entities.FlightChain)) {
+					throw new Error('Back flight chain is invalid.');
+				}
+				this._backFlightChain = backFlightChain;
 			}
-			this._backFlightChain = backFlightChain;
+			
 
 			if (isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
 				throw new Error('Adults is invalid.');

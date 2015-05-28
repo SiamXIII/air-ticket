@@ -73,10 +73,12 @@ var AirTicket_Domain_Queries;
 			}
 			this._forwarFlightChainQuery = forwardFlightChainQuery;
 
-			if (!(backFlightChainRouteQuery instanceof AirTicket_Domain_Queries.FlightChainQuery)) {
-				throw new Error('Back flight chain query is invalid.');
+			if (backFlightChainRouteQuery) {
+				if (!(backFlightChainRouteQuery instanceof AirTicket_Domain_Queries.FlightChainQuery)) {
+					throw new Error('Back flight chain query is invalid.');
+				}
+				this._backFlightChainQuery = backFlightChainRouteQuery;
 			}
-			this._backFlightChainQuery = backFlightChainRouteQuery;
 
 			if (isNaN(adults) || adults < 0 || adults !== Math.floor(adults)) {
 				throw new Error('Adults is invalid.');
