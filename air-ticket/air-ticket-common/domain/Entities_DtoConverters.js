@@ -20,6 +20,49 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter = LocationDtoConverter;
 
+	var RouteDtoConverter = (function () {
+		function RouteDtoConverter() {
+		}
+
+		RouteDtoConverter.prototype.convertToDto = function (obj) {
+			return obj;
+		};
+
+		RouteDtoConverter.prototype.convertFromDto = function (dto) {
+			var locationDtoConverter = new LocationDtoConverter();
+
+			var route = new AirTicket_Domain_Entities.Route(locationDtoConverter.convertFromDto(dto._from),
+				locationDtoConverter.convertFromDto(dto._to));
+
+			return route;
+		};
+
+		return RouteDtoConverter;
+
+	})();
+
+	var AirLineDtoConverter = (function () {
+		function AirLineDtoConverter() {
+		}
+
+		AirLineDtoConverter.prototype.convertToDto = function (obj) {
+			return obj;
+		};
+
+		AirLineDtoConverter.prototype.convertFromDto = function (dto) {
+			var routeDtoConverter = new RouteDtoConverter();
+
+			var route = routeDtoConverter.convertFromDto(dto._route);
+
+			var airline = new AirTicket_Domain_Entities.Airline(dto._code, dto._vendorCode, route);
+
+			return airline;
+		};
+
+		return AirLineDtoConverter;
+
+	})();
+
 	var FlightsDtoConverter = (function () {
 
 		function FlightsDtoConverter() {
@@ -30,15 +73,13 @@ var AirTicket_Domain_Entities_DtoConverters;
 		};
 
 		FlightsDtoConverter.prototype.convertFromDto = function (dto) {
-			var routeDtoConverter = new RouteDtoConverter();
+			var airlineDtoConverter = new AirLineDtoConverter();
 
 			var flight = new AirTicket_Domain_Entities.Flight(
-				routeDtoConverter.convertFromDto(dto._route),
+				airlineDtoConverter.convertFromDto(dto._airline),
 				new Date(dto._departureTime),
 				dto._code,
-				dto._vendorCode,
-				dto._price,
-				dto._airLineCode);
+				dto._price);
 
 			return flight;
 		};
@@ -66,28 +107,7 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.FlightChainDtoConverter = FlightChainDtoConverter;
 
-	var RouteDtoConverter = (function () {
-		function RouteDtoConverter() {
-		}
-
-		RouteDtoConverter.prototype.convertToDto = function (obj) {
-			return obj;
-		};
-
-		RouteDtoConverter.prototype.convertFromDto = function (dto) {
-			var locationDtoConverter = new LocationDtoConverter();
-
-			var route = new AirTicket_Domain_Entities.Route(locationDtoConverter.convertFromDto(dto._from),
-				locationDtoConverter.convertFromDto(dto._to));
-
-			return route;
-		};
-
-		return RouteDtoConverter;
-
-	})();
-
-	AirTicket_Domain_Entities_DtoConverters.RouteDtoConverter = RouteDtoConverter;
+	AirTicket_Domain_Entities_DtoConverters.AirLineDtoConverter = AirLineDtoConverter;
 
 	var TripDtoConverter = (function () {
 		function TripDtoConverter() {
