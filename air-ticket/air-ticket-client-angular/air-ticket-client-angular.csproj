@@ -74,7 +74,6 @@
     <Content Include="css\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
-    <Content Include="css\_filter.scss" />
     <Content Include="app\localization\locations\locations-en.js" />
     <Content Include="app\localization\locations\locations-ru.js" />
     <None Include="web.Debug.config">
