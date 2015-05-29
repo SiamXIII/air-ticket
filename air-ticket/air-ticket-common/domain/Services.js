@@ -134,13 +134,14 @@ var AirTicket_Domain_Services;
 			return resultChains;
 		};
 
-		RouteMap.prototype.getRouteChains = function (hash) {
-			var chains = this._chainsCache.getRoute(hash);
+		RouteMap.prototype.getRouteChains = function (query) {
+			var hash = query.getHashString();
+			var chains = this._chainsCache.get(hash);
 
 			if (!chains) {
-				chains = this.buildRouteChains(hash);
-				this._chainsCache.insertRoute(hash, chains);
-				return this.getRouteChains(hash);
+				chains = this.buildRouteChains(query);
+				this._chainsCache.insert(hash, chains);
+				return this.getRouteChains(query);
 			}
 			else {
 				return chains;
@@ -222,7 +223,7 @@ var AirTicket_Domain_Services;
 			var allCombos = [];
 
 			var date = new Date();
-			var routeChains = this._routeMap.getRouteChains(flightChainQuery.getHashString());
+			var routeChains = this._routeMap.getRouteChains(flightChainQuery);
 			console.log("route chains: " + (new Date() - date).toString() + "ms");
 
 			date = new Date();
@@ -274,12 +275,12 @@ var AirTicket_Domain_Services;
 
 		FlightMap.prototype.getFlightChains = function (query) {
 			var hash = query.getHashString();
-			var chains = this._chainsCache.getFlight(hash);
+			var chains = this._chainsCache.get(hash);
 
 			if (!chains) {
-				chains = this.buildFlightChanes(hash);
-				this._chainsCache.insertFlight(hash, chains);
-				return this.getFlightChains(hash);
+				chains = this.buildFlightChanes(query);
+				this._chainsCache.insert(hash, chains);
+				return this.getFlightChains(query);
 			}
 			else {
 				return chains;
