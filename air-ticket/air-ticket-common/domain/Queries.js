@@ -62,7 +62,7 @@ var AirTicket_Domain_Queries;
 		}
 
 		FlightChainQuery.prototype.getHashString = function () {
-			return this._fromLocationQuery.getCode() + this._toLocationQuery.getCode();
+			return this._fromLocationQuery.getCode() + this._toLocationQuery.getCode() + this._minDepartureTime.getTime() + this._maxDepartureTime.getTime();
 		}
 
 		return FlightChainQuery;
