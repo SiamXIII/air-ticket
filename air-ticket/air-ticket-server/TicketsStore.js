@@ -58,6 +58,7 @@ var instance = {
     
     getAllAirLines: function (callback) {
         routesDataAccess.find({})
+        .limit(100)
 		.lean(true)
 		.exec(function (err, data) {
             if (!err) {
