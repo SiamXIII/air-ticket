@@ -1,12 +1,12 @@
 ﻿<div class="trip__summary" ng-click="toggleDetails()">
 	<span>
 		<span>
-			<span>{{chain.from.code}}:</span>
+			<span>{{chain.from.code | translate}}:</span>
 			<span>{{chain.departureTime | localized: chain.from.timeZoneOffset}}</span>
 		</span>
 		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 		<span>
-			<span>{{chain.to.code}}:</span>
+			<span>{{chain.to.code | translate}}:</span>
 			<span>{{chain.arrivalTime | localized: chain.to.timeZoneOffset}}</span>
 		</span>
 	</span>
@@ -26,23 +26,23 @@
 			<th>{{::'departureFrom' | translate}}</th>
 			<th>{{::'arrivalTo' | translate}}</th>
 			<th>{{::'vendor' | translate}}</th>
+			<th></th>
 			<th>{{::'airLineCode' | translate}}</th>
 			<th>{{::'price' | translate}}</th>
 		</tr>
 		<tr class="trip__flight" ng-repeat-start="(key, flight) in chain.flights">
 			<td>
 				<span>{{flight.departureTime | localized: flight.from.timeZoneOffset}}</span>
-				<span>{{flight.from.cityCode}}</span>
-				<span>{{flight.from.fullName}}</span>
-				<span>{{flight.from.code}}</span>
+				<span>{{flight.from.code | translate}}</span>
 			</td>
 			<td>
 				<span>{{flight.arrivalTime | localized: flight.to.timeZoneOffset}}</span>
-				<span>{{flight.to.cityCode}}</span>
-				<span>{{flight.to.fullName}}</span>
-				<span>{{flight.to.code}}</span>
+				<span>{{flight.to.code | translate}}</span>
 			</td>
 			<td>{{flight.vendorCode}}</td>
+			<td>
+				<img ng-src="../../images/vendor-images/4M.png" style="max-width:200px;max-height:30px;" />
+			</td>
 			<td>{{flight.airLineCode}}</td>
 			<td>{{flight.price | currency}}</td>
 		</tr>

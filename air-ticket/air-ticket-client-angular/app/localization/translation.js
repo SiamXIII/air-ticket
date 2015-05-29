@@ -40,7 +40,8 @@
 		'maxHundred': 'This number must be less then 100.',
 		'number': 'Not valid number.',
 		'patternInt': 'Not integer number.',
-		'passengersRequired': 'Passengers are required.'
+		'passengersRequired': 'Passengers are required.',
+		'price': 'Price'
 	});
 
 	$translateProvider.translations('ru', {
@@ -83,7 +84,8 @@
 		'maxHundred': 'Это число должно быть меньше 100.',
 		'number': 'Не правильное число.',
 		'patternInt': 'Не целое число.',
-		'passengersRequired': 'Отсутсвуют пассажиры.'
+		'passengersRequired': 'Отсутсвуют пассажиры.',
+		'price': 'Цена'
 	});
 
 	$translateProvider.preferredLanguage('ru');
