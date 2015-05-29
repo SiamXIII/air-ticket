@@ -105,7 +105,7 @@ var AirTicket_Domain_Services;
 
 			while (startRoutes.length > 0) {
 				var startRoute = startRoutes.pop();
-				startRoute.nextIndex = 0;
+				startRoute.nxt = 0;
 				var chain = [startRoute];
 				while (chain.length > 0) {
 					var lastRoute = chain[chain.length - 1];
@@ -113,20 +113,21 @@ var AirTicket_Domain_Services;
 
 					if (goodChain) {
 						resultChains.push(new AirTicket_Domain_Entities.RouteChain(chain.slice()));
+						chain.pop();
 					} else {
 						var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
 						var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
 							routesFromLastRoute &&
-							routesFromLastRoute.length > lastRoute.nextIndex;
+							routesFromLastRoute.length > lastRoute.nxt;
 
 						if (canAddRoute) {
-							var addedRoute = routesFromLastRoute[lastRoute.nextIndex++];
-							addedRoute.nextIndex = 0;
+							var addedRoute = routesFromLastRoute[lastRoute.nxt++];
+							addedRoute.nxt = 0;
 							chain.push(addedRoute);
-							continue;
+						} else {
+							delete chain.pop().nxt;
 						}
 					}
-					delete chain.pop().nextIndex;
 				}
 			}
 
