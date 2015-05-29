@@ -1,5 +1,5 @@
 ﻿angular.module('airTicketApp')
-.config(function ($translateProvider) {
+.config(function ($translateProvider, CONFIG, LOCATIONS_RU, LOCATIONS_EN) {
 	$translateProvider.translations('en', {
 		'forwardTrip': 'Forward Trip',
 		'comebackTrip': 'Comeback Trip',
@@ -86,6 +86,14 @@
 		'passengersRequired': 'Отсутсвуют пассажиры.'
 	});
 
-	$translateProvider.preferredLanguage('en');
+	$translateProvider.preferredLanguage('ru');
 
+	appendLocations('en', LOCATIONS_EN);
+	appendLocations('ru', LOCATIONS_RU);
+
+	function appendLocations(language, dictionary) {
+		angular.forEach(dictionary, function (item, key) {
+			$translateProvider.translations(language)[key] = item;
+		});
+	};
 });
