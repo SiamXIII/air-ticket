@@ -1,3 +1,4 @@
+var util = require('util');
 var express = require('express');
 var port = process.env.port || 1337;
 
@@ -19,46 +20,39 @@ var tripsService;
 
 var app = express();
 
-flightsStore.getAllLocations(function (locations) {
-    allLocations = locations;
-});
+flightsStore.getAllAirLines(function (result) {
+    
+    console.log("Locations count: " + result.locations.length);
+    console.log("Airlines count: " + result.airlines.length);
+    console.log("Routes count: " + result.routes.length);
+    console.log(util.inspect(process.memoryUsage()));
 
-flightsStore.getAllAirLines(function (airlines) {
-    
-    console.log("Airlines count: " + airlines.length);
-    
-    var routes = {};
-    for (var i = 0; i < airlines.length; i++) {
-        var route = airlines[i].getRoute();
-        routes[route.getFromLocation().getCode() + route.getToLocation().getCode()] = route;
-    }
-    
-    var allRoutes = [];
-    for (var key in routes) {
-        allRoutes.push(routes[key]);
-    }
-    
-    console.log("Routes count: " + allRoutes.length);
-    
-    var rm = new AirTicket_Domain_Services.RouteMap(allRoutes);
+	allLocations = result.locations;
+
+    var rm = new AirTicket_Domain_Services.RouteMap(result.routes);
     console.log("Routemap created.");
+    console.log(util.inspect(process.memoryUsage()));
     
     var fg = new AirTicket_Domain_Services.FlightGenerator();
     var flights = [];
     var startDate = new Date(Date.UTC(2015, 4, 26));
-    var endDate = new Date(Date.UTC(2015, 4, 27));
+    var endDate = new Date(Date.UTC(2015, 5, 1));
     for (var date = startDate; date < endDate; date.setDate(date.getDate() + 1)) {
-        flights = flights.concat(fg.generate(2, airlines, date, new Date(date.valueOf() + 1000 * 60 * 60 * 24)));
+        flights = flights.concat(fg.generate(1, result.airlines, date, new Date(date.valueOf() + 1000 * 60 * 60 * 24)));
     }
-    console.log("Flights generated.");
+
+    console.log("Flights generated. Count: " + flights.length);
+    console.log(util.inspect(process.memoryUsage()));
     
     var fm = new AirTicket_Domain_Services.FlightMap(flights, rm);
     console.log("Flightmap created.");
+    console.log(util.inspect(process.memoryUsage()));
     
     flightMap = fm;
     
     tripsService = new AirTicket_Domain_Services.TripsService(flightMap);
     console.log("Trip service created.");
+    console.log(util.inspect(process.memoryUsage()));
     
     
     /////////////////////////////////////
@@ -74,7 +68,6 @@ flightsStore.getAllAirLines(function (airlines) {
     });
     
     app.get('/api/locations', function (incomingMessage, serverResponse) {
-        
         var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
         serverResponse.json(
             allLocations.map(function (location) {
