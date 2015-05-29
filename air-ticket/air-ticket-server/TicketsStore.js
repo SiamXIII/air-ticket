@@ -56,34 +56,50 @@ var instance = {
     //	});
     //},
     
-    getAllRoutes: function (callback) {
+    getAllAirLines: function (callback) {
         routesDataAccess.find({})
-		.limit(100)
+        .limit(100)
 		.lean(true)
 		.exec(function (err, data) {
             if (!err) {
-                var airlinesResult = [];
-                
-                
-                data.forEach(function (route) {
-                    var airlines = route.airlines;
-                    var routeDomain = new Entities.Route(
-                        new Entities.Location(route.from.iata, route.from.name,
-							route.from.timezone * 60, route.from.latitude,
-							route.from.longtitude),
-						new Entities.Location(route.to.iata, route.to.name,
-							route.to.timezone * 60, route.to.latitude,
-							route.to.longtitude));
+
+	            var result = {
+		            locations: [],
+		            routes: [],
+		            airlines: []
+	            };
+
+	            var locationsByCode = {};
+
+	            data.forEach(function (route) {
+                    var fromLocation = locationsByCode[route.from.iata];
+		            if (!fromLocation) {
+			            fromLocation = new Entities.Location(route.from.iata, route.from.name,
+				            route.from.timezone * 60, route.from.latitude,
+				            route.from.longtitude);
+                        locationsByCode[fromLocation.getCode()] = fromLocation;
+			            result.locations.push(fromLocation);
+		            }
                     
+                    var toLocation = locationsByCode[route.to.iata];
+		            if (!toLocation) {
+			            toLocation = new Entities.Location(route.to.iata, route.to.name,
+				            route.to.timezone * 60, route.to.latitude,
+				            route.to.longtitude);
+                        locationsByCode[toLocation.getCode()] = toLocation;
+                        result.locations.push(toLocation);
+		            }
+
+		            var routeDomain = new Entities.Route(fromLocation, toLocation);
+		            result.routes.push(routeDomain);
+
                     route.airlines.forEach(function (airline) {
                         var airlineDomain = new Entities.Airline(airline.name + " " + airline.airlineId, airline.name, routeDomain);
-                        
-                        airlinesResult.push(airlineDomain);
+                        result.airlines.push(airlineDomain);
                     });
                 });
                 
-                
-                callback(airlinesResult);
+                callback(result);
             }
         });
     },
