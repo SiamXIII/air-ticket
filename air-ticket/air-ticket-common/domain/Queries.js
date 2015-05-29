@@ -61,6 +61,10 @@ var AirTicket_Domain_Queries;
 			return this._maxDepartureTime;
 		}
 
+		FlightChainQuery.prototype.getHashString = function () {
+			return this._fromLocationQuery.getCode() + this._toLocationQuery.getCode();
+		}
+
 		return FlightChainQuery;
 	})();
 	AirTicket_Domain_Queries.FlightChainQuery = FlightChainQuery;
