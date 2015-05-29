@@ -102,12 +102,13 @@ var AirTicket_Domain_Services;
 			var resultChains = [];
 
 			var startRoutes = this._routesByLocationCode[from] ? this._routesByLocationCode[from].slice() : [];
-
+			var cnt = 0;
 			while (startRoutes.length > 0) {
 				var startRoute = startRoutes.pop();
 				startRoute.nxt = 0;
 				var chain = [startRoute];
 				while (chain.length > 0) {
+					cnt++;
 					var lastRoute = chain[chain.length - 1];
 					var goodChain = lastRoute.getToLocation().getCode() === to;
 
@@ -125,12 +126,12 @@ var AirTicket_Domain_Services;
 							addedRoute.nxt = 0;
 							chain.push(addedRoute);
 						} else {
-							delete chain.pop().nxt;
+							chain.pop().nxt = 99999;
 						}
 					}
 				}
 			}
-
+			console.log("CNT " + cnt);
 			return resultChains;
 		};
 
@@ -221,7 +222,7 @@ var AirTicket_Domain_Services;
 			var allCombos = [];
 
 			var date = new Date();
-			var routeChains = this._routeMap.getRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
+			var routeChains = this._routeMap.buildRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
 			console.log("route chains: " + (new Date() - date).toString() + "ms");
 
 			date = new Date();
