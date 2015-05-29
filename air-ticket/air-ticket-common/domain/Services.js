@@ -100,13 +100,13 @@ var AirTicket_Domain_Services;
 
 		RouteMap.prototype.buildRouteChains = function (from, to) {
 			var resultChains = [];
-
+			var next = new Array(RouteMap.maxRouteChainLength);
 			var startRoutes = this._routesByLocationCode[from] ? this._routesByLocationCode[from].slice() : [];
 			var cnt = 0;
 			while (startRoutes.length > 0) {
 				var startRoute = startRoutes.pop();
-				startRoute.nxt = 0;
 				var chain = [startRoute];
+				next[0] = 0;
 				while (chain.length > 0) {
 					cnt++;
 					var lastRoute = chain[chain.length - 1];
@@ -119,14 +119,14 @@ var AirTicket_Domain_Services;
 						var routesFromLastRoute = this._routesByLocationCode[lastRoute.getToLocation().getCode()];
 						var canAddRoute = chain.length < RouteMap.maxRouteChainLength &&
 							routesFromLastRoute &&
-							routesFromLastRoute.length > lastRoute.nxt;
+							routesFromLastRoute.length > next[chain.length - 1];
 
 						if (canAddRoute) {
-							var addedRoute = routesFromLastRoute[lastRoute.nxt++];
-							addedRoute.nxt = 0;
+							var addedRoute = routesFromLastRoute[next[chain.length - 1]++];
 							chain.push(addedRoute);
+							next[chain.length - 1] = 0;
 						} else {
-							chain.pop().nxt = 99999;
+							chain.pop();
 						}
 					}
 				}
