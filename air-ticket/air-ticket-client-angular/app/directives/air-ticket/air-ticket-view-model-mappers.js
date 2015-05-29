@@ -18,9 +18,9 @@
 				arrivalTime: flight.getArrivalTime(),
 				duration: flight.getDuration(),
 				code: flight.getCode(),
-				vendorCode: flight.getVendorCode(),
+				vendorName: flight.getVendor().getName(),
 				price: flight.getAdultPrice(),
-				airLineCode: flight.getAirLineCode()
+				airLineCode: flight.getAirline().getCode()
 			};
 
 			return result;

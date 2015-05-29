@@ -4,6 +4,11 @@ if (!AirTicket_Domain_Entities) {
 	AirTicket_Domain_Entities = require("./Entities.js");
 }
 
+var util;
+if (!util) {
+	util = require('util');
+}
+
 var AirTicket_Domain_Services;
 
 (function (AirTicket_Domain_Services) {
@@ -350,7 +355,6 @@ var AirTicket_Domain_Services;
 					var flight = new AirTicket_Domain_Entities.Flight(
 						airline,
 						new Date(Math.floor(startDate.valueOf() + Math.random() * (endDate - startDate))),
-						'flightId' + Math.random(),
 						airline.getDistanceInKm() + Math.random() * 100);
 					flights.push(flight);
 				}
