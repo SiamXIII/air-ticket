@@ -8,60 +8,59 @@ var AirTicket_Domain_Services;
 
 (function (AirTicket_Domain_Services) {
 
-	var ChainsCache = (function () {
-		var cache = [];
+	var PriorityCache = (function () {
+		var items = [];
 
-		function ChainsCache(size) {
-			if (isNaN(size) || size <= 0) {
-				throw new Error('Size is invalid.');
+		function PriorityCache(maxLength) {
+			if (isNaN(maxLength) || maxLength <= 0) {
+				throw new Error('MaxLength is invalid.');
 			}
 
-			this._size = size;
+			this._maxLength = maxLength;
 		}
 
-		function clear() {
-			var deletedItemKey;
+		function removeMinPriorityItem() {
+			var removedItemKey;
 			var minPriority = Infinity;
 
-			for (var prop in cache) {
-				if (cache[prop].priority < minPriority) {
-					minPriority = cache[prop].priority;
-					deletedItemKey = prop;
+			for (var key in items) {
+				if (items[key].priority < minPriority) {
+					minPriority = items[key].priority;
+					removedItemKey = key;
 				}
 			}
-
-			delete cache[deletedItemKey];
+			if (removedItemKey) {
+				delete items[removedItemKey];
+			}
 		}
 
-		ChainsCache.prototype.get = function (hash) {
-			if (cache[hash]) {
-				cache[hash].priority += 1;
+		PriorityCache.prototype.get = function (hash) {
+			if (items[hash]) {
+				items[hash].priority += 1;
 			}
 
-			return cache[hash];
+			return items[hash];
 		}
 
-		ChainsCache.prototype.insert = function (hash, chains) {
-			if (this._size <= Object.keys(cache).length) {
-				clear();
+		PriorityCache.prototype.insert = function (key, value) {
+			if (this._maxLength <= Object.keys(items).length) {
+				removeMinPriorityItem();
 			}
 
-			var element = chains;
-			element.priority = 0;
-
-			cache[hash] = element;
+			value.priority = 0;
+			items[key] = value;
 		}
 
-		return ChainsCache;
+		return PriorityCache;
 	})();
-	AirTicket_Domain_Services.ChainsCache = ChainsCache;
+	AirTicket_Domain_Services.PriorityCache = PriorityCache;
 
 	var RouteMap = (function () {
 
 		function RouteMap(routes) {
 			this._routesByLocationCode = {};
 			this._locations = [];
-			this._chainsCache = new AirTicket_Domain_Services.ChainsCache(2);
+			this._chainsCache = new AirTicket_Domain_Services.PriorityCache(2);
 
 			for (var i = 0; i < routes.length; i++) {
 				var route = routes[i];
@@ -135,14 +134,14 @@ var AirTicket_Domain_Services;
 			return resultChains;
 		};
 
-		RouteMap.prototype.getRouteChains = function (query) {
-			var hash = query.getHashString();
-			var chains = this._chainsCache.get(hash);
+		RouteMap.prototype.getRouteChains = function (from, to) {
+			var key = from + to;
+			var chains = this._chainsCache.get(key);
 
 			if (!chains) {
-				chains = this.buildRouteChains(query);
-				this._chainsCache.insert(hash, chains);
-				return this.getRouteChains(query);
+				chains = this.buildRouteChains(from, to);
+				this._chainsCache.insert(key, chains);
+				return this.getRouteChains(from, to);
 			}
 			else {
 				return chains;
@@ -160,7 +159,7 @@ var AirTicket_Domain_Services;
 			this._routeMap = routeMap;
 			this._flightsByLocationCode = {};
 			this._locations = {};
-			this._chainsCache = new AirTicket_Domain_Services.ChainsCache(2);
+			this._chainsCache = new AirTicket_Domain_Services.PriorityCache(2);
 
 			for (var i = 0; i < flights.length; i++) {
 				var flight = flights[i];
@@ -224,7 +223,7 @@ var AirTicket_Domain_Services;
 			var allCombos = [];
 
 			var date = new Date();
-			var routeChains = this._routeMap.getRouteChains(flightChainQuery);
+			var routeChains = this._routeMap.getRouteChains(flightChainQuery.getFromQuery().getCode(), flightChainQuery.getToQuery().getCode());
 			console.log("route chains: " + (new Date() - date).toString() + "ms");
 
 			date = new Date();
