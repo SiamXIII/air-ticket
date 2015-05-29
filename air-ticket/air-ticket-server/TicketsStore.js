@@ -69,7 +69,8 @@ var instance = {
 		            airlines: []
 	            };
 
-	            var locationsByCode = {};
+                var locationsByCode = {};
+	            var vendorsByCode = {};
 
 	            data.forEach(function (route) {
                     var fromLocation = locationsByCode[route.from.iata];
@@ -94,7 +95,14 @@ var instance = {
 		            result.routes.push(routeDomain);
 
                     route.airlines.forEach(function (airline) {
-                        var airlineDomain = new Entities.Airline(airline.name + " " + airline.airlineId, airline.name, routeDomain);
+
+                        var vendor = vendorsByCode[airline.iata];
+	                    if (!vendor) {
+                            vendor = new Entities.Vendor(airline.iata, airline.name);
+		                    vendorsByCode[vendor.getCode()] = vendor;
+	                    }
+
+	                    var airlineDomain = new Entities.Airline(vendor, airline.airlineId, routeDomain);
                         result.airlines.push(airlineDomain);
                     });
                 });

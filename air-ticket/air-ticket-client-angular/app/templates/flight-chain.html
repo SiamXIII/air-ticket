@@ -39,9 +39,9 @@
 				<span>{{flight.arrivalTime | localized: flight.to.timeZoneOffset}}</span>
 				<span>{{flight.to.code | translate}}</span>
 			</td>
-			<td>{{flight.vendorCode}}</td>
-			<td>
-				<img ng-src="../../images/vendor-images/4M.png" style="max-width:200px;max-height:30px;" />
+			<td>{{flight.vendorName}}</td>
+			<td class="trip__flight-vendor">
+				<img ng-src="{{'../../images/vendor-images/' + flight.vendorCode + '.png'}}" onerror="$(this).hide()" class="trip__flight-vendor-logo"/>
 			</td>
 			<td>{{flight.airLineCode}}</td>
 			<td>{{flight.price | currency}}</td>

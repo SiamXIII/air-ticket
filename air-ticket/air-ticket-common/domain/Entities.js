@@ -60,31 +60,49 @@ var AirTicket_Domain_Entities;
 	})();
 	AirTicket_Domain_Entities.Location = Location;
 
-	var Airline = (function () {
-		function Airline(code, vendorCode, route) {
-
-			if (!code) {
-				throw new Error('Code is invalid.');
-			}
+	var Vendor = (function () {
+		function Vendor(code, name) {
 			this._code = code;
+			this._name = name;
+		}
 
-			if (!vendorCode) {
-				throw new Error('Vendor code is invalid.');
-			}
-			this._vendorCode = vendorCode;
+		Vendor.prototype.getCode = function () {
+			return this._code;
+		}
+
+		Vendor.prototype.getName = function () {
+			return this._name;
+		}
+
+		return Vendor;
+	})();
+	AirTicket_Domain_Entities.Vendor = Vendor;
+
+	var Airline = (function () {
+		function Airline(vendor, number, route) {
+			this._vendor = vendor;
 
 			if (!(route instanceof AirTicket_Domain_Entities.Route)) {
 				throw new Error('Route is invalid.');
 			}
 			this._route = route;
+
+			if (!number) {
+				throw new Error('Number is invalid.');
+			}
+			this._number = number;
+		}
+
+		Airline.prototype.getVendor = function () {
+			return this._vendor;
+		}
+
+		Airline.prototype.getNumber = function () {
+			return this._number;
 		}
 
 		Airline.prototype.getCode = function () {
-			return this._code;
-		}
-
-		Airline.prototype.getVendorCode = function () {
-			return this._vendorCode;
+			return this.getVendor().getCode() + " " + this.getNumber();
 		}
 
 		Airline.prototype.getRoute = function () {
@@ -172,7 +190,7 @@ var AirTicket_Domain_Entities;
 	AirTicket_Domain_Entities.RouteChain = RouteChain;
 
 	var Flight = (function () {
-		function Flight(airline, departureTime, code, price) {
+		function Flight(airline, departureTime, price) {
 
 			if (!(airline instanceof AirTicket_Domain_Entities.Airline)) {
 				throw new Error('AirLine is invalid.');
@@ -184,27 +202,26 @@ var AirTicket_Domain_Entities;
 			}
 			this._departureTime = departureTime;
 
-			if (!code) {
-				throw new Error('Code is invalid.');
-			}
-			this._code = code;
-
 			if (isNaN(price)) {
 				throw new Error('Price is invalid.');
 			}
 			this._price = price;
 		}
 
+		Flight.prototype.getAirline = function () {
+			return this._airline;
+		}
+
 		Flight.prototype.getDistanceInKm = function () {
-			return this._airline.getDistanceInKm();
+			return this.getAirline().getDistanceInKm();
 		}
 
 		Flight.prototype.getToLocation = function () {
-			return this._airline.getToLocation();
+			return this.getAirline().getToLocation();
 		}
 
 		Flight.prototype.getFromLocation = function () {
-			return this._airline.getFromLocation();
+			return this.getAirline().getFromLocation();
 		}
 
 		Flight.prototype.getDepartureTime = function () {
@@ -220,20 +237,16 @@ var AirTicket_Domain_Entities;
 			return this.getArrivalTime() - this.getDepartureTime();
 		}
 
-		Flight.prototype.getCode = function () {
-			return this._code;
+		Flight.prototype.getVendor = function () {
+			return this.getAirline().getVendor();
 		}
 
-		Flight.prototype.getVendorCode = function () {
-			return this._airline.getVendorCode();
+		Flight.prototype.getCode = function () {
+			return this.getAirline().getCode() + this.getDepartureTime().toString();
 		}
 
 		Flight.prototype.getAdultPrice = function () {
 			return this._price;
-		}
-
-		Flight.prototype.getAirLineCode = function () {
-			return this._airline.getCode();
 		}
 
 		return Flight;
