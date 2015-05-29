@@ -157,6 +157,7 @@ var AirTicket_Domain_Services;
 			this._routeMap = routeMap;
 			this._flightsByLocationCode = {};
 			this._locations = {};
+			this._chainsCache = new AirTicket_Domain_Services.ChainsCache(2);
 
 			for (var i = 0; i < flights.length; i++) {
 				var flight = flights[i];
@@ -268,6 +269,19 @@ var AirTicket_Domain_Services;
 			var result = allCombos.map(function (combo) { return new AirTicket_Domain_Entities.FlightChain(combo) });
 			console.log("flight chains: " + (new Date() - date).toString() + "ms");
 			return result;
+		}
+
+		FlightMap.prototype.getFlightChains = function (from, to) {
+			var chains = this._chainsCache.get(from, to);
+
+			if (!chains) {
+				chains = this.buildFlightChanes(from, to);
+				this._chainsCache.insert(from, to, chains);
+				return this.getFlightChains(from, to);
+			}
+			else {
+				return chains;
+			}
 		}
 
 		return FlightMap;
