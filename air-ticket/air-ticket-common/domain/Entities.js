@@ -8,11 +8,16 @@ var AirTicket_Domain_Entities;
 (function (AirTicket_Domain_Entities) {
 
 	var Location = (function () {
-		function Location(code, timeZoneOffset, latitude, longitude) {
+		function Location(code, fullName, timeZoneOffset, latitude, longitude) {
 			if (!code) {
 				throw new Error('Code is invalid.');
 			}
 			this._code = code;
+
+			if (!fullName) {
+				throw new Error('Full name is invalid.');
+			}
+			this._fullName = fullName;
 
 			if (isNaN(timeZoneOffset) || timeZoneOffset < -720 || timeZoneOffset > 840 || timeZoneOffset % 15 != 0) {
 				throw new Error('Time zone offset is invalid.');
