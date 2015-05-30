@@ -74,7 +74,7 @@ var instance = {
 	            data.forEach(function (route) {
                     var fromLocation = locationsByCode[route.from.iata];
 		            if (!fromLocation) {
-			            fromLocation = new Entities.Location(route.from.iata, route.from.name,
+			            fromLocation = new Entities.Location(route.from.iata,
 				            route.from.timezone * 60, route.from.latitude,
 				            route.from.longtitude);
                         locationsByCode[fromLocation.getCode()] = fromLocation;
@@ -83,7 +83,7 @@ var instance = {
                     
                     var toLocation = locationsByCode[route.to.iata];
 		            if (!toLocation) {
-			            toLocation = new Entities.Location(route.to.iata, route.to.name,
+			            toLocation = new Entities.Location(route.to.iata,
 				            route.to.timezone * 60, route.to.latitude,
 				            route.to.longtitude);
                         locationsByCode[toLocation.getCode()] = toLocation;
