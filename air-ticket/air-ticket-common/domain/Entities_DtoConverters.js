@@ -25,6 +25,19 @@ var AirTicket_Domain_Entities_DtoConverters;
 	})();
 	AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter = LocationDtoConverter;
 
+	var VendorDtoConverter = (function () {
+		function VendorDtoConverter() {
+		}
+		VendorDtoConverter.prototype.convertToDto = function (obj) {
+			return obj;
+		};
+		VendorDtoConverter.prototype.convertFromDto = function (dto) {
+			return new AirTicket_Domain_Entities.Vendor(dto._code, dto._name);
+		};
+		return VendorDtoConverter;
+	})();
+	AirTicket_Domain_Entities_DtoConverters.VendorDtoConverter = VendorDtoConverter;
+
 	var RouteDtoConverter = (function () {
 		function RouteDtoConverter() {
 		}
@@ -56,10 +69,12 @@ var AirTicket_Domain_Entities_DtoConverters;
 
 		AirLineDtoConverter.prototype.convertFromDto = function (dto) {
 			var routeDtoConverter = new RouteDtoConverter();
+			var vendorDtoConverter = new VendorDtoConverter();
 
 			var route = routeDtoConverter.convertFromDto(dto._route);
+			var vendor = vendorDtoConverter.convertFromDto(dto._vendor);
 
-			var airline = new AirTicket_Domain_Entities.Airline(dto._code, dto._vendorCode, route);
+			var airline = new AirTicket_Domain_Entities.Airline(vendor, dto._number, route);
 
 			return airline;
 		};
@@ -83,7 +98,6 @@ var AirTicket_Domain_Entities_DtoConverters;
 			var flight = new AirTicket_Domain_Entities.Flight(
 				airlineDtoConverter.convertFromDto(dto._airline),
 				new Date(dto._departureTime),
-				dto._code,
 				dto._price);
 
 			return flight;
