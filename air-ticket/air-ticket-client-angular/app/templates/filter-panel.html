@@ -15,7 +15,7 @@
 			</label>
 		</div>
 
-		<div class="filter__departure">
+		<div class="filter__departure" ng-show="twoWay">
 			<h4>{{::'comebackTime' | translate}}</h4>
 			<label class="filter__condition">
 				<input type="checkbox" ng-model="filter.comebackRoute.departureMorning" />{{::'morning' | translate}} 6.00 - 12.00

@@ -2,7 +2,7 @@
 	<div class="wrap">
 		<h2>{{::'tripList' | translate}}</h2>
 
-		<div class="tickets">
+		<div class="tickets row">
 			<trip ng-repeat="trip in trips | orderBy: 'price'"></trip>
 		</div>
 	</div>

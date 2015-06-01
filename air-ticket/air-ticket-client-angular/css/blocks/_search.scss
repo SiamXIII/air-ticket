@@ -1,4 +1,6 @@
 ﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+$invalid-field-border-color:#a03a3a;
+
 
 .search {
     @extend .panel;
@@ -6,6 +8,7 @@
 
     &__header {
         @extend .panel-heading;
+
         font-size: $font-size-base;
         margin: 0;
     }
@@ -63,7 +66,7 @@
     }
 
     input.ng-invalid {
-        border-color: #a03a3a;
+        border-color: $invalid-field-border-color;
         outline: 0;
         box-shadow: inset 0 1px 1px rgba(23, 254, 13, 0.08), 0 0 8px rgba(226, 31, 46, 0.60);
     }

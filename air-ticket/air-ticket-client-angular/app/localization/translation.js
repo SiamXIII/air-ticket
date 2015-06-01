@@ -41,7 +41,8 @@
 		'number': 'Not valid number.',
 		'patternInt': 'Not integer number.',
 		'passengersRequired': 'Passengers are required.',
-		'price': 'Price'
+		'price': 'Price',
+		'flightTime':'Flight Time'
 	});
 
 	$translateProvider.translations('ru', {
@@ -85,7 +86,8 @@
 		'number': 'Не правильное число.',
 		'patternInt': 'Не целое число.',
 		'passengersRequired': 'Отсутсвуют пассажиры.',
-		'price': 'Цена'
+		'price': 'Цена',
+		'flightTime':'Длительность перелета'
 	});
 
 	$translateProvider.preferredLanguage('ru');

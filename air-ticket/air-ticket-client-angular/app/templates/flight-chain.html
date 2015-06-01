@@ -1,26 +1,4 @@
-﻿<div class="trip__summary" ng-click="toggleDetails()">
-	<span>
-		<span>
-			<span>{{chain.from.code | translate}}:</span>
-			<span>{{chain.departureTime | localized: chain.from.timeZoneOffset}}</span>
-		</span>
-		<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-		<span>
-			<span>{{chain.to.code | translate}}:</span>
-			<span>{{chain.arrivalTime | localized: chain.to.timeZoneOffset}}</span>
-		</span>
-	</span>
-
-	<span class="trip__duration">
-		<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-		<span>{{chain.duration | duration}}</span>
-	</span>
-
-	<span class="trip__price">
-		<span>{{chain.price | currency}}</span>
-	</span>
-</div>
-<div class="trip__details" ng-show="detailed">
+﻿<div>
 	<table>
 		<tr class="trip__flight-headers">
 			<th>{{::'departureFrom' | translate}}</th>

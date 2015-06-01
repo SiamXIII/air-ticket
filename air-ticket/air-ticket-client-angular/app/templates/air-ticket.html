@@ -2,7 +2,7 @@
 <div ng-init="trips=[]; filteredTrips=[];">
 	<div class="booking__search">
 		<search-panel trips="trips"></search-panel>
-		<filter-panel trips="trips" filtered-trips="filteredTrips"></filter-panel>
+		<filter-panel trips="trips" filtered-trips="filteredTrips" two-way="search.twoWay"></filter-panel>
 	</div>
 	<div class="booking__trips">
 		<trip-list trips="filteredTrips"></trip-list>

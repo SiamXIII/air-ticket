@@ -1,13 +1,33 @@
-﻿<div class="trip">
-	<div class=" trip__summary" ng-click="toggleDetails()">
-		<span>{{trip.from.code | translate}} - {{trip.to.code | translate}}</span>
-		<span class="trip__price">{{trip.price | currency}}</span>
-	</div>
-	<div class="trip__details" ng-if="detailed">
+﻿<div class="trip col-lg-6">
+    <div class=" trip__summary" ng-click="toggleDetails()">
+		<span>
 		<div>
-			<div class="trip__route" flight-chain chain="trip.forwardFlightChain"></div>
-			<div class="trip__route" flight-chain chain="trip.backFlightChain" ng-if="trip.backFlightChain"></div>
-		</div>
-		<button>{{::'order' | translate}}</button>
+            <span>{{trip.from.code | translate}}:</span>
+            <span>{{trip.departureTime | localized: trip.from.timeZoneOffset}}</span>
+            <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+        </div>
+
+		<div>
+            <span>{{trip.to.code | translate}}:</span>
+            <span>{{trip.arrivalTime | localized: trip.to.timeZoneOffset}}</span>
+        </div>
+	</span>
+
+	<div class="trip__duration">
+		<span>{{::'flightTime' | translate }}</span>
+		<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+		<span>{{trip.forwardFlightChain.duration | duration}}</span>
 	</div>
+
+	<span class="trip__price">
+		<span>{{trip.price | currency}}</span>
+	</span>
+    </div>
+    <div class="trip__details" ng-if="detailed">
+        <div>
+            <div class="trip__route" flight-chain chain="trip.forwardFlightChain"></div>
+            <div class="trip__route" flight-chain chain="trip.backFlightChain" ng-if="trip.backFlightChain"></div>
+        </div>
+        <button class="pull-right">{{::'order' | translate}}</button>
+    </div>
 </div>

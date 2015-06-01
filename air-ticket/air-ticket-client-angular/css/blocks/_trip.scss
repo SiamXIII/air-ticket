@@ -1,43 +1,45 @@
 ﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
 
 .trip {
-	@extend .panel;
-	@extend .panel-default;
+  @extend .panel;
+  @extend .panel-default;
 
-	&__summary {
-		@extend .panel-heading;
-		@extend .clearfix;
-		cursor: pointer;
-	}
+  &__summary {
+    @extend .panel-heading;
+    @extend .clearfix;
+    cursor: pointer;
+  }
 
-	&__details {
-		@extend .panel-body;
-	}
+  &__details {
+    @extend .panel-body;
 
-	&__price {
-		float: right;
-		color: $brand-success;
-	}
+    border: 1px solid $secondary-color;
+  }
 
-	&__duration {
-		margin-left: $padding-base-horizontal;
-	}
+  &__price {
+    float: right;
+    color: $primary-color;
+  }
 
-	&__route {
-		@extend .panel;
-		@extend .panel-default;
-	}
+  &__route {
+    @extend .panel;
+    @extend .panel-default;
+  }
 
-	&__flight-headers {
-		@extend .alert-info;
-	}
+  &__flight-headers {
+    @extend .alert-info;
 
-	&__flight-vendor {
-		width: 200px;
-	}
+    th {
+      vertical-align: middle;
+    }
+  }
 
-	&__flight-vendor-logo {
-		max-height: 30px;
-		max-width: 200px;
-	}
+  &__flight-vendor {
+    width: 200px;
+  }
+
+  &__flight-vendor-logo {
+    max-height: 30px;
+    max-width: 200px;
+  }
 }
