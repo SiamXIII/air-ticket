@@ -1,2 +1,2 @@
-﻿angular.module('airTicketApp', ['ui.select2', 'ngRoute', 'angularMoment', 'pascalprecht.translate', 'angular-underscore', 'ngResource', 'ngMessages'])
+﻿angular.module('airTicketApp', ['ui.select2', 'ngRoute', 'angularMoment', 'pascalprecht.translate', 'angular-underscore', 'ngResource', 'ngMessages', 'ngLoadingSpinner', 'vs-repeat'])
 	.value('templatesPath', 'app/templates/');

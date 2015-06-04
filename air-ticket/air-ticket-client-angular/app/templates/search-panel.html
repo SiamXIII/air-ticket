@@ -1,16 +1,16 @@
 ﻿<div class="search">
 	<h2 class="search__header">{{::'searchParams' | translate}}</h2>
-
-	<form name="searchForm">
+	<loading class="locations"></loading>
+	<form name="searchForm" id="searchForm">
 		<div class="search__route">
 			<div class="search__from">
 				<label class="search__label">{{::'from' | translate}}</label>
-				<input class="form-control" dropdown-select2 ng-model="search.fromLocation" items="locations" filter="search.toLocation" placeholder="{{::'selectOrigin' | translate}}" />
+				<input class="form-control" dropdown-select2 ng-model="search.fromLocation" items="locations" filter="search.toLocation" placeholder="{{::'selectOrigin' | translate}}" required />
 			</div>
 
 			<div class="search__to">
 				<label class="search__label">{{::'to' | translate}}</label>
-				<input class="form-control" dropdown-select2 ng-model="search.toLocation" items="locations" filter="search.fromLocation" placeholder="{{::'selectDestination' | translate}}" />
+				<input class="form-control" dropdown-select2 ng-model="search.toLocation" items="locations" filter="search.fromLocation" placeholder="{{::'selectDestination' | translate}}" required />
 			</div>
 		</div>
 

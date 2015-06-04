@@ -1,8 +1,8 @@
 ﻿<div class="ticket-list">
 	<div class="wrap">
 		<h2>{{::'tripList' | translate}}</h2>
-
-		<div class="tickets row">
+		<loading class="trips"></loading>
+		<div class="tickets row" vs-repeat>
 			<trip ng-repeat="trip in trips | orderBy: 'price'"></trip>
 		</div>
 	</div>
