@@ -48,12 +48,6 @@
     <Content Include="app\templates\trip-list.html" />
     <Content Include="app\directives\trip-list\trip-list.js" />
     <Content Include="app\templates\validate-messages.html" />
-    <Content Include="css\styles.css">
-      <DependentUpon>styles.scss</DependentUpon>
-    </Content>
-    <Content Include="css\styles.min.css">
-      <DependentUpon>styles.css</DependentUpon>
-    </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="images\vendor-images\1T.png" />
     <Content Include="images\vendor-images\2F.png" />
@@ -372,9 +366,6 @@
     <Content Include="css\blocks\_trip.scss" />
     <Content Include="css\blocks\_filter.scss" />
     <Content Include="css\common\_table.scss" />
-    <Content Include="css\styles.css.map">
-      <DependentUpon>styles.css</DependentUpon>
-    </Content>
     <Content Include="app\localization\locations\locations-en.js" />
     <Content Include="app\localization\locations\locations-ru.js" />
     <None Include="web.Debug.config">
@@ -397,7 +388,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59718</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
