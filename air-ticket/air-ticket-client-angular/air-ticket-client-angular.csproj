@@ -52,6 +52,12 @@
     <Content Include="app\templates\trip-list.html" />
     <Content Include="app\directives\trip-list\trip-list.js" />
     <Content Include="app\templates\validate-messages.html" />
+    <Content Include="css\styles.css">
+      <DependentUpon>styles.scss</DependentUpon>
+    </Content>
+    <Content Include="css\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="Gruntfile.js" />
     <Content Include="images\vendor-images\1T.png" />
     <Content Include="images\vendor-images\2F.png" />
@@ -366,12 +372,15 @@
     <Content Include="css\blocks\_booking.scss" />
     <Content Include="css\blocks\_search.scss" />
     <Content Include="css\blocks\_button.scss" />
-    <Content Include="css\blocks\_ticket-list.scss" />
+    <Content Include="css\blocks\_trip-list.scss" />
     <Content Include="css\blocks\_trip.scss" />
     <Content Include="css\blocks\_filter.scss" />
     <Content Include="css\common\_table.scss" />
     <Content Include="app\localization\locations\locations-en.js" />
     <Content Include="app\localization\locations\locations-ru.js" />
+    <Content Include="css\styles.css.map">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -1,4 +1,4 @@
-﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
+﻿/// <reference path="../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
 
 .trip {
   @extend .panel;
@@ -13,12 +13,12 @@
   &__details {
     @extend .panel-body;
 
-    border: 1px solid $secondary-color;
+    /*border: 1px solid $secondary-color;*/
   }
 
   &__price {
     float: right;
-    color: $primary-color;
+    /*color: $primary-color;*/
   }
 
   &__route {

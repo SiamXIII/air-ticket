@@ -1,7 +1,7 @@
-﻿<div class="ticket-list">
-	<div class="wrap">
-		<h2>{{::'tripList' | translate}}</h2>
-		<div class="tickets row">
+﻿<div class="trip-list">
+	<div class="trip-list__wrap">
+		<h2 class="trip-list__header">{{::'tripList' | translate}}</h2>
+		<div class="trip-list__row">
 			<trip ng-repeat="trip in trips | orderBy: 'price'"></trip>
 		</div>
 	</div>
