@@ -1,16 +1,15 @@
 ﻿/// <reference path="../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap" />
 
 .ticket-list .wrap {
-    @extend .panel;
-    @extend .panel-default;
+	@extend .panel;
+	@extend .panel-default;
 
-    h2 {
-        @extend .panel-heading;
-        
-        margin: 0;
-    }
+	h2 {
+		@extend .panel-heading;
+		margin: 0;
+	}
 
-    .tickets {
-        @extend .panel-body;
-    }
+	.tickets {
+		@extend .panel-body;
+	}
 }

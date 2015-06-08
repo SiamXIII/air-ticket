@@ -7,13 +7,13 @@ angular.module('airTicketApp')
 
 	this.getLocations = function (callback) {
 		return Locations.get(function (response) {
-				var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
-				var locations = response.map(function (locationDto) {
-					return locationDtoConverter.convertFromDto(locationDto);
-				});
-
-				callback(locations);
+			var locationDtoConverter = new AirTicket_Domain_Entities_DtoConverters.LocationDtoConverter();
+			var locations = response.map(function (locationDto) {
+				return locationDtoConverter.convertFromDto(locationDto);
 			});
+
+			callback(locations);
+		});
 	}
 
 	this.searchTrips = function (query, callback) {
@@ -30,6 +30,7 @@ angular.module('airTicketApp')
 .factory('Tickets', function ($resource, CONFIG) {
 	return $resource(CONFIG.serverUrl + "/api/trips/:params", {}, {
 		save: {
+			action: 'trips',
 			method: 'POST',
 			isArray: true
 		}
@@ -38,6 +39,7 @@ angular.module('airTicketApp')
 .factory('Locations', function ($resource, CONFIG) {
 	return $resource(CONFIG.serverUrl + "/api/locations/:params", {}, {
 		get: {
+			action: 'locations',
 			method: 'GET',
 			isArray: true
 		}

@@ -53,8 +53,12 @@ angular.module('airTicketApp')
 		};
 
 		$scope.searchTrips = function () {
+			$scope.isLoading = true;
+
 			ticketService.searchTrips(buildTripQuery(), function (data) {
 				$scope.trips = data.map(mapTripToViewModel);
+
+				$scope.isLoading = false;
 			});
 		}
 

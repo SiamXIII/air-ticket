@@ -6,7 +6,8 @@
 		templateUrl: templatesPath + 'trip-list.html',
 		controller: 'tripListCtrl',
 		scope: {
-			trips: "="
+			trips: "=",
+			isLoading: '='
 		}
 	}
 });
