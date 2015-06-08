@@ -1,22 +1,33 @@
 ﻿angular.module('airTicketApp')
-	.directive('loading', function (templatesPath, $compile, HttpInterceptor) {
+	.directive('loading', function (templatesPath) {
 		return {
-			restrict: 'E',
+			restrict: 'A',
 			templateUrl: templatesPath + 'loading.html',
 			controller: 'loadingController',
+			transclude: true,
 			scope: {
-				loadingClass: '='
+				loading: '='
 			},
 			compile: function (scope, element, attrs) {
 				return {
-					pre: function (scope, element, attrs) {
-						element.addClass('loading');
+					pre: function (scope, element, attrs, ctrl, transclude) {
+						element.children().addClass('loading')
 
-						if (scope.loadingClass) {
-							element.addClass(scope.loadingClass);
-						}
+						transclude(function (clone) {
+							element.append(clone);
+						});	
 
-						element.hide();
+						element.find('.loading').css('left', (element.position().left + element.width()) / 2 + 'px');
+						element.find('.loading').css('top', (element.position().top + element.height()) / 2 + 'px');
+
+						scope.$watch("loading", function (value) {
+							if (value) {
+								element.find('.loading').show();
+							}
+							else {
+								element.find('.loading').hide();
+							}
+						});
 					}
 				}
 			}

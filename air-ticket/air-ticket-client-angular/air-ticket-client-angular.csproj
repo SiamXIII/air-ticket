@@ -29,8 +29,6 @@
     <Content Include="app\directives\calendar\calendar.js" />
     <Content Include="app\directives\dropdown-select2\dropdown-select2.js" />
     <Content Include="app\directives\language-switch\language-switch.js" />
-    <Content Include="app\directives\loading\HttpInterceptor.js" />
-    <Content Include="app\directives\loading\loading-config.js" />
     <Content Include="app\directives\loading\loading-controller.js" />
     <Content Include="app\directives\loading\loading.js" />
     <Content Include="app\directives\trip\flight-chain\flight-chain.js" />

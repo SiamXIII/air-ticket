@@ -3,6 +3,10 @@
 	return {
 		restrict: "E",
 		templateUrl: templatesPath + "search-panel.html",
-		controller: "searchPanelCtrl"
+		controller: "searchPanelCtrl",
+		scope: {
+			trips: '=',
+			isLoading: '='
+		}
 	};
 });

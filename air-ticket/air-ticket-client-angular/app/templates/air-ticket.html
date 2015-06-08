@@ -1,10 +1,10 @@
 ﻿
-<div ng-init="trips=[]; filteredTrips=[];">
+<div ng-init="trips=[]; filteredTrips=[]; isTripsLoading=false">
 	<div class="booking__search">
-		<search-panel trips="trips"></search-panel>
+		<search-panel trips="trips" is-loading="isTripsLoading"></search-panel>
 		<filter-panel trips="trips" filtered-trips="filteredTrips" two-way="search.twoWay"></filter-panel>
 	</div>
 	<div class="booking__trips">
-		<trip-list trips="filteredTrips"></trip-list>
+		<trip-list trips="filteredTrips" is-loading="isTripsLoading"></trip-list>
 	</div>
 </div>
