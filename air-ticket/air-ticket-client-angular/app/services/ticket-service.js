@@ -30,7 +30,6 @@ angular.module('airTicketApp')
 .factory('Tickets', function ($resource, CONFIG) {
 	return $resource(CONFIG.serverUrl + "/api/trips/:params", {}, {
 		save: {
-			action: 'trips',
 			method: 'POST',
 			isArray: true
 		}
@@ -39,7 +38,6 @@ angular.module('airTicketApp')
 .factory('Locations', function ($resource, CONFIG) {
 	return $resource(CONFIG.serverUrl + "/api/locations/:params", {}, {
 		get: {
-			action: 'locations',
 			method: 'GET',
 			isArray: true
 		}
