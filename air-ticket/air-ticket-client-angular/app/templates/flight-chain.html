@@ -17,7 +17,7 @@
 				<span>{{flight.to.code | translate}}</span>
 			</td>
 			<td class="trip__flight-vendor">
-				<img ng-src="{{'../../images/vendor-images/' + flight.vendorCode + '.png'}}" ng-error="$(this).replaceWith({{flight.vendorName}})" class="trip__flight-vendor-logo" />
+				<img ng-src="{{'../../images/vendor-images/' + flight.vendorCode + '.png'}}" alt="{{flight.vendorName}}" class="trip__flight-vendor-logo" />
 			</td>
 			<td>{{flight.airLineCode}}</td>
 			<td>{{flight.price | currency}}</td>

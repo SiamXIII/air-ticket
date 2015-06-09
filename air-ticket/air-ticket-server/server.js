@@ -89,6 +89,7 @@ flightsStore.getAllAirLines(function (result) {
             var tripQueryDto = JSON.parse(body);
             var tripQuery = new AirTicket_Domain_Queries_DtoConverters.TripQueryDtoConverter().convertFromDto(tripQueryDto);
             var trips = tripsService.getTrips(tripQuery);
+            
             serverResponse.json(trips
 			.map(function (trip) {
                 return tripDtoConverter.convertToDto(trip);

@@ -322,6 +322,10 @@ var AirTicket_Domain_Services;
 					return result;
 				});
 
+				// FOR DEMO!!!
+				forwardFlightChains = forwardFlightChains.slice(0, 15);
+				backFlightChains = backFlightChains.slice(0, 15);
+
 				for (var forwardChainIndex = 0; forwardChainIndex < forwardFlightChains.length; forwardChainIndex++) {
 					for (var backChainIndex = 0; backChainIndex < backFlightChains.length; backChainIndex++) {
 						var trip = new AirTicket_Domain_Entities.Trip(forwardFlightChains[forwardChainIndex], backFlightChains[backChainIndex], tripQuery.getAdults(), tripQuery.getChildren(), tripQuery.getInfants());
