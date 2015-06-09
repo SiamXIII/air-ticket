@@ -12,13 +12,10 @@
 
   &__details {
     @extend .panel-body;
-
-    /*border: 1px solid $secondary-color;*/
   }
 
   &__price {
     float: right;
-    /*color: $primary-color;*/
   }
 
   &__route {

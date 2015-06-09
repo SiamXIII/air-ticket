@@ -4,7 +4,6 @@
 			<th>{{::'departureFrom' | translate}}</th>
 			<th>{{::'arrivalTo' | translate}}</th>
 			<th>{{::'vendor' | translate}}</th>
-			<th></th>
 			<th>{{::'airLineCode' | translate}}</th>
 			<th>{{::'price' | translate}}</th>
 		</tr>
@@ -17,9 +16,8 @@
 				<span>{{flight.arrivalTime | localized: flight.to.timeZoneOffset}}</span>
 				<span>{{flight.to.code | translate}}</span>
 			</td>
-			<td>{{flight.vendorName}}</td>
 			<td class="trip__flight-vendor">
-				<img ng-src="{{'../../images/vendor-images/' + flight.vendorCode + '.png'}}" onerror="$(this).hide()" class="trip__flight-vendor-logo"/>
+				<img ng-src="{{'../../images/vendor-images/' + flight.vendorCode + '.png'}}" ng-error="$(this).replaceWith({{flight.vendorName}})" class="trip__flight-vendor-logo" />
 			</td>
 			<td>{{flight.airLineCode}}</td>
 			<td>{{flight.price | currency}}</td>
